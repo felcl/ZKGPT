@@ -1,0 +1,167 @@
+<script setup>
+import { computed ,onMounted} from 'vue'
+import { useStore } from 'vuex'
+import { AddrHandle } from '../utils/tool'
+import {connect} from '../web3'
+import {useRouter,useRoute} from 'vue-router'
+import HomeActiveIcon from '../assets/Home/HomeActiveIcon.png'
+import HomeIcon from '../assets/Home/HomeIcon.png'
+import StakeActiveIcon from '../assets/Home/StakeActiveIcon.png'
+import StakeIcon from '../assets/Home/StakeIcon.png'
+import Rewards from '../assets/Home/Rewards.png'
+const router = useRouter()
+const route = useRoute()
+const store = useStore()
+let address = computed(()=>{
+  return store.state.address
+})
+const goPath=(path)=>{
+  router.push(path)
+}
+const Connect=()=>{
+  if(!address.value){
+    connect((address)=>{
+      store.commit('SETADDRESS',address)
+    })
+  }
+}
+onMounted(()=>{
+  console.log(route.path)
+})
+</script>
+
+<template>
+  <div class="Header">
+    <div class="HeaderLeft">
+      <img src="../assets/Home/logo.png" class="Logo" alt="">
+      <div class="menu">
+        <div class="menuItem" @click="goPath('/')">
+          <img :src="route.path === '/' ? HomeActiveIcon:HomeIcon" alt="">
+          <span>HOME</span>
+        </div>
+        <div class="menuItem" @click="goPath('/Stake')">
+          <img :src="route.path === '/Stake' ? StakeActiveIcon:StakeIcon" alt="">
+          <span>STAKE</span>
+        </div>
+        <div class="menuItem" @click="goPath('/Rewares')">
+          <img :src="route.path === '/Rewares' ? Rewards:Rewards" alt="">
+          <span>REWARDS</span>
+        </div>
+      </div>
+    </div>
+    <div class="connect" @click="Connect">
+      <div class="content" :class="['content',{Connected:!!address}]">
+        {{ address ?  AddrHandle(address):'Connect wallet'}}
+      </div>
+    </div>
+    <el-dropdown trigger="click">
+      <img src="../assets/Home/menu.png" alt="">
+      <template #dropdown>
+        <el-dropdown-menu>
+          <el-dropdown-item @click="goPath('/')">HOME</el-dropdown-item>
+          <el-dropdown-item @click="goPath('/Stake')">STAKE</el-dropdown-item>
+          <el-dropdown-item @click="goPath('/Rewares')">REWARDS</el-dropdown-item>
+        </el-dropdown-menu>
+      </template>
+    </el-dropdown>
+    
+  </div>
+</template>
+
+<style lang="scss" scoped>
+  .Header{
+    max-width: 1400px;
+    width: 100%;
+    // margin: 0 13rem;
+    box-sizing: border-box;
+    height: 5.5rem;
+    position: fixed;
+    top: 2.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    @media (max-width:1450px) {
+      padding:0 5rem;
+    }
+    @media (max-width:767px) {
+      height: 8.5rem;
+    }
+    .HeaderLeft{
+      display: flex;
+    }
+    .connect{
+      width: 9.5rem;
+      height: 2.4rem;
+      background: linear-gradient(90deg, #536DFE 0%, #B41FFF 100%);
+      border-radius: 0.55rem;
+      
+      font-size: 0.9rem;
+      line-height: 1rem;
+      color: #FFFFFF;
+      padding: 1px;
+      .content{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 0.55rem;
+        width: 100%;
+        height: 100%;
+      }
+      .Connected{
+        background: #27173A;
+      }
+      @media (max-width:1024px) {
+        width: 12rem;
+      }
+      @media (max-width:425px) {
+        display: none;
+      }
+    }
+    .Logo{
+      width: 4.75rem;
+      @media (max-width:425px) {
+        width: 6rem;
+      }
+    }
+    .menu{
+      margin-left: 7.5rem;
+      display: flex;
+      @media (max-width:425px) {
+        // margin-left: 2.5rem;
+        display: none;
+      }
+      .menuItem{
+        display: flex;
+        align-items: center;
+        margin-right: 3.2rem;
+        cursor: pointer;
+        img{
+          width: 18px;
+          height: 18px;
+          @media (max-width:768px) {
+            width: 2rem;
+            height: 2rem;
+          }
+          @media (max-width:425px) {
+            width: 4rem;
+            height: 4rem;
+          }
+        }
+        span{
+          font-size: 18px;
+          line-height: 1;
+          color: #FFFFFF;
+          margin-left: 0.6rem;
+          @media (max-width:768px) {
+            font-size: 2rem;
+          }
+          @media (max-width:425px) {
+            font-size: 2.5rem;
+          }
+        }
+      }
+    }
+  }
+</style>

@@ -1,0 +1,192 @@
+.Rewares,.History{
+    background: #27173A;
+    height: 100vh;
+    padding-top: 10rem;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    align-items: center;
+    @media (max-width:767px) {
+        padding-top: 20rem;
+    }
+    .StakeTitle{
+        font-size: 1.5;
+        line-height: 1;
+        color: #FFFFFF;
+        text-align: center;
+        @media (max-width:1024px) {
+            font-size: 3rem;
+        }
+        @media (max-width:425px) {
+            font-size: 4rem;
+        }
+    }
+    .StakeSubTitle{
+        font-size: 14px;
+        line-height: 1;
+        color: rgba(255, 255, 255, 0.494714);
+        text-align: center;
+        margin: 8px 0 18px;
+        @media (max-width:425px) {
+            font-size: 12px;
+        }
+    }
+    .HistoryInfo{
+        margin-top: 2rem;
+    }
+    .RewaresInfo,.HistoryInfo{
+        flex: 1;
+        width: 37.5rem;
+        background: #1D2444;
+        border-radius: 3.25rem 3.25rem 0 0;
+        overflow: hidden;
+        @media (max-width:1024px) {
+            width: 45rem;
+        }
+        @media (max-width:425px) {
+            width: 70rem;
+        }
+        .address{
+            height: 10rem;
+            width: 100%;
+            background: linear-gradient(90deg, #536DFE 0%, #B41FFF 100%);
+            padding: 0 2.5rem;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            @media (max-width:425px) {
+                height: 13rem;
+                padding: 0 4.5rem;
+            }
+            .headImg{
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                background: #2446E1;
+                flex-shrink: 0;
+            }
+            .InfoRow{
+                margin-left: 1rem;
+                flex: 1;
+            }
+            .addr,.link{
+                display: flex;
+                align-items: center;
+                color: #fff;
+                justify-content: space-between;
+                span{
+                    overflow: hidden;  //超出隐藏
+                    white-space: nowrap; //不折行
+                    text-overflow: ellipsis; //溢出显示省略号
+                }
+                img{
+                    margin-left: 1rem;
+                }
+            }
+        }
+        .balance{
+            margin: 3rem 3rem;
+            @media (max-width:425px) {
+                margin: 6rem 6rem;
+            }
+            display: flex;
+            .balanceItem{
+                flex: 1;
+                .label{
+                    color: #FFFFFF;
+                    font-size: 0.7rem;
+                    line-height: 1;
+                    @media (max-width:1024px) {
+                        font-size: 1.5rem;
+                    }
+                    @media (max-width:425px) {
+                        font-size: 3rem;
+                    }
+                }
+                .Num{
+                    font-weight: 500;
+                    color: #FFFFFF;
+                    font-size: 1.5rem;
+                    line-height: 1;
+                    margin-top: 1rem;
+                    @media (max-width:1024px) {
+                        font-size: 2rem;
+                    }
+                    @media (max-width:425px) {
+                        font-size: 4rem;
+                    }
+                }
+            }
+            .Withdraw{
+                font-size: 1rem;
+                font-weight: 400;
+                width: 8.9rem;
+                color: #fff;
+                height: 2.8rem;
+                background: linear-gradient(90deg, #536DFE 0%, #B41FFF 100%);
+                border-radius: 0.6rem;
+                @media (max-width:425px) {
+                    width: 15rem;
+                    height: 5rem;
+                }
+            }
+        }
+        .HistoryLabel{
+            margin: 0 1.5rem;
+            @media (max-width:425px) {
+                margin: 0 4rem;
+            }
+            .topbar{
+                display: flex;
+                align-items: center;
+                justify-content:space-between;
+               
+                .label{
+                    font-weight: 500;
+                    color: #FFFFFF;
+                    font-size: 1.5rem;
+                }
+                .more{
+                    color: #FFFFFF;
+                    font-size: 1rem;
+                }
+                @media (max-width:1024px) {
+                    .label{
+                        font-weight: 500;
+                        color: #FFFFFF;
+                        font-size: 2rem;
+                    }
+                    .more{
+                        color: #FFFFFF;
+                        font-size: 1.5rem;
+                    }
+                }
+            }
+
+        }
+        .recordItem{
+            display:flex;
+            justify-content:space-between;
+            margin: 0.8rem 1.5rem;
+            @media (max-width:425px) {
+                margin: 1.6rem 3rem;
+            }
+            >div{
+                div{
+                    font-size: 12px;
+                    font-weight: 400;
+                    color: #FFFFFF;
+                    margin: 5px 0;
+                }
+            }
+            .textRight{
+                text-align: right;
+            }
+        }
+    }
+}
+.flexCenter{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+}
