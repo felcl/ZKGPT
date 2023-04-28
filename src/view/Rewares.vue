@@ -10,11 +10,11 @@
             <div class="InfoRow">
                 <div class="addr">
                     <span>{{AddrHandle('0x3Bd8CA9023897224b01fE25b33137b67A89ec70F',7,7)}}</span>
-                    <img src="../assets/Home/StakeIcon.png" alt="">
+                    <img src="../assets/Home/copy.png" alt="">
                 </div>
                 <div class="link">
                     <span>http://sadfs.dadsf.com/sdadsf</span>
-                    <img src="../assets/Home/StakeIcon.png" alt="">
+                    <img src="../assets/Home/copy.png" alt="">
                 </div>
             </div>
         </div>

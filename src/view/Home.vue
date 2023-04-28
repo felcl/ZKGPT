@@ -8,8 +8,8 @@
               <div class="title">Artificial Intelligence for <br>Cryptocurrencies</div>
               <div class="subTitle">FUTURE TECHNOLOGY</div>
               <div class="text">
-                zkGPT is an artificial intelligence encryption analysis robot based on cryptocurrency. It will first play a role by understanding the user's situation, and tailor the investment portfolio for 
-                the user through risk preferences and investment goals, providing users with the ultimate experience.
+                zkGPT is an artificial intelligence encryption analysis robot based on cryptocurrency. It will first play a role by understanding the user's situation, and tailor the investment portfolio for the user through risk 
+                preferences and investment goals, providing users with the ultimate experience.
               </div>
               <div class="FriendlyLinks">
                   <a href="">
@@ -28,8 +28,8 @@
           </div>
           <div class="secondScreen">
               <div class="title" style="margin-bottom: 20px;">
-                  ZKGPT is a revolutionary product <br>
-                  and technology
+                  ZKGPT is a revolutionary <br>
+                  product and technology
               </div>
               <div class="text">
                   ·Personalized experience<br/>
@@ -43,28 +43,31 @@
               Distribute
           </div>
           <div class="CenterSubTitle">
-              XX allocation model
+            CRB allocation model
           </div>
           <div class="CenterText">
-              The initial circulating supply of XX (accounting for 30% of the overall token supply) is fully distributed to the community through the seed pool in the first 6 days, achieving 100% of the initial
-               circulating supply. After 6 days, there will be no release of XX for at least 2 months, and no other form of token sale.
+            The initial circulating supply of XX (accounting for 30% of the overall token supply) is fully distributed to the community through the seed pool in the first 6 days, achieving 100% of the initial circulating supply. After 6 days, 
+            there will be no release of CRB for at least 2 months, and no other form of token sale.
+          </div>
+          <div class="CenterSubTitle pieSubTitle">
+            The specific distribution of CRB
           </div>
           <div class="pie">
              <img src="../assets/Home/Pie.png" alt="">
           </div>
           <div class="CenterSubTitle">
-              YY allocation model
+            CZZ allocation model
           </div>
           <div class="CenterText">
-              As a governance token, YY is mainly obtained through liquidity mining.
-              100% of the total supply (18,000 coins) will be distributed through liquidity mining within three months. Liquidity mining reward: 18000 (100% of total supply)
+            As a governance token, CZZ is mainly obtained through liquidity mining.
+            100% of the total supply (18,000 coins) will be distributed through liquidity mining within three months. Liquidity mining reward: 18000 (100% of total supply)
           </div>
           <div class="Disclaimer">
             Disclaimer
           </div>
           <div class="DisclaimerText">
-            This document is for general information purposes only. It does not constitute investment advice, recommendation or inducement to buy or sell any investment object.
-         It should not be used to evaluate any investment decisions, nor should it be construed as accounting, legal, tax or other investment advice.
+            This document is for general information purposes only. It does not constitute investment advice, recommendation or inducement to buy or sell any investment object. 
+            It should not be used to evaluate any investment decisions, nor should it be construed as accounting, legal, tax or other investment advice.
           </div>
         </div>
     </div>
@@ -77,7 +80,7 @@
 .Home{
     background: url('../assets/Home/bg.png') 0 0 / 100% no-repeat;
     min-height: 100vh;
-    padding-top: 12.7rem;
+    padding-top: 18.7rem;
     overflow: hidden;
     .firstScreen{
         margin: 0 5rem;
@@ -120,7 +123,7 @@
             }
             @media (max-width:425px) {
                 margin-top:1.2rem;
-                max-width: 50rem;
+                max-width: 60rem;
             }
         }
         .FriendlyLinks{
@@ -128,6 +131,9 @@
             flex-direction: column;
             margin-top: 2.8rem;
             float: right;
+            @media (max-width:425px) {
+                display: none;
+            }
             a{
                 margin-bottom: 1.25rem;
                 font-size: 0;
@@ -184,12 +190,21 @@
         line-height: 1;
         color: #FFFFFF;
         text-align: center;
+        @media (max-width:425px) {
+            font-size: 28px;
+        }
+    }
+    .pieSubTitle{
+        margin: 40px auto !important;
     }
     .pie{
         max-width: 90%;
         margin: auto;
+        display: flex;
+        justify-content: center;
         img{
-            width: 100%;
+            width: 750px;
+            max-width: 100%;
         }
     }
     .CenterSubTitle{
@@ -199,26 +214,31 @@
         text-transform: uppercase;
         color: #FFFFFF;
         text-align: center;
+        @media (max-width:425px) {
+            font-size: 16px;
+        }
     }
     .CenterText{
-        margin-top: 1.65rem;
         font-size: 0.7rem;
         line-height: 1.2;
         text-align: center;
         color: #FFFFFF;
         text-align: center;
         max-width: 474px;
-        margin: auto;
+        margin: 1.65rem auto 0;
         @media (max-width:425px) {
             margin: 5rem;
         }
     }
     .Disclaimer{
-        font-size: 20px;
+        font-size: 3.7rem;
         line-height: 1.25;
         color: #FFFFFF;
         text-align: center;
         margin-top: 12.65rem;
+        @media (max-width:425px) {
+            font-size: 28px;
+        }
     }
     .DisclaimerText{
         font-size: 14px;

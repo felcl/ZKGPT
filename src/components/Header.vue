@@ -9,6 +9,7 @@ import HomeIcon from '../assets/Home/HomeIcon.png'
 import StakeActiveIcon from '../assets/Home/StakeActiveIcon.png'
 import StakeIcon from '../assets/Home/StakeIcon.png'
 import Rewards from '../assets/Home/Rewards.png'
+import RewardsActive from '../assets/Home/RewardsActive.png'
 const router = useRouter()
 const route = useRoute()
 const store = useStore()
@@ -24,6 +25,9 @@ const Connect=()=>{
       store.commit('SETADDRESS',address)
     })
   }
+}
+const leftMenuSwitch = ()=>{
+  store.commit('SETLEFTMENU',!store.state.leftMenu)
 }
 onMounted(()=>{
   console.log(route.path)
@@ -44,7 +48,7 @@ onMounted(()=>{
           <span>STAKE</span>
         </div>
         <div class="menuItem" @click="goPath('/Rewares')">
-          <img :src="route.path === '/Rewares' ? Rewards:Rewards" alt="">
+          <img :src="route.path === '/Rewares' ? RewardsActive:Rewards" alt="">
           <span>REWARDS</span>
         </div>
       </div>
@@ -54,17 +58,7 @@ onMounted(()=>{
         {{ address ?  AddrHandle(address):'Connect wallet'}}
       </div>
     </div>
-    <el-dropdown trigger="click">
-      <img src="../assets/Home/menu.png" alt="">
-      <template #dropdown>
-        <el-dropdown-menu>
-          <el-dropdown-item @click="goPath('/')">HOME</el-dropdown-item>
-          <el-dropdown-item @click="goPath('/Stake')">STAKE</el-dropdown-item>
-          <el-dropdown-item @click="goPath('/Rewares')">REWARDS</el-dropdown-item>
-        </el-dropdown-menu>
-      </template>
-    </el-dropdown>
-    
+    <img class="MenuIcon" @click="leftMenuSwitch" src="../assets/Home/menu.png" alt="">
   </div>
 </template>
 
@@ -99,9 +93,9 @@ onMounted(()=>{
       
       font-size: 0.9rem;
       line-height: 1rem;
-      color: #FFFFFF;
       padding: 1px;
       .content{
+        color: #FFFFFF;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -123,6 +117,13 @@ onMounted(()=>{
       width: 4.75rem;
       @media (max-width:425px) {
         width: 6rem;
+      }
+    }
+    .MenuIcon{
+      display: none;
+      @media (max-width:425px) {
+        width: 6rem;
+        display: block;
       }
     }
     .menu{

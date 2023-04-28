@@ -4,12 +4,16 @@ import { createStore } from 'vuex'
 export const store = createStore({
   state () {
     return {
-      address: ''
+      address: '',
+      leftMenu: false
     }
   },
   mutations: {
     SETADDRESS (state,address) {
       state.address = address
-    }
+    },
+    SETLEFTMENU (state,leftMenu){
+      state.leftMenu = leftMenu
+    },
   }
 })
