@@ -18,7 +18,7 @@
             <div class="label">Locked amount</div>
             <input type="text" class="amount">
             <!-- <div class="submit flexCenter" @click="approve(contractAddress.CryptoBrainMain,100 * 10 ** 6)">approve</div> -->
-            <div class="submit flexCenter" @click="pledge(10000 * 10 ** 6)">Submit</div>
+            <div class="submit flexCenter" @click="pledge(10 * 10 ** 6)">Submit</div>
         </div>
         <div class="StakeInfo">
             <div class="InfoRow">
