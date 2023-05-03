@@ -10,7 +10,6 @@ onMounted(()=>{
       init(address=>{
         if(address)
         store.commit('SETADDRESS',address)
-        console.log(address)
       })
       window.ethereum.on('connect', connectInfo=>{
         console.log("链接",connectInfo)

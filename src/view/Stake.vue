@@ -6,18 +6,19 @@
         <div class="putBox">
             <div class="label">Type</div>
             <div class="btnRow">
-                <div class="bgBtn flexCenter">XX+ETH</div>
+                <div class="bgBtn flexCenter">ETH</div>
                 <div class="outLineBtn">
-                    <div class="btnCon flexCenter">YY+ETH</div>
+                    <div class="btnCon flexCenter">USDT{{ balanceOfUSDT }}</div>
                 </div>
             </div>
             <div class="label">Date</div>
             <div class="btnRow">
-                <div class="bgBtn flexCenter">30 day</div>
+                <div class="bgBtn flexCenter">6 day</div>
             </div>
             <div class="label">Locked amount</div>
             <input type="text" class="amount">
-            <div class="submit flexCenter">Submit</div>
+            <!-- <div class="submit flexCenter" @click="approve(contractAddress.CryptoBrainMain,100 * 10 ** 6)">approve</div> -->
+            <div class="submit flexCenter" @click="pledge(10000 * 10 ** 6)">Submit</div>
         </div>
         <div class="StakeInfo">
             <div class="InfoRow">
@@ -46,6 +47,47 @@
 </template>
 
 <script setup>
+import {contractAddress} from '../config'
+import {contract} from '../web3'
+import Web3 from "web3"
+import { useStore } from 'vuex'
+import { watch,computed,ref } from 'vue'
+import BigNumber from 'big.js'
+const store = useStore()
+const balanceOfUSDT = ref('0')
+const address = computed(() => {
+    return store.state.address
+})
+function getBalanceOf(address){
+    contract.USDT.methods.balanceOf(address).call().then(res=>{
+        res = new BigNumber(res).div(10 ** 6)
+        balanceOfUSDT.value = res
+        console.log(res)
+    })
+}
+function approve(toAddress,amount){
+    contract.USDT.methods.approve(toAddress,amount).send({from: address.value}).then(res=>{
+        console.log(res)
+    })
+}
+function pledge(amount){
+    console.log(Web3.utils.toWei('0.1'))
+    debugger
+    contract.CryptoBrainMain.methods.usdtPledge(amount).send({from: address.value}).then(res=>{
+        console.log(res)
+    })
+}
+watch(
+    address,
+    (address)=>{
+        if(address){
+            getBalanceOf(address)
+            console.log(address)
+        }
+    },
+    {immediate: true }
+)
+// console.log(contract)
 </script>
 
 <style lang="scss" scoped>
