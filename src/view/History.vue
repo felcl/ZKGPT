@@ -24,11 +24,17 @@
         box-sizing: border-box;
         display: flex;
         justify-content: space-between;
+        @media (max-width:1024px) {
+            height: 48px;
+        }
+        @media (max-width:768px) {
+            height: 43px;
+        }
         .tabItem{
             color: #FFFFFF;
             font-size: 14px;
             width: 125px;
-            height: 50px;
+            height:100%;
             border-radius: 29px;
         }
         .tabActive{

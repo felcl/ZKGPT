@@ -1,6 +1,6 @@
 .Rewares,.History{
     background: #27173A;
-    height: 100vh;
+    min-height: 100vh;
     padding-top: 10rem;
     display: flex;
     flex-direction: column;
@@ -35,7 +35,8 @@
         margin-top: 2rem;
     }
     .RewaresInfo,.HistoryInfo{
-        flex: 1;
+        // flex: 1;
+        min-height:500px ;
         width: 37.5rem;
         background: #1D2444;
         border-radius: 3.25rem 3.25rem 0 0;
@@ -43,48 +44,113 @@
         @media (max-width:1024px) {
             width: 45rem;
         }
+        @media (max-width:768px) {
+            width: 65rem;
+        }
         @media (max-width:425px) {
             width: 70rem;
         }
-        .address{
+        .InfoRow{
             height: 10rem;
             width: 100%;
             background: linear-gradient(90deg, #536DFE 0%, #B41FFF 100%);
             padding: 0 2.5rem;
             box-sizing: border-box;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            justify-content: center;
             @media (max-width:425px) {
                 height: 13rem;
                 padding: 0 4.5rem;
             }
-            .headImg{
-                width: 30px;
-                height: 30px;
-                border-radius: 50%;
-                background: #2446E1;
-                flex-shrink: 0;
+            @media (max-width:400px) {
+                height: 15rem;
             }
-            .InfoRow{
-                margin-left: 1rem;
-                flex: 1;
+            img{
+                margin-left: 15px;
+                width: 16px;
             }
-            .addr,.link{
+            .address{
                 display: flex;
                 align-items: center;
-                color: #fff;
+                color: #FFFFFF;
+                .headImg{
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    background: #2446E1;
+                    flex-shrink: 0;
+                }
+                span{margin-left: 24px;}
+            }
+            .link{
+                color: #FFFFFF;
+                font-size: 0.9rem;
+                align-items: center;
+                display: flex;
+                margin-top: 1.5rem;
                 justify-content: space-between;
                 span{
-                    overflow: hidden;  //超出隐藏
-                    white-space: nowrap; //不折行
-                    text-overflow: ellipsis; //溢出显示省略号
+                    display: flex;
+                    align-items: center;
                 }
-                img{
-                    width: 16px;
-                    margin-left: 1rem;
+                .Team{
+                    width: 4.75rem;
+                    height: 1.5rem;
+                    background: #FFFFFF;
+                    border-radius: 6px;
+                    border: 1px solid #FFFFFF;
+                    color: #B220FF;
+                    @media (max-width:1024px) {
+                        width: 6.75rem;
+                        height: 2.5rem;
+                    }
+                    @media (max-width:425px) {
+                        width: 8.75rem;
+                        height: 3.5rem;
+                    }
                 }
             }
         }
+        // .address{
+        //     height: 10rem;
+        //     width: 100%;
+        //     background: linear-gradient(90deg, #536DFE 0%, #B41FFF 100%);
+        //     padding: 0 2.5rem;
+        //     box-sizing: border-box;
+        //     display: flex;
+        //     align-items: center;
+        //     @media (max-width:425px) {
+        //         height: 13rem;
+        //         padding: 0 4.5rem;
+        //     }
+        //     .headImg{
+        //         width: 30px;
+        //         height: 30px;
+        //         border-radius: 50%;
+        //         background: #2446E1;
+        //         flex-shrink: 0;
+        //     }
+        //     .InfoRow{
+        //         margin-left: 1rem;
+        //         flex: 1;
+        //     }
+        //     .addr,.link{
+        //         display: flex;
+        //         align-items: center;
+        //         color: #fff;
+        //         justify-content: space-between;
+        //         span{
+        //             overflow: hidden;  //超出隐藏
+        //             white-space: nowrap; //不折行
+        //             text-overflow: ellipsis; //溢出显示省略号
+        //         }
+        //         img{
+        //             width: 16px;
+        //             margin-left: 1rem;
+        //         }
+        //     }
+        // }
         .balance{
             margin: 3rem 3rem;
             @media (max-width:425px) {
@@ -126,6 +192,10 @@
                 height: 2.8rem;
                 background: linear-gradient(90deg, #536DFE 0%, #B41FFF 100%);
                 border-radius: 0.6rem;
+                @media (max-width:768px) {
+                    width: 12rem;
+                    height: 4rem;
+                }
                 @media (max-width:425px) {
                     width: 15rem;
                     height: 5rem;

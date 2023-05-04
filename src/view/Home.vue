@@ -63,12 +63,41 @@
             100% of the total supply (18,000 coins) will be distributed through liquidity mining within three months. Liquidity mining reward: 18000 (100% of total supply)
           </div>
           <div class="Disclaimer">
-            Disclaimer
+            Team
           </div>
-          <div class="DisclaimerText">
-            This document is for general information purposes only. It does not constitute investment advice, recommendation or inducement to buy or sell any investment object. 
-            It should not be used to evaluate any investment decisions, nor should it be construed as accounting, legal, tax or other investment advice.
+          <div class="character">
+            <div class="characterItem">
+                <div class="imgBox">
+                    <img src="" alt="">
+                </div>
+                <div class="name">Jacob Cooper</div>
+                <div class="position">Chief Brand Officer</div>
+                <div class="introduce">
+                    Jacob is a seasoned marketing professional with over 6 years of experience in brand development and management. He has a strong passion for building and scaling brands, and his expertise lies in creating meaningful and impactful brand strategies. As the Chief Brand Officer, he is dedicated to delivering innovative and compelling brand experiences for customers.
+                </div>
+            </div>
+            <div class="characterItem">
+                <div class="imgBox">
+                    <img src="" alt="">
+                </div>
+                <div class="name">Ahmar Khan</div>
+                <div class="position">Chief Marketing Officer</div>
+                <div class="introduce">
+                    Ahmar is a highly accomplished marketing leader with several years of experience in developing and executing successful marketing strategies. His passion for driving growth and creating engaging customer experiences has earned him a reputation as a result-driven CMO. With a keen eye for emerging trends and a strategic approach to brand building, Ahmar Khan is committed to elevating his organization's marketing efforts to new heights. As the Chief Marketing Officer, he leads his team in delivering impactful campaigns that resonate with customers and drive business growth.
+                </div>
+            </div>
+            <div class="characterItem">
+                <div class="imgBox">
+                    <img src="" alt="">
+                </div>
+                <div class="name">Denis Bozkurt</div>
+                <div class="position">Chief Operating Officer</div>
+                <div class="introduce">
+                    Denis is a results-driven COO with expertise in operational excellence and business performance. He leverages technology and data analytics to optimize resources, streamline operations, and reduce costs. As Chief Operating Officer, he leads his team to deliver high-quality products and services while optimizing resources for growth.
+                </div>
+            </div>
           </div>
+          <div class="WhitePaper flexCenter">White Paper</div>
         </div>
     </div>
 </template>
@@ -249,6 +278,84 @@
         max-width: 1091px;
         @media (max-width:425px) {
             margin: 0.9rem 5rem 16.35rem;
+        }
+    }
+    .character{
+        display: flex;
+        justify-content: space-around;
+        margin-top: 2.5rem;
+        @media (max-width:768px) {
+            flex-direction: column;
+            align-items: center;
+        }
+        .characterItem{
+            max-width: 16.4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            @media (max-width:1440px) {
+                max-width: 20rem;
+            }
+            @media (max-width:1024px) {
+                max-width: 25rem;
+            }
+            @media (max-width:768px) {
+                max-width: 50%;
+                margin-bottom: 10rem;
+            }
+            @media (max-width:767px) {
+                max-width: 70%;
+                margin-bottom: 10rem;
+            }
+            @media (max-width:425px) {
+                max-width: 90%;
+                margin-bottom: 10rem;
+            }
+            .imgBox{
+                width: 200px;
+                height: 200px;
+                border-radius: 50%;
+                margin-bottom: 1.15rem;
+                overflow: hidden;
+                background: #fff;
+                // @media (max-width:768px) {
+                //     width: 20rem;
+                //     height: 20rem;
+                // }
+            }
+            .name{
+                font-size: 20px;
+                color: #FFFFFF;
+                line-height: 1.4;
+                text-align: center;
+                margin-bottom: 0.5rem;
+            }
+            .position{
+                margin-bottom: 1.15rem;
+                text-align: center;
+                color: #FFFFFF;
+                font-size: 0.6rem;
+                line-height: 1.5;
+            }
+            .introduce{
+                text-align: center;
+                font-size: 0.6rem;
+                color: #FFFFFF;
+                line-height: 1.5;
+            }
+        }
+    }
+    .WhitePaper{
+        margin: 6rem auto;
+        background: linear-gradient(90deg, #536DFE 0%, #B41FFF 100%);
+        border-radius: 11px;
+        width: 446px;
+        max-width: 90%;
+        height: 48px;
+        color: #FFFFFF;
+        font-size: 0.9rem;
+        @media (max-width:425px) {
+            font-size: 18px;
         }
     }
 }

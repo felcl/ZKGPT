@@ -9,3 +9,8 @@ export const ABI  = {
     "USDT": Token,
     "CryptoBrainMain": CryptoBrainMain,
 }
+export const TokenConfig = {
+    USDT:{
+        decimals:6
+    }
+}
