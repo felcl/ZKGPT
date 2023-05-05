@@ -97,7 +97,9 @@
                 </div>
             </div>
           </div>
-          <div class="WhitePaper flexCenter">White Paper</div>
+          <a href="http://18.136.140.46/WhitePaper/ZKGPT%20Whitepaper.pdf" target="_blank">
+              <div class="WhitePaper flexCenter">White Paper</div>
+          </a>
         </div>
     </div>
 </template>
