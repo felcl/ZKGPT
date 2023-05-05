@@ -69,6 +69,7 @@
             img{
                 margin-left: 15px;
                 width: 16px;
+                cursor: pointer;
             }
             .address{
                 display: flex;
@@ -95,6 +96,7 @@
                     align-items: center;
                 }
                 .Team{
+                    cursor: pointer;
                     width: 4.75rem;
                     height: 1.5rem;
                     background: #FFFFFF;
@@ -157,6 +159,7 @@
                 margin: 6rem 6rem;
             }
             display: flex;
+            align-items: center;
             .balanceItem{
                 flex: 1;
                 .label{
@@ -185,13 +188,20 @@
                 }
             }
             .Withdraw{
+                cursor: pointer;
                 font-size: 1rem;
                 font-weight: 400;
                 width: 8.9rem;
                 color: #fff;
                 height: 2.8rem;
                 background: linear-gradient(90deg, #536DFE 0%, #B41FFF 100%);
+                padding: 1px;
                 border-radius: 0.6rem;
+                .content{
+                    width: 100%;height: 100%;
+                    border-radius: 0.6rem;
+                    background: #1D2444;
+                }
                 @media (max-width:768px) {
                     width: 12rem;
                     height: 4rem;
@@ -218,6 +228,7 @@
                     font-size: 1.5rem;
                 }
                 .more{
+                    cursor: pointer;
                     color: #FFFFFF;
                     font-size: 1rem;
                 }

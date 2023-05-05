@@ -5,6 +5,9 @@ import {init} from './web3'
 import Layout from './Layout/Layout.vue'
 const store = useStore()
 onMounted(()=>{
+  document.body.style.setProperty('--el-component-size', '2.8rem')
+  // document.body.style.setProperty('--el-input-text-color', 'rgba(255, 255, 255, 0.617691)')
+  // document.body.style.setProperty('--el-text-color-regular', 'rgba(255, 255, 255, 0.617691)')
     if(window.ethereum){
       //用户账号初始化合约
       init(address=>{

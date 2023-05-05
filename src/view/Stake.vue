@@ -1,18 +1,360 @@
+<script setup>
+import { contractAddress, TokenConfig } from "../config";
+import { contract, web3 } from "../web3";
+import { ElNotification } from 'element-plus'
+import { useStore } from "vuex";
+import { watch, computed, ref } from "vue";
+import BigNumber from "big.js";
+BigNumber.NE = -40;
+BigNumber.PE = 40;
+const store = useStore();
+const balanceOfEHT = ref("0");
+const balanceOfUSDT = ref("0");
+const balanceOfCRBLP = ref("0");
+const balanceOfCZZLP = ref("0");
+const inAllowance = ref(false);
+const inPledge = ref(false);
+const inLPPledge = ref(false);
+const amount = ref("");
+const LPAmount = ref("");
+const allowanceUSDT = ref("0");
+const allowanceCRBLP = ref("0");
+const allowanceCZZLP = ref("0");
+
+const Type = ref("ETH");
+const LPType = ref("CRBLP");
+const address = computed(() => {
+  return store.state.address;
+});
+const ifApprove = computed(() => {
+  if (Type.value === "ETH") {
+    return false;
+  }
+  let allowance = Type.value === "USDT" ? allowanceUSDT.value : 0;
+  if (!amount.value && new BigNumber(allowance).gt(0)) {
+    return false;
+  }
+  if (amount.value && new BigNumber(amount.value).lte(allowance)) {
+    return false;
+  }
+  return true;
+});
+const ifLPApprove = computed(() => {
+  let allowance =
+    LPType.value === "CRBLP" ? allowanceCRBLP.value : allowanceCZZLP.value;
+  if (!LPAmount.value && new BigNumber(allowance).gt(0)) {
+    return false;
+  }
+  if (LPAmount.value && new BigNumber(LPAmount.value).lte(allowance)) {
+    return false;
+  }
+  return true;
+});
+function changeType(type) {
+  Type.value = type;
+}
+function changeLPType(type) {
+  LPType.value = type;
+}
+function changeNumPut(event, key) {
+  let type = key === "amount" ? Type.value : LPType.value;
+  let value = event.target.value;
+  if (/^\./g.test(value)) {
+    value = "0" + value;
+  }
+  let putVal = value.replace(/[^\d.]/g, "");
+  let accuracy = TokenConfig[type].decimals ? TokenConfig[type].decimals : 18;
+  let putArr = putVal.split(".");
+  if (putArr[1] && putArr[1].length > accuracy) {
+    putArr[1] = putArr[1].slice(0, accuracy);
+  }
+  putVal = putArr.join(".");
+  if (key === "amount") {
+    amount.value = putVal;
+  }
+  if (key === "LPAmount") {
+    LPAmount.value = putVal;
+  }
+}
+function getBalanceOf(address, token) {
+  contract[token].methods
+    .balanceOf(address)
+    .call()
+    .then((res) => {
+      res = new BigNumber(res).div(10 ** TokenConfig[token].decimals);
+      if (token === "USDT") {
+        balanceOfUSDT.value = res;
+      }
+      if (token === "CRBLP") {
+        balanceOfCRBLP.value = res;
+      }
+      if (token === "CZZLP") {
+        balanceOfCZZLP.value = res;
+      }
+      console.log(res.toString(), token + " - balanceOf");
+    });
+}
+function getAllowance(toAddress, token) {
+  contract[token].methods
+    .allowance(address.value, toAddress)
+    .call()
+    .then((res) => {
+      res = new BigNumber(res).div(10 ** TokenConfig[token].decimals);
+      if (token === "USDT") {
+        allowanceUSDT.value = res;
+      }
+      if (token === "CRBLP") {
+        allowanceCRBLP.value = res;
+      }
+      if (token === "CZZLP") {
+        allowanceCZZLP.value = res;
+      }
+      console.log(res.toString(), token + " - allowance");
+    });
+}
+function approve(toAddress, token) {
+  inAllowance.value = true;
+  // let amount = new BigNumber(new BigNumber(balanceOfUSDT.value).lte(0) ? '999999' : balanceOfUSDT.value).times(10 * 10 ** TokenConfig[Type.value].decimals).toString()
+  let amount = new BigNumber("999999")
+    .times(10 * 10 ** TokenConfig[token].decimals)
+    .toString();
+  contract[token].methods
+    .approve(toAddress, amount)
+    .send({ from: address.value })
+    .then((res) => {
+        return ElNotification({
+            title: 'Success',
+            message: '授权成功',
+            type: 'success',
+        })
+      }).catch((err)=>{
+        return ElNotification({
+            title: 'Warning',
+            message: '授权失败',
+            type: 'warning',
+        })
+      })
+    .finally(() => {
+      inAllowance.value = false;
+    });
+}
+function pledge(amount, PledgeName) {
+    console.log(PledgeName,amount)
+  if (PledgeName === "usdtPledge" || PledgeName === "ethPledge") {
+    inPledge.value = true;
+  } else {
+    inLPPledge.value = true;
+  }
+  if (PledgeName === "ethPledge") {
+    return contract.CryptoBrainMain.methods[PledgeName]()
+      .send({ from: address.value, value: amount })
+      .then((res) => {
+        return ElNotification({
+            title: 'Success',
+            message: '质押成功',
+            type: 'success',
+        })
+      }).catch((err)=>{
+        return ElNotification({
+            title: 'Warning',
+            message: '质押失败',
+            type: 'warning',
+        })
+      }).finally(() => {
+        if (PledgeName === "usdtPledge" || PledgeName === "ethPledge") {
+          inPledge.value = false;
+        } else {
+          inLPPledge.value = false;
+        }
+      });
+  }
+  contract.CryptoBrainMain.methods[PledgeName](amount)
+    .send({ from: address.value })
+    .then((res) => {
+      console.log(res);
+    })
+    .finally(() => {
+      if (PledgeName === "usdtPledge" || PledgeName === "ethPledge") {
+        inPledge.value = false;
+      } else {
+        inLPPledge.value = false;
+      }
+    });
+}
+function subscribe() {
+  contract.USDT.events
+    .Approval({
+      filter: {},
+      fromBlock: "latest",
+    })
+    .on("data", function (event) {
+      console.log(event.returnValues.owner);
+      if (event.returnValues.owner === address.value) {
+        allowanceUSDT.value = new BigNumber(event.returnValues.value).div(
+          10 ** TokenConfig.USDT.decimals
+        );
+      }
+      console.log(event.returnValues.value); // same results as the optional callback above
+    });
+  contract.CRBLP.events
+    .Approval({
+      filter: {},
+      fromBlock: "latest",
+    })
+    .on("data", function (event) {
+      console.log(event.returnValues.owner);
+      if (event.returnValues.owner === address.value) {
+        allowanceCRBLP.value = new BigNumber(event.returnValues.value).div(
+          10 ** TokenConfig.CRBLP.decimals
+        );
+      }
+      console.log(event.returnValues.value); // same results as the optional callback above
+    });
+  contract.CZZLP.events
+    .Approval({
+      filter: {},
+      fromBlock: "latest",
+    })
+    .on("data", function (event) {
+      console.log(event.returnValues.owner);
+      if (event.returnValues.owner === address.value) {
+        allowanceCZZLP.value = new BigNumber(event.returnValues.value).div(
+          10 ** TokenConfig.CZZLP.decimals
+        );
+      }
+      console.log(event.returnValues.value); // same results as the optional callback above
+    });
+}
+function verify() {
+    if(!address.value){
+        return ElNotification({
+            title: 'Info',
+            message: '请链接钱包',
+            type: 'info',
+        })
+    }
+  if (inPledge.value) {
+    return ElNotification({
+        title: 'Info',
+        message: '请勿重复提交',
+        type: 'info',
+    })
+  }
+  if (!amount.value) {
+    return ElNotification({
+        title: 'Info',
+        message: '请输入要质押的数量',
+        type: 'info',
+    })
+  }
+  if (new BigNumber(amount.value).lte(0)) {
+    return ElNotification({
+        title: 'Info',
+        message: '质押数量必须大于0',
+        type: 'info',
+    })
+  }
+  let balanceOf =
+    Type.value === "USDT" ? balanceOfUSDT.value : balanceOfEHT.value;
+  if (new BigNumber(amount.value).gt(balanceOf)) {
+    return ElNotification({
+        title: 'Info',
+        message: '质押数量超出可用余额',
+        type: 'info',
+    })
+  }
+  let Equivalent = new BigNumber(amount.value).times(
+    10 ** TokenConfig[Type.value].decimals
+  );
+  pledge(
+    Equivalent.toString(),
+    Type.value === "USDT" ? "usdtPledge" : "ethPledge"
+  );
+}
+function LPverify() {
+    if(!address.value){
+        return ElNotification({
+            title: 'Info',
+            message: '请链接钱包',
+            type: 'info',
+        })
+    }
+  if (inLPPledge.value) {
+    return ElNotification({
+        title: 'Info',
+        message: '交易中请勿重复提交',
+        type: 'info',
+    })
+  }
+  if (!LPAmount.value) {
+    return ElNotification({
+        title: 'Info',
+        message: '请输入要质押的数量',
+        type: 'info',
+    })
+  }
+  if (new BigNumber(LPAmount.value).lte(0)) {
+    return ElNotification({
+        title: 'Info',
+        message: '质押数量必须大于0',
+        type: 'info',
+    })
+  }
+  let balanceOf =
+    LPType.value === "CRBLP" ? balanceOfCRBLP.value : balanceOfCZZLP.value;
+  if (new BigNumber(LPAmount.value).gt(balanceOf)) {
+    return ElNotification({
+        title: 'Info',
+        message: '质押数量超出可用余额',
+        type: 'info',
+    })
+  }
+  let Equivalent = new BigNumber(LPAmount.value).times(
+    10 ** TokenConfig[LPType.value].decimals
+  );
+  pledge(
+    Equivalent.toString(),
+    LPType.value === "CRBLP" ? "crbLpPledge" : "czzLpPledge"
+  );
+}
+watch(
+  address,
+  (address) => {
+    if (address) {
+      //获取余额
+      getBalanceOf(address, "USDT");
+      getBalanceOf(address, "CRBLP");
+      getBalanceOf(address, "CZZLP");
+      getAllowance(contractAddress.CryptoBrainMain, "USDT");
+      getAllowance(contractAddress.CryptoBrainMain, "CRBLP");
+      getAllowance(contractAddress.CryptoBrainMain, "CZZLP");
+      subscribe();
+      web3.eth.getBalance(address).then((res) => {
+        balanceOfEHT.value = new BigNumber(res).div(10 ** 18);
+        console.log(new BigNumber(res).div(10 ** 18).toString(), "ETH");
+      });
+    }
+  },
+  { immediate: true }
+);
+// console.log(contract)
+</script>
+
 <template>
   <div class="Stake">
     <div class="StakeTitle">Stake CRB Ether</div>
     <div class="StakeSubTitle">
-        Stake ETH or USDT and receive CRB while staking.
+      Stake ETH or USDT and receive CRB while staking.
     </div>
     <div class="StakeItem">
       <div class="putBox">
         <div class="label">Type</div>
         <div class="btnRow">
           <div class="bgBtn flexCenter" @click="changeType('ETH')">
-            <div :class="['flexCenter', { Active: Type === 'ETH' }]">ETH</div>
+            <div :class="['flexCenter', { Active: Type !== 'ETH' }]">ETH</div>
           </div>
           <div class="bgBtn flexCenter" @click="changeType('USDT')">
-            <div :class="['flexCenter', { Active: Type === 'USDT' }]">USDT</div>
+            <div :class="['flexCenter', { Active: Type !== 'USDT' }]">USDT</div>
           </div>
         </div>
         <div class="label">Date</div>
@@ -24,13 +366,13 @@
           type="text"
           class="amount"
           v-model="amount"
-          @input="($event) => changeNumPut($event)"
+          @input="($event) => changeNumPut($event, 'amount')"
         />
 
         <div
           class="submit flexCenter"
           v-if="ifApprove"
-          @click="approve(contractAddress.CryptoBrainMain)"
+          @click="approve(contractAddress.CryptoBrainMain, Type)"
         >
           <svg viewBox="25 25 50 50" v-if="inAllowance">
             <circle cx="50" cy="50" r="20"></circle>
@@ -69,17 +411,21 @@
     </div>
     <div class="StakeTitle interval">Stake CZZ Ether</div>
     <div class="StakeSubTitle">
-        Stake XX-ETH or YY-ETH and receive CZZ while staking.
+      Stake XX-ETH or YY-ETH and receive CZZ while staking.
     </div>
     <div class="StakeItem">
       <div class="putBox">
         <div class="label">Type</div>
         <div class="btnRow">
-          <div class="bgBtn flexCenter" @click="changeType('ETH')">
-            <div :class="['flexCenter', { Active: Type === 'ETH' }]">CRB+ETH/LP</div>
+          <div class="bgBtn flexCenter" @click="changeLPType('CRBLP')">
+            <div :class="['flexCenter', { Active: LPType !== 'CRBLP' }]">
+              CRB+ETH/LP
+            </div>
           </div>
-          <div class="bgBtn flexCenter" @click="changeType('USDT')">
-            <div :class="['flexCenter', { Active: Type === 'USDT' }]">CZZ+ETH/LP</div>
+          <div class="bgBtn flexCenter" @click="changeLPType('CZZLP')">
+            <div :class="['flexCenter', { Active: LPType !== 'CZZLP' }]">
+              CZZ+ETH/LP
+            </div>
           </div>
         </div>
         <div class="label">Date</div>
@@ -90,22 +436,22 @@
         <input
           type="text"
           class="amount"
-          v-model="amount"
-          @input="($event) => changeNumPut($event)"
+          v-model="LPAmount"
+          @input="($event) => changeNumPut($event, 'LPAmount')"
         />
 
         <div
           class="submit flexCenter"
-          v-if="ifApprove"
-          @click="approve(contractAddress.CryptoBrainMain)"
+          v-if="ifLPApprove"
+          @click="approve(contractAddress.CryptoBrainMain, LPType)"
         >
           <svg viewBox="25 25 50 50" v-if="inAllowance">
             <circle cx="50" cy="50" r="20"></circle>
           </svg>
           <span> approve </span>
         </div>
-        <div class="submit flexCenter" v-else @click="verify">
-          <svg viewBox="25 25 50 50" v-if="inPledge">
+        <div class="submit flexCenter" v-else @click="LPverify">
+          <svg viewBox="25 25 50 50" v-if="inLPPledge">
             <circle cx="50" cy="50" r="20"></circle>
           </svg>
           <span> Submit </span>
@@ -136,149 +482,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { contractAddress, TokenConfig } from "../config";
-import { contract } from "../web3";
-import { useStore } from "vuex";
-import { watch, computed, ref } from "vue";
-import BigNumber from "big.js";
-const store = useStore();
-
-const balanceOfUSDT = ref("0");
-const inAllowance = ref(false);
-const inPledge = ref(false);
-const amount = ref("");
-const allowanceUSDT = ref("0");
-
-const Type = ref("USDT");
-const address = computed(() => {
-  return store.state.address;
-});
-const ifApprove = computed(() => {
-  if (!amount.value && new BigNumber(allowanceUSDT.value).gt(0)) {
-    return false;
-  }
-  if (amount.value && new BigNumber(amount.value).lte(allowanceUSDT.value)) {
-    return false;
-  }
-  return true;
-});
-function changeType(type) {
-  Type.value = type;
-}
-function changeNumPut(event) {
-  let value = event.target.value;
-  if (/^\./g.test(value)) {
-    value = "0" + value;
-  }
-  let putVal = value.replace(/[^\d.]/g, "");
-  let accuracy = TokenConfig[Type.value].decimals
-    ? TokenConfig[Type.value].decimals
-    : 18;
-  let putArr = putVal.split(".");
-  if (putArr[1] && putArr[1].length > accuracy) {
-    putArr[1] = putArr[1].slice(0, accuracy);
-  }
-  putVal = putArr.join(".");
-  amount.value = putVal;
-}
-function getBalanceOf(address) {
-  contract.USDT.methods
-    .balanceOf(address)
-    .call()
-    .then((res) => {
-      res = new BigNumber(res).div(10 ** TokenConfig[Type.value].decimals);
-      balanceOfUSDT.value = res;
-      console.log(res.toString());
-    });
-}
-function getAllowance(toAddress) {
-  contract.USDT.methods
-    .allowance(address.value, toAddress)
-    .call()
-    .then((res) => {
-      res = new BigNumber(res).div(10 ** TokenConfig[Type.value].decimals);
-      allowanceUSDT.value = res;
-      console.log(res.toString(), "查询授权额度");
-    });
-}
-function approve(toAddress) {
-  inAllowance.value = true;
-  // let amount = new BigNumber(new BigNumber(balanceOfUSDT.value).lte(0) ? '999999' : balanceOfUSDT.value).times(10 * 10 ** TokenConfig[Type.value].decimals).toString()
-  let amount = new BigNumber("999999")
-    .times(10 * 10 ** TokenConfig[Type.value].decimals)
-    .toString();
-  contract.USDT.methods
-    .approve(toAddress, amount)
-    .send({ from: address.value })
-    .then((res) => {
-      console.log(res);
-    })
-    .finally(() => {
-      inAllowance.value = false;
-    });
-}
-function pledge(amount) {
-  inPledge.value = true;
-  contract.CryptoBrainMain.methods
-    .usdtPledge(amount)
-    .send({ from: address.value })
-    .then((res) => {
-      console.log(res);
-    })
-    .finally(() => {
-      inPledge.value = false;
-    });
-}
-function subscribe() {
-  contract.USDT.events
-    .Approval({
-      filter: {},
-      fromBlock: "latest",
-    })
-    .on("data", function (event) {
-      console.log(event.returnValues.owner);
-      if (event.returnValues.owner === address.value) {
-        allowanceUSDT.value = new BigNumber(event.returnValues.value).div(
-          10 ** TokenConfig[Type.value].decimals
-        );
-      }
-      console.log(event.returnValues.value); // same results as the optional callback above
-    });
-}
-function verify() {
-    if(inPledge.value){
-        return console.log("交易中请勿重复提交");
-    }
-  if (!amount.value) {
-    return console.log("请输入要质押的数量");
-  }
-  if (new BigNumber(amount.value).lte(0)) {
-    return console.log("质押数量必须大于0");
-  }
-  if (new BigNumber(amount.value).gt(balanceOfUSDT.value)) {
-    return console.log("质押数量超出可用余额");
-  }
-  let Equivalent = new BigNumber(amount.value).times(
-    10 ** TokenConfig[Type.value].decimals
-  );
-  pledge(Equivalent.toString());
-}
-watch(
-  address,
-  (address) => {
-    if (address) {
-      getBalanceOf(address);
-      getAllowance(contractAddress.CryptoBrainMain);
-      subscribe();
-      console.log(address);
-    }
-  },
-  { immediate: true }
-);
-// console.log(contract)
-</script>
 
 <style lang="scss" scoped>
 .Stake {
@@ -360,6 +563,7 @@ watch(
         //   }
         // }
         .bgBtn {
+        cursor: pointer;
           background: linear-gradient(90deg, #536dfe 0%, #b41fff 100%);
           border-radius: 0.6rem;
           overflow: hidden;
@@ -412,6 +616,7 @@ watch(
         }
       }
       .submit {
+        cursor: pointer;
         width: 100%;
         background: linear-gradient(90deg, #536dfe 0%, #b41fff 100%);
         border-radius: 0.6rem;

@@ -11,7 +11,7 @@
                 <span>{{AddrHandle('0x3Bd8CA9023897224b01fE25b33137b67A89ec70F',7,7)}}</span>
                 <img src="../assets/Home/copy.png" alt="">
             </div>
-            <div class="link"> <span>http://sadfs.dadsf.com/sdadsf <img src="../assets/Home/copy.png" alt=""></span> <div class="Team flexCenter" @click="goPath('Team')">Team</div></div>
+            <div class="link"> <span>http://sadfs.dadsf.com/sdadsf <img src="../assets/Home/copy.png" alt=""></span> <div class="Team flexCenter" @click="goPath('/Team')">Team</div></div>
         </div>
         <div class="balance">
             <div class="balanceItem">
@@ -22,7 +22,14 @@
                 <div class="label">CZZ</div>
                 <div class="Num">2000</div>
             </div>
-            <div class="Withdraw flexCenter">Withdraw</div>
+            <div>
+                <div class="Withdraw flexCenter">Withdraw</div>
+                <div class="Withdraw flexCenter" style="margin-top: 0.5rem;">
+                    <div class="content flexCenter" @click="goPath('/Redeem')">
+                        Redeem
+                    </div>
+                    </div>
+            </div>
         </div>
         <div class="HistoryLabel">
             <div class="topbar">
