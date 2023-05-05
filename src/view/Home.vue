@@ -68,7 +68,7 @@
           <div class="character">
             <div class="characterItem">
                 <div class="imgBox">
-                    <img src="" alt="">
+                    <img src="../assets/Home/character1.png" alt="">
                 </div>
                 <div class="name">Jacob Cooper</div>
                 <div class="position">Chief Brand Officer</div>
@@ -78,7 +78,7 @@
             </div>
             <div class="characterItem">
                 <div class="imgBox">
-                    <img src="" alt="">
+                    <img src="../assets/Home/character2.png" alt="">
                 </div>
                 <div class="name">Ahmar Khan</div>
                 <div class="position">Chief Marketing Officer</div>
@@ -88,7 +88,7 @@
             </div>
             <div class="characterItem">
                 <div class="imgBox">
-                    <img src="" alt="">
+                    <img src="../assets/Home/character3.png" alt="">
                 </div>
                 <div class="name">Denis Bozkurt</div>
                 <div class="position">Chief Operating Officer</div>
