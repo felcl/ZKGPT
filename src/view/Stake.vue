@@ -1,9 +1,11 @@
 <script setup>
 import { contractAddress, TokenConfig } from "../config";
+import {dateFormat} from '../utils/tool'
+import Axios from '../Axios'
 import { contract, web3 } from "../web3";
 import { ElNotification } from 'element-plus'
 import { useStore } from "vuex";
-import { watch, computed, ref } from "vue";
+import { watch, computed, ref ,reactive} from "vue";
 import BigNumber from "big.js";
 BigNumber.NE = -40;
 BigNumber.PE = 40;
@@ -20,6 +22,12 @@ const LPAmount = ref("");
 const allowanceUSDT = ref("0");
 const allowanceCRBLP = ref("0");
 const allowanceCZZLP = ref("0");
+const StakeInfo = reactive({
+  CRBLP:null,
+  CZZLP:null,
+  USDT:null,
+  ETH:null,
+})
 
 const Type = ref("ETH");
 const LPType = ref("CRBLP");
@@ -111,6 +119,17 @@ function getAllowance(toAddress, token) {
       }
       console.log(res.toString(), token + " - allowance");
     });
+}
+function getStakeInfo(){
+  Axios.get(`/api/cryptobrain/common/pledges/${address.value}`).then(res=>{
+    if(res.data.code === 200){
+      res.data.result.forEach(item => {
+        item.intBearing = Math.floor( item.createTime / 86400000)  * 86400000 + 57600000
+        StakeInfo[item.symbol] = item 
+      });
+    }
+    console.log(res,"用户质押信息")
+  })
 }
 function approve(toAddress, token) {
   inAllowance.value = true;
@@ -321,6 +340,7 @@ watch(
   address,
   (address) => {
     if (address) {
+      getStakeInfo()
       //获取余额
       getBalanceOf(address, "USDT");
       getBalanceOf(address, "CRBLP");
@@ -389,11 +409,11 @@ watch(
       <div class="StakeInfo">
         <div class="InfoRow">
           <span>Stake Date</span>
-          <span>2023-04-22 00:17</span>
+          <span>{{ StakeInfo[Type] ? dateFormat('YYYY-mm-dd HH:MM',new Date(StakeInfo[Type].createTime)) : "--" }}</span>
         </div>
         <div class="InfoRow">
           <span>Value Date</span>
-          <span>2023-04-22 08:00</span>
+          <span>{{ StakeInfo[Type] ? dateFormat('YYYY-mm-dd HH:MM',new Date(StakeInfo[Type].intBearing)) : "--" }}</span>
         </div>
         <div class="InfoRow">
           <span>Interest Period</span>
@@ -460,11 +480,11 @@ watch(
       <div class="StakeInfo">
         <div class="InfoRow">
           <span>Stake Date</span>
-          <span>2023-04-22 00:17</span>
+          <span>{{ StakeInfo[LPType] ? dateFormat('YYYY-mm-dd HH:MM',new Date(StakeInfo[LPType].createTime)) : "--" }}</span>
         </div>
         <div class="InfoRow">
           <span>Value Date</span>
-          <span>2023-04-22 08:00</span>
+          <span>{{ StakeInfo[LPType] ? dateFormat('YYYY-mm-dd HH:MM',new Date(StakeInfo[LPType].intBearing)) : "--" }}</span>
         </div>
         <div class="InfoRow">
           <span>Interest Period</span>

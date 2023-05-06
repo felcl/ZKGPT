@@ -5,6 +5,7 @@ export const store = createStore({
   state () {
     return {
       address: '',
+      token: '',
       leftMenu: false
     }
   },
@@ -14,6 +15,9 @@ export const store = createStore({
     },
     SETLEFTMENU (state,leftMenu){
       state.leftMenu = leftMenu
+    },
+    SETTOKEN (state,token){
+      state.token = token
     },
   }
 })

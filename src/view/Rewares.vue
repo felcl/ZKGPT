@@ -1,3 +1,39 @@
+<script setup>
+import '../assets/style/Rewares.scss'
+import Axios from '../Axios'
+import { useStore } from "vuex";
+import { watch, computed, ref ,reactive} from "vue";
+const store = useStore();
+import {useRouter,useRoute} from 'vue-router'
+import { AddrHandle } from '../utils/tool'
+const router = useRouter()
+const address = computed(() => {
+  return store.state.address;
+});
+watch(
+  address,
+  (address) => {
+    if (address) {
+        Promise.all([
+            Axios.post(`/api/cryptobrain/common/rewardList/${address}/1`,{
+                "page": 0,
+                "rows": 0
+            }),
+            Axios.post(`/api/cryptobrain/common/rewardList/${address}/2`,{
+                "page": 0,
+                "rows": 0
+            })
+        ]).then(resArr=>{
+            console.log(resArr,"收益信息")
+        })
+    }
+  },
+  { immediate: true }
+);
+const goPath=(path)=>{
+  router.push(path)
+}
+</script>
 <template>
   <div class="Rewares">
     <div class="StakeTitle">Stake XX Ether</div>
@@ -50,16 +86,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import '../assets/style/Rewares.scss'
-import {useRouter,useRoute} from 'vue-router'
-import { AddrHandle } from '../utils/tool'
-const router = useRouter()
-const goPath=(path)=>{
-  router.push(path)
-}
-</script>
 
 <style lang="scss" scoped>
 </style>

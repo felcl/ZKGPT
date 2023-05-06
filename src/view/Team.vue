@@ -1,4 +1,26 @@
 <script setup>
+import { useStore } from "vuex";
+import { watch, computed} from "vue";
+import Axios from '../Axios'
+const store = useStore();
+const address = computed(() => {
+  return store.state.address;
+});
+function getInvitationList(){
+    Axios.get(`/api/cryptobrain/common/invites/${address.value}`).then(res=>{
+        console.log(res,"获取用户邀请列表")
+    })
+    
+}
+watch(
+  address,
+  (address) => {
+    if (address) {
+        getInvitationList()
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <template>
