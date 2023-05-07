@@ -1,13 +1,21 @@
 <script setup>
 import { useStore } from "vuex";
-import { watch, computed} from "vue";
+import { watch , computed , ref} from "vue";
 import Axios from '../Axios'
+import { AddrHandle , dateFormat} from '../utils/tool'
 const store = useStore();
+const InvitationList = ref([])
+const withdrawList = ref([])
+const type = ref(1)
 const address = computed(() => {
   return store.state.address;
 });
+const token = computed(() => {
+  return store.state.token;
+});
 function getInvitationList(){
     Axios.get(`/api/cryptobrain/common/invites/${address.value}`).then(res=>{
+        InvitationList.value = res.data.result
         console.log(res,"获取用户邀请列表")
     })
     
@@ -17,6 +25,21 @@ watch(
   (address) => {
     if (address) {
         getInvitationList()
+    }
+  },
+  { immediate: true }
+);
+watch(
+    token,
+  (token) => {
+    if (token) {
+        Axios.post(`/api/cryptobrain/common/withdrawList`,{
+        "page": 1,
+        "rows": 10
+        }).then(res=>{
+            withdrawList.value = res.data.result
+            console.log(res,"获取用户邀请列表")
+        })
     }
   },
   { immediate: true }
@@ -40,14 +63,14 @@ watch(
                 <div class="ReceiveBtn flexCenter">Receive</div>
             </div>
             <div class="Tabs">
-                <div class="tabItem flexCenter">Invitation record</div>
-                <div class="tabItem flexCenter">Pick up record</div>
+                <div :class="['tabItem','flexCenter',{'active':type === 1}]" @click="type = 1">Invitation record</div>
+                <div :class="['tabItem','flexCenter',{'active':type === 2}]" @click="type = 2">Pick up record</div>
             </div>
-            <div class="record">
-                <div class="left">dadsda*****dadsdd</div>
+            <div class="record" v-for="item in InvitationList">
+                <div class="left">{{ AddrHandle(item.token,7,7) }}</div>
                 <div class="right">
-                    <div>+222</div>
-                    <div>2022/02/22 12:22:33</div>
+                    <div>+{{ item.amount }}</div>
+                    <div>{{dateFormat('YYYY-mm-dd HH:MM',new Date(item.createTime))}}</div>
                 </div>
             </div>
         </div>
@@ -190,10 +213,12 @@ watch(
                     width: 30rem;
                 }
                 height: 100%;
-                background: #1D2444;
                 border-radius: 1.45rem;
                 color: #FFFFFF;
                 font-size: 14px;
+            }
+            .active{
+                background: #1D2444;
             }
         }
         .record{

@@ -159,14 +159,15 @@
         }
         .FriendlyLinks{
             display: flex;
-            flex-direction: column;
+            // flex-direction: column;
+            justify-content: center;
             margin-top: 2.8rem;
-            float: right;
+            // float: right;
             @media (max-width:425px) {
                 display: none;
             }
             a{
-                margin-bottom: 1.25rem;
+                margin:0 0.6rem;
                 font-size: 0;
                 @media (max-width:425px) {
                     margin-bottom: 3rem;

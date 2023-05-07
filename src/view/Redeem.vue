@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref, watch, reactive } from "vue";
-import { contract } from "../web3";
+import { contract ,init} from "../web3";
 import { useStore } from "vuex";
 import { TokenConfig } from "../config";
 import { ElNotification } from 'element-plus'
@@ -53,6 +53,9 @@ watch(
   address,
   (address) => {
     if (address) {
+      if(Object.keys(contract).length === 0){
+        init()
+      }
       //获取用户质押量
       contract.CryptoBrainMain.methods
         .userPledgeInfo(address)

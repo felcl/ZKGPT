@@ -24,99 +24,13 @@ const goPath = (path) => {
 const Connect = () => {
   if (!address.value) {
     connect(async (address) => {
-      store.commit("SETADDRESS", address);
-      let hasAddress = await Axios.get(
-        `/api/cryptobrain/common/hasAddress/${address}`
-      );
-      console.log(hasAddress)
-      if (hasAddress.data.error) {
-        // console.log('用户未注册请注册')
-        register(address);
-      }else{
-        login(address)
+      if(address){
+        store.commit("SETADDRESS", address);
       }
     });
   }
 };
-async function login(address){
-  let chainId = await window.ethereum.request({ method: "eth_chainId" });
-  const expireTime = new Date().getTime() + 10 * 60 * 1000; //设置注册10分钟有效时间
-  const DEMO_TYPES = {
-    UserRegister: [
-      {
-        type: "address",
-        name: "owner",
-      },
-      {
-        type: "uint256",
-        name: "expireTime",
-      },
-    ],
-  };
-  const typedData = createTypeData(
-    DEMO_TYPES,
-    "UserRegister",
-    new DomainData(
-      "UserRegisterSign",
-      "1.0",
-      chainId,
-      "0xc33ce8e76fa096ef83aa1f1b1952cafb405a7ff06ac6a3ebe59a8679c7ffc158"
-    ),
-    {
-      owner: address,
-      expireTime: expireTime,
-    }
-  );
-  const sign = await signTypedData(web3, address, typedData);
-  let Register = await Axios.post("/api/cryptobrain/common/userLogin", {
-    address: address,
-    expireTime: expireTime,
-    signature: sign.sig,
-  })
-  console.log(Register)
-  store.commit("SETTOKEN", Register.data.result.token);
-}
-async function register(address) {
-  let inviteCode = router.currentRoute.value.query.address
-  let chainId = await window.ethereum.request({ method: "eth_chainId" });
-  const expireTime = new Date().getTime() + 10 * 60 * 1000; //设置注册10分钟有效时间
-  const DEMO_TYPES = {
-    UserRegister: [
-      {
-        type: "address",
-        name: "owner",
-      },
-      {
-        type: "uint256",
-        name: "expireTime",
-      },
-    ],
-  };
-  const typedData = createTypeData(
-    DEMO_TYPES,
-    "UserRegister",
-    new DomainData(
-      "UserRegisterSign",
-      "1.0",
-      chainId,
-      "0xc33ce8e76fa096ef83aa1f1b1952cafb405a7ff06ac6a3ebe59a8679c7ffc158"
-    ),
-    {
-      owner: address,
-      expireTime: expireTime,
-    }
-  );
-  const sign = await signTypedData(web3, address, typedData);
-  console.log(sign);
-  let Register = await Axios.post("/api/cryptobrain/common/userRegister", {
-    address: address,
-    expireTime: expireTime,
-    inviteCode: inviteCode,
-    signature: sign.sig,
-  })
-  store.commit("SETTOKEN", Register.data.result.token);
-  console.log(Register)
-}
+
 const leftMenuSwitch = () => {
   store.commit("SETLEFTMENU", !store.state.leftMenu);
 };

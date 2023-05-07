@@ -2,7 +2,7 @@
 import { contractAddress, TokenConfig } from "../config";
 import {dateFormat} from '../utils/tool'
 import Axios from '../Axios'
-import { contract, web3 } from "../web3";
+import { contract, web3 ,init} from "../web3";
 import { ElNotification } from 'element-plus'
 import { useStore } from "vuex";
 import { watch, computed, ref ,reactive} from "vue";
@@ -132,6 +132,13 @@ function getStakeInfo(){
   })
 }
 function approve(toAddress, token) {
+    if(!address.value){
+        return ElNotification({
+            title: 'Warning',
+            message: '请链接钱包',
+            type: 'warning',
+        })
+    }
   inAllowance.value = true;
   // let amount = new BigNumber(new BigNumber(balanceOfUSDT.value).lte(0) ? '999999' : balanceOfUSDT.value).times(10 * 10 ** TokenConfig[Type.value].decimals).toString()
   let amount = new BigNumber("999999")
@@ -249,7 +256,7 @@ function verify() {
         return ElNotification({
             title: 'Info',
             message: '请链接钱包',
-            type: 'info',
+            type: 'warning',
         })
     }
   if (inPledge.value) {
@@ -295,7 +302,7 @@ function LPverify() {
         return ElNotification({
             title: 'Info',
             message: '请链接钱包',
-            type: 'info',
+            type: 'warning',
         })
     }
   if (inLPPledge.value) {
@@ -340,6 +347,9 @@ watch(
   address,
   (address) => {
     if (address) {
+    if(Object.keys(contract).length === 0){
+        init()
+      }
       getStakeInfo()
       //获取余额
       getBalanceOf(address, "USDT");

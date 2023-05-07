@@ -7,7 +7,7 @@ export const Axios = axios.create({
 });
 Axios.interceptors.request.use((config) => {
     console.log(store.state.token)
-    config.headers.token = store.state.token;
+    config.headers['X-token'] = store.state.token;
     return config;
 });
 Axios.interceptors.response.use(
