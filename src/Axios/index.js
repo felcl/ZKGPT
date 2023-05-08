@@ -6,7 +6,6 @@ export const Axios = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 Axios.interceptors.request.use((config) => {
-    console.log(store.state.token)
     config.headers['X-token'] = store.state.token;
     return config;
 });

@@ -73,6 +73,9 @@ export function DomainData(name, version, chainId, salt) {
     this.chainId = chainId;
     this.salt = salt;
 }
+export function sign(){
+    
+}
 DomainData.prototype.toString = function() {
     return `EIP712 Domain: ${this.name}@${this.version}`;
 };

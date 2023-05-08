@@ -12,7 +12,10 @@ const router = useRouter()
 const InviteUrl = ref('')
 const CRBAmount = ref(0)
 const CZZAmount = ref(0)
+const rbalance = ref(0);
+const zbalance = ref(0);
 const income = reactive([])
+const withdrawList = ref([])
 const address = computed(() => {
   return store.state.address;
 });
@@ -23,10 +26,18 @@ watch(
     token,
     (token)=>{
         if(token){
+            getBalance()
             Axios.get('/api/cryptobrain/common/getInviteCode').then(res=>{
                 console.log(res,"用户邀请码")
-                InviteUrl.value = location.href+'?Invite='+res.data.result
-                // console.log(location.href+'?Invite='+res.data.result)
+                InviteUrl.value = location.origin+'/#/?Invite='+res.data.result
+                console.log(location)
+            })
+            Axios.post(`/api/cryptobrain/common/withdrawList`,{
+            "page": 1,
+            "rows": 10
+            }).then(res=>{
+                withdrawList.value = res.data.result
+                console.log(res,"获取用户收益列表")
             })
         }
     },
@@ -80,12 +91,11 @@ const copyFun = (text)=>{
         type: 'success',
     })
 }
-const Withdraw = function(symbol){
-    Axios.post('/api/cryptobrain/common/userWithdraw',{
-        "symbol": symbol,
-        "withDrawAmount": 10
-    }).then(res=>{
-        console.log(res,"提现信息")
+function getBalance(){
+    Axios.post('/api/cryptobrain/common/account').then(res=>{
+        rbalance.value = res.data.result.rbalance
+        zbalance.value = res.data.result.zbalance
+        console.log(res,"用户账户信息")
     })
 }
 </script>
@@ -107,14 +117,14 @@ const Withdraw = function(symbol){
         <div class="balance">
             <div class="balanceItem">
                 <div class="label">CRB</div>
-                <div class="Num">{{ CRBAmount }}</div>
+                <div class="Num">{{ rbalance }}</div>
             </div>
             <div class="balanceItem">
                 <div class="label">CZZ</div>
-                <div class="Num">{{ CZZAmount }}</div>
+                <div class="Num">{{ zbalance }}</div>
             </div>
             <div>
-                <div class="Withdraw flexCenter" @click="Withdraw('CRB')">Withdraw</div>
+                <div class="Withdraw flexCenter" @click="goPath('/Withdraw')">Withdraw</div>
                 <div class="Withdraw flexCenter" style="margin-top: 0.5rem;">
                     <div class="content flexCenter" @click="goPath('/Redeem')">
                         Redeem

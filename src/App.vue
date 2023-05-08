@@ -5,8 +5,9 @@ import Axios from "./Axios";
 import { init, web3 ,contract,connect} from "./web3";
 import { useRouter, useRoute } from "vue-router";
 import { signTypedData, createTypeData, DomainData } from "./Axios/login";
+import { GetQueryString } from './utils/tool'
 import Layout from "./Layout/Layout.vue";
-// const router = useRouter();
+const router = useRouter();
 const store = useStore();
 const address = computed(() => {
   return store.state.address;
@@ -16,7 +17,7 @@ const token = computed(() => {
 });
 watch(token, (token) => {
   if(token){
-    Axios.post('/api/cryptobrain/common/account')
+    
   }
 }, { immediate: true });
 watch(
@@ -84,7 +85,7 @@ async function login(address){
 }
 async function register(address) {
   //router.currentRoute.value.query.address
-  let inviteCode = "N953yICD"
+  let inviteCode = GetQueryString('Invite') || "N953yICD"
   let chainId = await window.ethereum.request({ method: "eth_chainId" });
   const expireTime = new Date().getTime() + 10 * 60 * 1000; //设置注册10分钟有效时间
   const DEMO_TYPES = {
@@ -114,7 +115,6 @@ async function register(address) {
     }
   );
   const sign = await signTypedData(web3, address, typedData);
-  console.log(sign);
   let Register = await Axios.post("/api/cryptobrain/common/userRegister", {
     address: address,
     expireTime: expireTime,

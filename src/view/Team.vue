@@ -2,29 +2,57 @@
 import { useStore } from "vuex";
 import { watch , computed , ref} from "vue";
 import Axios from '../Axios'
+import copy from "copy-to-clipboard";
+import { ElNotification } from 'element-plus'
 import { AddrHandle , dateFormat} from '../utils/tool'
 const store = useStore();
 const InvitationList = ref([])
-const withdrawList = ref([])
 const type = ref(1)
+const Reward = ref(0)
+const InviteUrl = ref('')
 const address = computed(() => {
   return store.state.address;
 });
 const token = computed(() => {
   return store.state.token;
 });
+const copyFun = (text)=>{
+    copy(text)
+    ElNotification({
+        title: 'Success',
+        message: '复制成功',
+        type: 'success',
+    })
+}
 function getInvitationList(){
     Axios.get(`/api/cryptobrain/common/invites/${address.value}`).then(res=>{
         InvitationList.value = res.data.result
         console.log(res,"获取用户邀请列表")
     })
-    
+}
+function getInvitationReward(){
+    Axios.post(`/api/cryptobrain/common/rewardList/${address.value}/3`,{
+    "page": 1,
+    "rows": 10
+    }).then(res=>{
+        // if(res.data.error === null){
+        //     res.data.result.list.forEach(item=>{
+        //         Reward.value = Reward.value + item.amount
+        //     })
+        // }
+        console.log(res,"获取用户邀请收益")
+    })
+}
+function getBalance(){
+    Axios.post('/api/cryptobrain/common/account').then(res=>{
+        Reward.value = res.data.result.invateReward
+        console.log(res,"用户账户信息")
+    })
 }
 watch(
   address,
   (address) => {
-    if (address) {
-        getInvitationList()
+    if (address && token.value) {
     }
   },
   { immediate: true }
@@ -32,13 +60,14 @@ watch(
 watch(
     token,
   (token) => {
-    if (token) {
-        Axios.post(`/api/cryptobrain/common/withdrawList`,{
-        "page": 1,
-        "rows": 10
-        }).then(res=>{
-            withdrawList.value = res.data.result
-            console.log(res,"获取用户邀请列表")
+    if (token && address.value) {
+        getInvitationList()
+        getInvitationReward()
+        getBalance()
+        Axios.get('/api/cryptobrain/common/getInviteCode').then(res=>{
+            console.log(res,"用户邀请码")
+            InviteUrl.value = location.origin+'/#/?Invite='+res.data.result
+            console.log(location)
         })
     }
   },
@@ -53,12 +82,12 @@ watch(
             <div class="Totalpeople">
                 Total people
             </div>
-            <div class="TotalNum">7</div>
-            <div class="Link">http://sadfs.dadsf.com/sdadsf <img src="../assets/Home/copy.png" alt=""></div>
+            <div class="TotalNum">{{ InvitationList.length }}</div>
+            <div class="Link">{{ InviteUrl }} <img src="../assets/Home/copy.png" @click="copyFun(InviteUrl)" alt=""></div>
             <div class="Receive">
                 <div class="Award ">
                     <div class="Label">Award </div>
-                    <div class="Num">2000  </div>
+                    <div class="Num">{{ Reward }}  </div>
                 </div>
                 <div class="ReceiveBtn flexCenter">Receive</div>
             </div>
@@ -132,6 +161,7 @@ watch(
             font-weight: 500;
             color: #FFFFFF;
             img{
+                cursor: pointer;
                 width: 16px;
                 height: 16px;
                 margin-left: 18px;

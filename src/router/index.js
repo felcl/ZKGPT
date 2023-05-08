@@ -4,6 +4,7 @@ import Stake from '../view/Stake.vue'
 import Rewares from '../view/Rewares.vue'
 import History from '../view/History.vue'
 import Redeem from '../view/Redeem.vue'
+import Withdraw from '../view/Withdraw.vue'
 import Team from '../view/Team.vue'
 const routes = [
     { path: '/', component: Home },
@@ -11,6 +12,7 @@ const routes = [
     { path: '/Rewares', component: Rewares },
     { path: '/History', component: History },
     { path: '/Redeem', component: Redeem },
+    { path: '/Withdraw', component: Withdraw },
     { path: '/Team', component: Team },
   ]
   const router = VueRouter.createRouter({
