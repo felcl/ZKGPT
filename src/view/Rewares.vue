@@ -3,11 +3,11 @@ import '../assets/style/Rewares.scss'
 import Axios from '../Axios'
 import { useStore } from "vuex";
 import { watch, computed, ref ,reactive} from "vue";
-const store = useStore();
 import { ElNotification } from 'element-plus'
 import copy from "copy-to-clipboard";
 import {useRouter,useRoute} from 'vue-router'
-import { AddrHandle , dateFormat} from '../utils/tool'
+import { AddrHandle , dateFormat , NumSplic} from '../utils/tool'
+const store = useStore();
 const router = useRouter()
 const InviteUrl = ref('')
 const CRBAmount = ref(0)
@@ -15,7 +15,6 @@ const CZZAmount = ref(0)
 const rbalance = ref(0);
 const zbalance = ref(0);
 const income = reactive([])
-const withdrawList = ref([])
 const address = computed(() => {
   return store.state.address;
 });
@@ -26,18 +25,30 @@ watch(
     token,
     (token)=>{
         if(token){
+            Axios.post('/api/cryptobrain/common/account').then(res=>{
+                CRBAmount.value = res.data.result.rbalance
+                CZZAmount.value = res.data.result.zbalance
+                console.log(res,"用户账户信息")
+            })
+            Promise.all([
+                Axios.post(`/api/cryptobrain/common/rewardList/${address.value}/1`,{
+                    "page": 1,
+                    "rows": 10
+                }),
+                Axios.post(`/api/cryptobrain/common/rewardList/${address.value}/2`,{
+                    "page": 1,
+                    "rows": 10
+                })
+            ]).then(resArr=>{
+                resArr.forEach(element => {
+                    income.push(...element.data.result.list)
+                });
+            })
             getBalance()
             Axios.get('/api/cryptobrain/common/getInviteCode').then(res=>{
                 console.log(res,"用户邀请码")
                 InviteUrl.value = location.origin+'/#/?Invite='+res.data.result
                 console.log(location)
-            })
-            Axios.post(`/api/cryptobrain/common/withdrawList`,{
-            "page": 1,
-            "rows": 10
-            }).then(res=>{
-                withdrawList.value = res.data.result
-                console.log(res,"获取用户收益列表")
             })
         }
     },
@@ -47,29 +58,7 @@ watch(
   address,
   (address) => {
     if (address) {
-        Promise.all([
-            Axios.post(`/api/cryptobrain/common/rewardList/${address}/1`,{
-                "page": 1,
-                "rows": 10
-            }),
-            Axios.post(`/api/cryptobrain/common/rewardList/${address}/2`,{
-                "page": 1,
-                "rows": 10
-            })
-        ]).then(resArr=>{
-            resArr.forEach(element => {
-                income.push(...element.data.result.list)
-                element.data.result.list.forEach(item=>{
-                    if(item.symbol === 'CRB'){
-                        CRBAmount.value = CRBAmount.value += item.amount
-                    }
-                    if(item.symbol === 'CZZ'){
-                        CZZAmount.value = CZZAmount.value += item.amount
-                    }
-                })
-            });
-            console.log(resArr,"收益信息")
-        })
+        
     }else{
         ElNotification({
             title: 'Warning',
@@ -117,11 +106,11 @@ function getBalance(){
         <div class="balance">
             <div class="balanceItem">
                 <div class="label">CRB</div>
-                <div class="Num">{{ rbalance }}</div>
+                <div class="Num">{{ NumSplic(rbalance,6) }}</div>
             </div>
             <div class="balanceItem">
                 <div class="label">CZZ</div>
-                <div class="Num">{{ zbalance }}</div>
+                <div class="Num">{{ NumSplic(zbalance,6) }}</div>
             </div>
             <div>
                 <div class="Withdraw flexCenter" @click="goPath('/Withdraw')">Withdraw</div>
@@ -135,10 +124,10 @@ function getBalance(){
         <div class="HistoryLabel">
             <div class="topbar">
                 <span class="label">History</span>
-                <span class="more">more></span>
+                <span class="more" @click="goPath('/History')">more></span>
             </div>
         </div>
-        <div class="recordItem" v-for="item in income">
+        <div class="recordItem" v-for="item in income.slice(0,15)">
             <div>
                 <div>STAKE</div>
                 <div>{{item.symbol}}</div>

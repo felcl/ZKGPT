@@ -23,11 +23,10 @@ watch(token, (token) => {
 watch(
   address,
   async (address,oldaddress) => {
-    console.log(address,oldaddress)
     if (address !== oldaddress && address) {
       gethasAddress(address)
       //初始化合约
-      if(contract.USDT){
+      if(Object.keys(contract).length === 0){
         init()
       }
     }
@@ -35,6 +34,7 @@ watch(
   // { immediate: true }
 );
 async function gethasAddress(address){
+  console.log("判断用户是否存在")
       let hasAddress = await Axios.get(
         `/api/cryptobrain/common/hasAddress/${address}`
       );
@@ -80,7 +80,6 @@ async function login(address){
     expireTime: expireTime,
     signature: sign.sig,
   })
-  console.log(Register)
   store.commit("SETTOKEN", Register.data.result.token);
 }
 async function register(address) {
@@ -153,6 +152,7 @@ onMounted(() => {
       }else{
           store.commit('SETADDRESS','')
       }
+      store.commit("SETTOKEN", '');
       console.log("切换账号",accounts)
     });
   }else{

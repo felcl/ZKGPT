@@ -185,14 +185,29 @@ function ChangeType(type) {
         @input="changeNumPut($event)"
       />
       <div class="label">Distribute</div>
-      <el-select v-model="value" class="SelectToken" placeholder="选择赎回币种">
+      <el-dropdown trigger="click">
+        <div class="selbox">
+          <span class="number">{{value ? PledgeInfo[value] : 0}}</span>
+          <div class="Dropdown">
+            {{ value }}
+            <img src="../assets/Home/SelJian.png" alt="">
+          </div>
+        </div>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item v-for="item in PledgeConfig[Type]" @click="value = item.value">{{item.label}}</el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+      
+      <!-- <el-select v-model="value" class="SelectToken" placeholder="选择赎回币种">
         <el-option
           v-for="item in PledgeConfig[Type]"
           :key="item.value"
           :label="item.label"
           :value="item.value"
         />
-      </el-select>
+      </el-select> -->
       <div class="submit flexCenter" @click="verify">
         <svg viewBox="25 25 50 50" class="inRedeem" v-if="inRedeem">
           <circle cx="50" cy="50" r="20"></circle>
@@ -201,7 +216,7 @@ function ChangeType(type) {
       </div>
       <div class="StakeInfo">
         <div class="InfoRow">
-          <span>Stake Date</span>
+          <span>Redemption Date</span>
           <span>2023-04-22 00:17</span>
         </div>
         <div class="InfoRow">
@@ -249,6 +264,8 @@ function ChangeType(type) {
     background: #1d2444;
     border-radius: 2.5rem;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
     @media (max-width: 768px) {
       width: 50rem;
     }
@@ -295,7 +312,7 @@ function ChangeType(type) {
       border: none;
       outline: none;
       color: rgba(255, 255, 255, 0.617691);
-      padding: 0 26px;
+      padding: 0 16px;
       box-sizing: border-box;
       font-size: 14px;
       @media (max-width: 768px) {
@@ -306,6 +323,33 @@ function ChangeType(type) {
       }
       @media (max-width: 375px) {
         height: 8.5rem;
+      }
+    }
+    .el-dropdown{
+      width: calc(100% - 8rem);
+      margin: auto;
+    }
+    .selbox{
+      padding: 0 26px;
+      height: 2.8rem;
+      width: 100%;
+      background: rgba(41, 50, 95, 1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-sizing: border-box;
+      border-radius: 0.6rem;
+      span{
+        color: rgba(255, 255, 255, 0.617691);
+      }
+      .Dropdown{
+        color: #fff;
+        // margin-right: 16px;
+        display: flex;
+        align-items: center;
+        img{
+          margin-left: 10px;
+        }
       }
     }
     .submit {
@@ -355,6 +399,7 @@ function ChangeType(type) {
       }
     }
   }
+
 }
 .inRedeem {
   width: 1.5em;
@@ -391,4 +436,7 @@ circle {
     stroke-dashoffset: -125px;
   }
 }
+.el-popper{
+    width: 29.5rem !important;
+  }
 </style>

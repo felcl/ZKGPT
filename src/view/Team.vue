@@ -5,8 +5,10 @@ import Axios from '../Axios'
 import copy from "copy-to-clipboard";
 import { ElNotification } from 'element-plus'
 import { AddrHandle , dateFormat} from '../utils/tool'
+import BigNumber from "big.js";
 const store = useStore();
 const InvitationList = ref([])
+const withdrawList = ref([])
 const type = ref(1)
 const Reward = ref(0)
 const InviteUrl = ref('')
@@ -22,6 +24,33 @@ const copyFun = (text)=>{
         title: 'Success',
         message: '复制成功',
         type: 'success',
+    })
+}
+function receive(){
+    if(!token.value){
+        return 
+    }
+    // if(new BigNumber(Reward.value).lte(0)){
+    //     return console.log("暂无可领取量")
+    // }
+    Axios.post('/api/cryptobrain/common/userWithdraw',{
+        symbol: "INVTER ",
+        withDrawAmount: Reward.value
+    }).then(res=>{
+        console.log(res,"领取推荐收益成功")
+        if(res.data.error){
+            ElNotification({
+                title: 'Warning',
+                message: res.data.error,
+                type: 'warning',
+            })
+        }else{
+            ElNotification({
+                title: 'Warning',
+                message: '领取成功',
+                type: 'warning',
+            })
+        }
     })
 }
 function getInvitationList(){
@@ -41,6 +70,19 @@ function getInvitationReward(){
         //     })
         // }
         console.log(res,"获取用户邀请收益")
+    })
+}
+function getwithdrawList(){
+    Axios.post(`/api/cryptobrain/common/withdrawList`,{
+    "page": 1,
+    "rows": 10
+    }).then(res=>{
+        if(!red.data.error){
+            withdrawList.value = res.data.result.list.filter(item=>{
+                return item.wsymbol === 'INVTER'
+            })
+        }
+        console.log(res,"提现记录")
     })
 }
 function getBalance(){
@@ -64,6 +106,7 @@ watch(
         getInvitationList()
         getInvitationReward()
         getBalance()
+        getwithdrawList()
         Axios.get('/api/cryptobrain/common/getInviteCode').then(res=>{
             console.log(res,"用户邀请码")
             InviteUrl.value = location.origin+'/#/?Invite='+res.data.result
@@ -89,7 +132,7 @@ watch(
                     <div class="Label">Award </div>
                     <div class="Num">{{ Reward }}  </div>
                 </div>
-                <div class="ReceiveBtn flexCenter">Receive</div>
+                <div class="ReceiveBtn flexCenter" @click="receive">Receive</div>
             </div>
             <div class="Tabs">
                 <div :class="['tabItem','flexCenter',{'active':type === 1}]" @click="type = 1">Invitation record</div>
@@ -191,6 +234,7 @@ watch(
                 color: #FFFFFF;
                 background: linear-gradient(90deg, #536DFE 0%, #B41FFF 100%);
                 border-radius: 0.6rem;
+                cursor: pointer;
                 @media (max-width:550px) {
                     width: 13rem;
                     height: 3.5rem;

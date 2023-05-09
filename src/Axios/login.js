@@ -17,6 +17,7 @@ const DOMAON_TYPE = [
     },
 ];
 export const signTypedData = function(web3, from, data) {
+    console.log('------------------------------------------------------')
     return new Promise((resolve, reject) => {
         function cb(err, result) {
             if (err) {
@@ -72,9 +73,6 @@ export function DomainData(name, version, chainId, salt) {
     this.version = version;
     this.chainId = chainId;
     this.salt = salt;
-}
-export function sign(){
-    
 }
 DomainData.prototype.toString = function() {
     return `EIP712 Domain: ${this.name}@${this.version}`;

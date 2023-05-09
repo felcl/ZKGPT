@@ -21,6 +21,28 @@ export function GetQueryString(name){
     return null
   }
 }
+export function NumSplic(val, len,supplement) {
+  var f = parseFloat(val);
+  if (isNaN(f)) {
+    f = 0;
+  }
+  var s = f.toString();
+  if (s.indexOf(".") > 0) {
+    let f = s.split(".")[1].substring(0, len);
+    s = s.split(".")[0] + "." + f;
+  }
+  if(supplement){
+    var rs = s.indexOf(".");
+    if (rs < 0) {
+      rs = s.length;
+      s += ".";
+    }
+    while (s.length <= rs + len) {
+      s += "0";
+    }
+  }
+  return s;
+}
 export function dateFormat(fmt, date) {
   let ret;
   const opt = {
