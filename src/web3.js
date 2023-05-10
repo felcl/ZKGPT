@@ -1,5 +1,5 @@
 import Web3 from "web3"
-import {ABI,contractAddress} from './config'
+import {ABI,contractAddress,chainConfig} from './config'
 export const contract ={}
 export var web3 = null
 export const connect =function (callback){
@@ -48,5 +48,52 @@ export const init = function() {
             ABI[key],
             contractAddress[key]
         )
+    }
+}
+// 添加链节点
+export async function changeNetwork(callback) {
+    // let cfg = chainBase[id];
+    // console.log(cfg);
+    if (!window.ethereum) {
+      return false;
+    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const request = (window.ethereum).request;
+    // 获取当前链id
+    const chainId = await request({ method: "eth_chainId" });
+    console.log(`chainId:${chainId}`);
+    if (chainId == chainConfig.chainId) {
+        console.log(`当前链已经是:${chainConfig.chainName}`);
+    } else {
+        console.log(`正在切换链为:${chainConfig.chainName}`);
+    }
+     
+    try {
+    // 切换
+      await request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: chainConfig.chainId }],
+      });
+      callback()
+      return true;
+    } catch (e) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const err = e;
+      console.log(err);
+      if (err.code === 4902) {
+        try {
+            // 添加
+          await request({
+            method: "wallet_addEthereumChain",
+            params: [chainConfig],
+          });
+          callback()
+        } catch (addError) {
+          console.error(addError);
+        }
+      } else {
+        console.log(`ERROR:${err.message}`);
+      }
+      return true;
     }
 }

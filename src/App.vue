@@ -2,10 +2,11 @@
 import { onMounted, watch, computed } from "vue";
 import { useStore } from "vuex";
 import Axios from "./Axios";
-import { init, web3 ,contract,connect} from "./web3";
+import { init, web3 ,contract,connect,changeNetwork} from "./web3";
 import { useRouter, useRoute } from "vue-router";
 import { signTypedData, createTypeData, DomainData } from "./Axios/login";
 import { GetQueryString } from './utils/tool'
+import {chainConfig} from './config'
 import Layout from "./Layout/Layout.vue";
 const router = useRouter();
 const store = useStore();
@@ -35,9 +36,13 @@ watch(
 );
 async function gethasAddress(address){
   console.log("判断用户是否存在")
+  let chainId = await window.ethereum.request({ method: "eth_chainId" });
       let hasAddress = await Axios.get(
         `/api/cryptobrain/common/hasAddress/${address}`
       );
+      if(chainId !== chainConfig.chainId){
+        return
+      }
       if (hasAddress.data.error) {
         // console.log('用户未注册请注册')
         register(address);
@@ -123,32 +128,65 @@ async function register(address) {
   store.commit("SETTOKEN", Register.data.result.token);
   console.log(Register)
 }
-onMounted(() => {
+onMounted(async () => {
   document.body.style.setProperty("--el-component-size", "2.8rem");
   // document.body.style.setProperty('--el-input-text-color', 'rgba(255, 255, 255, 0.617691)')
   // document.body.style.setProperty('--el-text-color-regular', 'rgba(255, 255, 255, 0.617691)')
   if(window.ethereum){
     //用户账号初始化合约
-    connect(address=>{
-      if(address){
-        console.log(address)
-        store.commit('SETADDRESS',address)
-      }
-    })
+    let chainId = await window.ethereum.request({ method: "eth_chainId" });
+    if(chainId !== chainConfig.chainId){
+      store.commit('SETADDRESS','')
+      changeNetwork(()=>{
+        connect(async (address)=>{
+          if(address){
+              store.commit('SETADDRESS',address)
+          }
+        })
+      })
+    }else{
+      connect(async (address)=>{
+        if(address){
+            store.commit('SETADDRESS',address)
+        }
+      })
+    }
+    
     window.ethereum.on('connect', connectInfo=>{
+      if(connectInfo.chainId !== chainConfig.chainId){
+        changeNetwork()
+      }
       console.log("链接",connectInfo)
     });
     //链改变事件
-    window.ethereum.on('chainChanged', info=>{
+    window.ethereum.on('networkChanged', info=>{
+      if(info === chainConfig.chainId){
+        connect(address=>{
+          if(address){
+            store.commit('SETADDRESS',address)
+          }
+        })
+      }else{
+        store.commit('SETADDRESS','')
+        changeNetwork(()=>{
+          connect(address=>{
+            if(address){
+              store.commit('SETADDRESS',address)
+            }
+          })
+        })
+      }
+      console.log('切换链',info)
       // this.chainId = info
     });
-    window.ethereum.on('disconnect', res=>{
-      console.log("链接已断开",res)
-      store.commit('SETADDRESS','')
-    });
+    // window.ethereum.on('disconnect', res=>{
+    //   console.log("链接已断开",res)
+    //   // store.commit('SETADDRESS','')
+    // });
     window.ethereum.on('accountsChanged', accounts=>{
       if(accounts[0]){
           store.commit('SETADDRESS',accounts[0])
+          changeNetwork()
       }else{
           store.commit('SETADDRESS','')
       }

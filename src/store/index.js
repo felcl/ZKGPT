@@ -4,8 +4,8 @@ import { createStore } from 'vuex'
 export const store = createStore({
   state () {
     return {
-      address: window.localStorage.getItem('address') || '',
-      token: window.localStorage.getItem('token') || '',
+      address:'',
+      token:'',
       leftMenu: false
     }
   },

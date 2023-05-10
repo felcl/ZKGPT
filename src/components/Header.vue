@@ -2,9 +2,10 @@
 import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { AddrHandle } from "../utils/tool";
-import { connect, web3 } from "../web3";
+import { connect, web3 ,changeNetwork} from "../web3";
 // import { signTypedData, createTypeData, DomainData } from "../Axios/login";
 // import Axios from "../Axios";
+import {chainConfig} from '../config'
 import { useRouter, useRoute } from "vue-router";
 import HomeActiveIcon from "../assets/Home/HomeActiveIcon.png";
 import HomeIcon from "../assets/Home/HomeIcon.png";
@@ -21,13 +22,19 @@ let address = computed(() => {
 const goPath = (path) => {
   router.push(path);
 };
-const Connect = () => {
+const Connect = async () => {
   if (!address.value) {
-    connect(async (address) => {
-      if(address){
-        store.commit("SETADDRESS", address);
-      }
-    });
+    let chainId = await window.ethereum.request({ method: "eth_chainId" });
+    if(chainId !== chainConfig.chainId){
+        changeNetwork()
+        store.commit('SETADDRESS','')
+    }else{
+      connect(async (address) => {
+        if(address){
+            store.commit('SETADDRESS',address)
+          }
+      });
+    }
   }
 };
 

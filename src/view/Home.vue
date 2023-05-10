@@ -143,7 +143,7 @@
         .text{
             max-width: 21.55rem;
             margin-top:0.9rem;
-            font-size: 0.7rem;
+            font-size: 14px;
             line-height: 1.2;
             color: #FFFFFF;
             @media (max-width:1024px) {
@@ -201,7 +201,7 @@
         .text{
             max-width: 21.55rem;
             margin-top:0.9rem;
-            font-size: 0.7rem;
+            font-size: 14px;
             line-height: 1.7;
             color: #FFFFFF;
             @media (max-width:1024px) {
@@ -251,7 +251,7 @@
         }
     }
     .CenterText{
-        font-size: 0.7rem;
+        font-size: 14px;
         line-height: 1.2;
         text-align: center;
         color: #FFFFFF;
@@ -337,12 +337,12 @@
                 margin-bottom: 1.15rem;
                 text-align: center;
                 color: #FFFFFF;
-                font-size: 0.6rem;
+                font-size: 12px;
                 line-height: 1.5;
             }
             .introduce{
                 text-align: center;
-                font-size: 0.6rem;
+                font-size: 12px;
                 color: #FFFFFF;
                 line-height: 1.5;
             }
@@ -356,7 +356,7 @@
         max-width: 90%;
         height: 48px;
         color: #FFFFFF;
-        font-size: 0.9rem;
+        font-size: 18px;
         @media (max-width:425px) {
             font-size: 18px;
         }

@@ -347,7 +347,7 @@ watch(
   address,
   (address) => {
     if (address) {
-    if(Object.keys(contract).length === 0){
+      if(Object.keys(contract).length === 0){
         init()
       }
       getStakeInfo()

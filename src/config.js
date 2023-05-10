@@ -27,3 +27,14 @@ export const TokenConfig = {
         decimals:18
     },
 }
+export const chainConfig = {
+    chainId: '0x118',
+    chainName: 'zkSync Era Testnet',
+    nativeCurrency: {
+        name: 'ETH',
+        symbol: 'ETH',
+        decimals: 18,
+    },
+    rpcUrls: ['https://testnet.era.zksync.dev'],
+    blockExplorerUrls: ['https://goerli.explorer.zksync.io/'],
+}
