@@ -84,6 +84,7 @@ const Connect=()=>{
     margin-left: 12px;
     color: #FFFFFF;
     font-weight: 500;
+    font-size: 14px;
   }
 }
 .connect{

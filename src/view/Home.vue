@@ -1,4 +1,29 @@
 <script setup>
+const vAnimate ={
+    mounted: function (el, binding) {
+      // 聚焦元素
+      binding.addClass = () => {
+        const { top } = el.getBoundingClientRect()
+        const h = document.documentElement.clientHeight || document.body.clientHeight
+        if (top+200 < h) {
+          if(el.className.indexOf(binding.value) == -1 ){
+            // 初次还未绑定过，则新增类名(注意：下面单引号中间是一个空格！！！)
+            el.className = binding.value+' '+el.className
+          }
+          if (binding.addClass) {
+            window.removeEventListener('scroll', binding.addClass)
+          }
+        }
+      }
+      window.addEventListener('scroll', binding.addClass,true)
+      binding.addClass()
+    },
+    unmounted: function (el, binding) {
+      if (binding.addClass) {
+        window.removeEventListener('scroll', binding.addClass)
+      }
+    }
+}
 </script>
 
 <template>
@@ -8,8 +33,8 @@
               <div class="title">Artificial Intelligence for <br>Cryptocurrencies</div>
               <div class="subTitle">FUTURE TECHNOLOGY</div>
               <div class="text">
-                zkGPT is an artificial intelligence encryption analysis robot based on cryptocurrency. It will first play a role by understanding the user's situation, and tailor the investment portfolio for the user through risk 
-                preferences and investment goals, providing users with the ultimate experience.
+                AIGPT is an artificial intelligence encryption analysis robot based on cryptocurrency. 
+                It will first play a role by understanding the user's situation, and tailor the investment portfolio for the user through risk preferences and investment goals, providing users with the ultimate experience.
               </div>
               <div class="FriendlyLinks">
                   <a href="">
@@ -28,8 +53,8 @@
           </div>
           <div class="secondScreen">
               <div class="title" style="margin-bottom: 20px;">
-                  ZKGPT is a revolutionary <br>
-                  product and technology
+                AIGPT is a revolutionary product
+                and technology
               </div>
               <div class="text">
                   ·Personalized experience<br/>
@@ -39,18 +64,48 @@
                   ·Decentralized infrastructure<br/>
               </div>
           </div>
-          <div class="CenterTitle">
+          <div class="TextTableRow">
+            <div class="Left">
+                <div class="CenterTitle">
+                    Distribute
+                </div>
+                <div class="CenterSubTitle">
+                    CRB allocation model
+                </div>
+                <div class="CenterText">
+                    Staking/liquidity mining rewards: 52 million (65%)
+                    — Initial circulating supply (distributed through the seed pool): 24 million (30%), fully unlocked in the first 6 days<br/>
+                    — Reserved for future pledge/LP rewards: 28 million (35%) linearly unlocked within 12 months
+                    Ecosystem Reserve, Strategic Partnerships, Operations, Development, and Strategic Sales: 20 million (25%)<br/>
+                    — Ecosystem Reserve Tokens unlocked linearly after 9 months<br/>
+                    — Up to 8 million (10%) of XX tokens allocated to the ecosystem reserve can be used for future strategies
+                    Team and Advisors<br/>
+                    — 8 million (10%)
+                </div>
+                <div class="CenterSubTitle">
+                    CZZ allocation model
+                </div>
+                <div class="CenterText">
+                    As a governance token, CZZ is mainly obtained through liquidity mining.
+                    100% of the total supply (18,000 coins) will be distributed through liquidity mining within three months. Liquidity mining reward: 18000 (100% of total supply)
+                </div>
+            </div>
+            <div class="Righr">
+                <img src="../assets/Home/Pie.png" alt="">
+            </div>
+          </div>
+          <!-- <div class="CenterTitle">
               Distribute
           </div>
           <div class="CenterSubTitle">
             CRB allocation model
           </div>
           <div class="CenterText">
-            The initial circulating supply of XX (accounting for 30% of the overall token supply) is fully distributed to the community through the seed pool in the first 6 days, achieving 100% of the initial circulating supply. After 6 days, 
-            there will be no release of CRB for at least 2 months, and no other form of token sale.
+            The initial circulating supply of XX (accounting for 30% of the overall token supply) is fully distributed to the community through the seed pool in the first 6 days, achieving 100% of 
+            the initial circulating supply. After 6 days, there will be no release of CRB for at least 2 months, and no other form of token sale.
           </div>
           <div class="CenterSubTitle pieSubTitle">
-            The specific distribution of CRB
+            Tokenomics
           </div>
           <div class="pie">
              <img src="../assets/Home/Pie.png" alt="">
@@ -61,7 +116,7 @@
           <div class="CenterText">
             As a governance token, CZZ is mainly obtained through liquidity mining.
             100% of the total supply (18,000 coins) will be distributed through liquidity mining within three months. Liquidity mining reward: 18000 (100% of total supply)
-          </div>
+          </div> -->
           <div class="Disclaimer">
             Team
           </div>
@@ -72,8 +127,8 @@
                 </div>
                 <div class="name">Jacob Cooper</div>
                 <div class="position">Chief Brand Officer</div>
-                <div class="introduce">
-                    Jacob is a seasoned marketing professional with over 6 years of experience in brand development and management. He has a strong passion for building and scaling brands, and his expertise lies in creating meaningful and impactful brand strategies. As the Chief Brand Officer, he is dedicated to delivering innovative and compelling brand experiences for customers.
+                <div class="introduce" v-animate="'scale-up-hor-center'">
+                    Jacob Cooper is an experienced marketing professional with 6+ years of expertise in brand development and management. As the Chief Brand Officer, he's committed to creating impactful brand strategies and delivering innovative brand experiences.
                 </div>
             </div>
             <div class="characterItem">
@@ -82,8 +137,8 @@
                 </div>
                 <div class="name">Ahmar Khan</div>
                 <div class="position">Chief Marketing Officer</div>
-                <div class="introduce">
-                    Ahmar is a highly accomplished marketing leader with several years of experience in developing and executing successful marketing strategies. His passion for driving growth and creating engaging customer experiences has earned him a reputation as a result-driven CMO. With a keen eye for emerging trends and a strategic approach to brand building, Ahmar Khan is committed to elevating his organization's marketing efforts to new heights. As the Chief Marketing Officer, he leads his team in delivering impactful campaigns that resonate with customers and drive business growth.
+                <div class="introduce" v-animate="'scale-up-hor-center'">
+                    Ahmar Khan is a successful CMO focused on growth and customer experiences. With an eye for trends, he leads impactful campaigns as the Chief Marketing Officer to drive business growth.
                 </div>
             </div>
             <div class="characterItem">
@@ -92,8 +147,8 @@
                 </div>
                 <div class="name">Denis Bozkurt</div>
                 <div class="position">Chief Operating Officer</div>
-                <div class="introduce">
-                    Denis is a results-driven COO with expertise in operational excellence and business performance. He leverages technology and data analytics to optimize resources, streamline operations, and reduce costs. As Chief Operating Officer, he leads his team to deliver high-quality products and services while optimizing resources for growth.
+                <div class="introduce" v-animate="'scale-up-hor-center'">
+                    Denis Bozkurt is a results-driven COO focused on operational excellence. As Chief Operating Officer, he optimizes resources, streamlines operations, and delivers quality products/services.
                 </div>
             </div>
           </div>
@@ -216,12 +271,41 @@
             }
         }
     }
-    .CenterTitle{
+    .TextTableRow{
+        max-width: 1440px;
+        margin: auto;
+        padding: 0 20px;
         margin-top: 24.15rem;
+        display: flex;
+        justify-content: space-between;
+        .Left,.Righr{
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            justify-content:center;
+            img{
+                width: 100%;
+                @media (max-width: 768px) {
+                    max-width: 60%;
+                    margin-top: 50px;
+                }
+            }
+            @media (max-width: 768px) {
+                width: 100%;
+                text-align-last: center;
+                align-items: center;
+            }
+        }
+        @media (max-width: 768px) {
+            flex-direction: column;
+        }
+    }
+    .CenterTitle{
+        // margin-top: 24.15rem;
         font-size: 3.7rem;
         line-height: 1;
         color: #FFFFFF;
-        text-align: center;
+        // text-align: center;
         @media (max-width:425px) {
             font-size: 28px;
         }
@@ -240,12 +324,12 @@
         }
     }
     .CenterSubTitle{
-        margin-top: 4.8rem;
+        margin-top: 2rem;
         font-size: 1.2rem;
         line-height: 1;
         text-transform: uppercase;
         color: #FFFFFF;
-        text-align: center;
+        // text-align: center;
         @media (max-width:425px) {
             font-size: 16px;
         }
@@ -253,13 +337,14 @@
     .CenterText{
         font-size: 14px;
         line-height: 1.2;
-        text-align: center;
+        // text-align: center;
         color: #FFFFFF;
-        text-align: center;
-        max-width: 474px;
-        margin: 1.65rem auto 0;
+        // text-align: center;
+        max-width: 1030px;
+        // padding: 0 20px;
+        margin: 1.65rem 0 0;
         @media (max-width:425px) {
-            margin: 5rem;
+            margin: 5rem 0;
         }
     }
     .Disclaimer{
@@ -326,6 +411,9 @@
                 //     height: 20rem;
                 // }
             }
+            .imgBox:hover~.introduce{
+                animation:scale-up-hor-center .4s cubic-bezier(.39,.575,.565,1.000) both
+            }
             .name{
                 font-size: 20px;
                 color: #FFFFFF;
@@ -341,6 +429,7 @@
                 line-height: 1.5;
             }
             .introduce{
+                opacity: 0;
                 text-align: center;
                 font-size: 12px;
                 color: #FFFFFF;
@@ -357,9 +446,30 @@
         height: 48px;
         color: #FFFFFF;
         font-size: 18px;
-        @media (max-width:425px) {
-            font-size: 18px;
-        }
+        text-decoration: none;
+    }
+}
+.scale-up-hor-center{
+    @media (max-width:768px) {
+        animation:scale-up-hor-center .4s cubic-bezier(.39,.575,.565,1.000) both
+    }
+}
+/* ----------------------------------------------
+ * Generated by Animista on 2023-5-11 14:49:28
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+ @keyframes scale-up-hor-center{
+    0%{
+        // display: block;
+        transform:scaleX(.4);
+        opacity: 0;
+    }
+    100%{
+        transform:scaleX(1);
+        opacity: 1;
     }
 }
 </style>

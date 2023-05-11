@@ -49,23 +49,28 @@
             width: 65rem;
         }
         @media (max-width:425px) {
-            width: 70rem;
+                width: 70rem;
+        }
+        @media (max-width:375px) {
+                width: 85rem;
         }
         .InfoRow{
-            height: 10rem;
             width: 100%;
             background: linear-gradient(90deg, #536DFE 0%, #B41FFF 100%);
-            padding: 0 2.5rem;
+            padding: 2.25rem 2.5rem;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            @media (max-width:768px) {
+                height: 12rem;
+            }
             @media (max-width:425px) {
-                height: 13rem;
+                height: 17rem;
                 padding: 0 4.5rem;
             }
             @media (max-width:400px) {
-                height: 15rem;
+                height: 23rem;
             }
             img{
                 margin-left: 15px;
@@ -184,8 +189,11 @@
                         font-size: 2rem;
                     }
                     @media (max-width:425px) {
-                        font-size: 4rem;
+                        font-size: 3rem;
                     }
+                    // @media (max-width:375px) {
+                    //     font-size: 3rem;
+                    // }
                 }
             }
             .Withdraw{
@@ -209,6 +217,10 @@
                 }
                 @media (max-width:425px) {
                     width: 15rem;
+                    height: 5rem;
+                }
+                @media (max-width:400px) {
+                    width: 17rem;
                     height: 5rem;
                 }
             }

@@ -42,12 +42,19 @@ export const init = function() {
     //     } 
     // })
     //实例化合约
-    for (const key in contractAddress) {
-        // //console.log(key,contractAddress[key])
-        contract[key]= new web3.eth.Contract(
-            ABI[key],
-            contractAddress[key]
-        )
+    var web3Provider
+    // if(!web3){
+      web3Provider = window.ethereum
+      web3 = new Web3(web3Provider)
+    // }
+    if(web3Provider){
+      for (const key in contractAddress) {
+          // //console.log(key,contractAddress[key])
+          contract[key]= new web3.eth.Contract(
+              ABI[key],
+              contractAddress[key]
+          )
+      }
     }
 }
 // 添加链节点

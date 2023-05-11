@@ -55,7 +55,7 @@ onMounted(() => {
           <img :src="route.path === '/' ? HomeActiveIcon : HomeIcon" alt="" />
           <span>HOME</span>
         </div>
-        <div class="menuItem" @click="goPath('/Stake')">
+        <!-- <div class="menuItem" @click="goPath('/Stake')">
           <img
             :src="route.path === '/Stake' ? StakeActiveIcon : StakeIcon"
             alt=""
@@ -68,7 +68,7 @@ onMounted(() => {
             alt=""
           />
           <span>REWARDS</span>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="connect" @click="Connect">
@@ -92,7 +92,7 @@ onMounted(() => {
   // margin: 0 13rem;
   box-sizing: border-box;
   height: 5.5rem;
-  position: fixed;
+  position: absolute;
   top: 2.75rem;
   left: 50%;
   transform: translateX(-50%);
@@ -137,9 +137,15 @@ onMounted(() => {
     }
   }
   .Logo {
-    width: 4.75rem;
+    width: 8.75rem;
+    @media (max-width: 1024px) {
+      width: 10rem;
+    }
+    @media (max-width: 768px) {
+      width: 12rem;
+    }
     @media (max-width: 425px) {
-      width: 6rem;
+      width: 14rem;
     }
   }
   .MenuIcon {

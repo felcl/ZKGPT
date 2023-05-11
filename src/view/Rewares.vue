@@ -14,7 +14,7 @@ const CRBAmount = ref(0)
 const CZZAmount = ref(0)
 const rbalance = ref(0);
 const zbalance = ref(0);
-const income = reactive([])
+const income = ref([])
 const address = computed(() => {
   return store.state.address;
 });
@@ -24,6 +24,12 @@ const token = computed(() => {
 watch(
     token,
     (token)=>{
+        CRBAmount.value = 0
+        CZZAmount.value = 0
+        income.value = []
+        InviteUrl.value = ""
+        rbalance.value = 0
+        zbalance.value = 0
         if(token){
             Axios.post('/api/cryptobrain/common/account').then(res=>{
                 CRBAmount.value = res.data.result.rbalance
@@ -40,9 +46,11 @@ watch(
                     "rows": 10
                 })
             ]).then(resArr=>{
+                let incomeArr = []
                 resArr.forEach(element => {
-                    income.push(...element.data.result.list)
+                    incomeArr.push(...element.data.result.list)
                 });
+                income.value = incomeArr
             })
             getBalance()
             Axios.get('/api/cryptobrain/common/getInviteCode').then(res=>{
@@ -90,8 +98,8 @@ function getBalance(){
 </script>
 <template>
   <div class="Rewares">
-    <div class="StakeTitle">Stake XX Ether</div>
-    <div class="StakeSubTitle">Stake XX-ETH or YY-ETH and receive YY while staking.</div>
+    <div class="StakeTitle">Reward History</div>
+    <div class="StakeSubTitle">Track your Ethereum staking rewards with ZKGPT.</div>
     <div class="RewaresInfo">
         <div class="InfoRow">
             <div class="address">
@@ -101,16 +109,16 @@ function getBalance(){
                 <span>{{ address ? AddrHandle(address,7,7) : '请链接钱包'}}</span>
                 <img @click="copyFun(address)" src="../assets/Home/copy.png" alt="">
             </div>
-            <div class="link"> <span>{{ InviteUrl }} <img src="../assets/Home/copy.png"  @click="copyFun(InviteUrl)" alt=""></span> <div class="Team flexCenter" @click="goPath('/Team')">Team</div></div>
+            <div class="link"> <span>{{ InviteUrl ? AddrHandle(InviteUrl,14,14) : '登录后获取邀请码'}} <img src="../assets/Home/copy.png"  @click="copyFun(InviteUrl)" alt=""></span> <div class="Team flexCenter" @click="goPath('/Team')">Team</div></div>
         </div>
         <div class="balance">
             <div class="balanceItem">
                 <div class="label">CRB</div>
-                <div class="Num">{{ NumSplic(rbalance,6) }}</div>
+                <div class="Num">{{ NumSplic(rbalance,2) }}</div>
             </div>
             <div class="balanceItem">
                 <div class="label">CZZ</div>
-                <div class="Num">{{ NumSplic(zbalance,6) }}</div>
+                <div class="Num">{{ NumSplic(zbalance,2) }}</div>
             </div>
             <div>
                 <div class="Withdraw flexCenter" @click="goPath('/Withdraw')">Withdraw</div>

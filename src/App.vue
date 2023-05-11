@@ -2,6 +2,7 @@
 import { onMounted, watch, computed } from "vue";
 import { useStore } from "vuex";
 import Axios from "./Axios";
+import {ElNotification} from 'element-plus'
 import { init, web3 ,contract,connect,changeNetwork} from "./web3";
 import { useRouter, useRoute } from "vue-router";
 import { signTypedData, createTypeData, DomainData } from "./Axios/login";
@@ -17,13 +18,14 @@ const token = computed(() => {
   return store.state.token;
 });
 watch(token, (token) => {
-  if(token){
-    
+  if(!token && address.value){
+    // gethasAddress(address.value)
   }
 }, { immediate: true });
 watch(
   address,
   async (address,oldaddress) => {
+    console.log(address , oldaddress)
     if (address !== oldaddress && address) {
       gethasAddress(address)
       //初始化合约
@@ -79,7 +81,16 @@ async function login(address){
       expireTime: expireTime,
     }
   );
-  const sign = await signTypedData(web3, address, typedData);
+  const [sign,err] = await signTypedData(web3, address, typedData).then(res=>{return [res,null]}).catch(err=>{return [null,err]});
+  if(err && err.code){
+    return ElNotification({
+        title: 'Warning',
+        message: '请签名否则部分数据无法获取',
+        type: 'warning',
+    })
+  }
+  // console.log(sign)
+  // debugger
   let Register = await Axios.post("/api/cryptobrain/common/userLogin", {
     address: address,
     expireTime: expireTime,
@@ -119,6 +130,8 @@ async function register(address) {
     }
   );
   const sign = await signTypedData(web3, address, typedData);
+  console.log(sign)
+  debugger
   let Register = await Axios.post("/api/cryptobrain/common/userRegister", {
     address: address,
     expireTime: expireTime,
@@ -148,14 +161,16 @@ onMounted(async () => {
       connect(async (address)=>{
         if(address){
             store.commit('SETADDRESS',address)
+            if(!token.value){
+              gethasAddress(address)
+            }
         }
       })
     }
-    
     window.ethereum.on('connect', connectInfo=>{
-      if(connectInfo.chainId !== chainConfig.chainId){
-        changeNetwork()
-      }
+      // if(connectInfo.chainId !== chainConfig.chainId){
+      //   changeNetwork()
+      // }
       console.log("链接",connectInfo)
     });
     //链改变事件

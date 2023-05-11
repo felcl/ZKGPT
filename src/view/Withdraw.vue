@@ -276,7 +276,7 @@ function ChangeType(type) {
         margin-bottom: 0.6rem;
         span {
           color: rgba(255, 255, 255, 0.617691);
-          font-size: 0.7rem;
+          font-size:14px;
         }
       }
     }
