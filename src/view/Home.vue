@@ -183,6 +183,9 @@
   min-height: 100vh;
   padding-top: 12.7rem;
   overflow: hidden;
+  @media (max-width:1024px) {
+    background: url("../assets/Home/bg2.png") 0 0 / 100%  no-repeat;
+  }
   .firstScreen {
     margin: 0 5rem;
     overflow: hidden;
@@ -190,9 +193,11 @@
     flex-direction: column;
     @media (max-width:1024px) {
         align-items: center;
+        margin-top: 20rem;
     }
     .title {
-      font-size: 3rem;
+        font-size: 36px;
+        line-height: 50px;
       line-height: 1;
       color: #ffffff;
       @media (max-width:1024px) {
@@ -203,24 +208,22 @@
         font-size: 3rem;
         line-height: 1;
         color: #ffffff;
+        text-align: center;
+        @media (max-width: 767px){
+            font-size: 26px;
+            line-height: 36px;
+        }
         @media (max-width: 425px) {
             font-size: 5rem;
         }
     }
     .subTitle {
-      font-size: 1.2rem;
+      font-size: 18px;
       line-height: 1;
       color: #ffffff;
       margin-top: 2.8rem;
-      @media (max-width: 1440px) {
-        font-size: 2rem;
-      }
-      @media (max-width: 768px) {
-        font-size: 3rem;
-      }
-      @media (max-width: 425px) {
-        margin-top: 4rem;
-        font-size: 4rem;
+      @media (max-width: 1024px) {
+        font-size: 14px;
       }
     }
     .StakeBtn {
@@ -232,6 +235,13 @@
       font-weight: 500;
       color: #FFFFFF;
       font-size: 18px;
+      @media (max-width:768px) {
+            width: 100%;
+            max-width: 260px;
+            height: 54px;
+            font-size: 16px;
+            border-radius: 10px;
+        }
     }
     .dnone{
         @media (max-width:800px) {
@@ -243,10 +253,10 @@
       margin: 9rem 0 6.5rem;
       justify-content: space-around;
       max-width: 1440px;
-      margin: auto;
+      margin:30px auto;
       width: 100%;
-      @media (max-width:450px) {
-        flex-direction:column;
+      @media (max-width:425px) {
+        margin:130px auto 30px;
       }
       .TotalItem {
         @media (max-width:425px) {
