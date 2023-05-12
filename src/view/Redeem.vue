@@ -88,6 +88,35 @@ function redeem(redeemName) {
     .send({ from: address.value })
     .then((res) => {
       console.log(res);
+      ElNotification({
+            title: 'Success',
+            message: '赎回成功',
+            type: 'success',
+        })
+      contract.CryptoBrainMain.methods
+        .userPledgeInfo(address.value)
+        .call()
+        .then((res) => {
+          PledgeInfo.CRBLP = new BigNumber(res.crblpAmount).div(
+            10 ** TokenConfig.CRBLP.decimals
+          );
+          PledgeInfo.CZZLP = new BigNumber(res.czzlpAmount).div(
+            10 ** TokenConfig.CZZLP.decimals
+          );
+          PledgeInfo.ETH = new BigNumber(res.ethAmount).div(
+            10 ** TokenConfig.ETH.decimals
+          );
+          PledgeInfo.USDT = new BigNumber(res.usdtAmount).div(
+            10 ** TokenConfig.USDT.decimals
+          );
+          console.log(res, "用户质押量");
+        });
+    },()=>{
+      ElNotification({
+            title: 'Warning',
+            message: '赎回失败',
+            type: 'warning',
+        })
     })
     .finally(() => {
       inRedeem.value = false;

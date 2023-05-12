@@ -1,42 +1,35 @@
-<script setup>
-const vAnimate ={
-    mounted: function (el, binding) {
-      // 聚焦元素
-      binding.addClass = () => {
-        const { top } = el.getBoundingClientRect()
-        const h = document.documentElement.clientHeight || document.body.clientHeight
-        if (top+200 < h) {
-          if(el.className.indexOf(binding.value) == -1 ){
-            // 初次还未绑定过，则新增类名(注意：下面单引号中间是一个空格！！！)
-            el.className = binding.value+' '+el.className
-          }
-          if (binding.addClass) {
-            window.removeEventListener('scroll', binding.addClass)
-          }
-        }
-      }
-      window.addEventListener('scroll', binding.addClass,true)
-      binding.addClass()
-    },
-    unmounted: function (el, binding) {
-      if (binding.addClass) {
-        window.removeEventListener('scroll', binding.addClass)
-      }
-    }
-}
-</script>
+<script setup></script>
 
 <template>
-    <div class="bgColor">
-        <div class="Home">
-          <div class="firstScreen">
-              <div class="title">Artificial Intelligence for <br>Cryptocurrencies</div>
-              <div class="subTitle">FUTURE TECHNOLOGY</div>
-              <div class="text">
-                AIGPT is an artificial intelligence encryption analysis robot based on cryptocurrency. 
-                It will first play a role by understanding the user's situation, and tailor the investment portfolio for the user through risk preferences and investment goals, providing users with the ultimate experience.
-              </div>
-              <div class="FriendlyLinks">
+  <div class="bgColor">
+    <div class="Home">
+      <div class="firstScreen">
+        <div class="title ">
+            Artificial Intelligence for<br/>
+            Cryptocurrencies
+        </div>
+        <div class="Title1024">
+            Artificial Intelligence for Cryptocurrencies
+        </div>
+        <div class="subTitle">
+            FUTURE TECHNOLOGY
+        </div>
+        <span class="StakeBtn flexCenter">Stake now</span>
+        <div class="totalRow">
+          <div class="TotalItem">
+            <div class="totalLabel">Total staked tokens</div>
+            <div class="totalValue">$11,983,033,282</div>
+          </div>
+          <div class="TotalItem">
+            <div class="totalLabel">Total rewards paid</div>
+            <div class="totalValue">$572,854,126</div>
+          </div>
+          <div class="TotalItem dnone">
+            <div class="totalLabel">Stakers</div>
+            <div class="totalValue">11,983,033,282</div>
+          </div>
+        </div>
+        <!-- <div class="FriendlyLinks">
                   <a href="">
                       <img src="../assets/Home/InsIcon.png" alt="">
                   </a>
@@ -49,427 +42,676 @@ const vAnimate ={
                   <a href="">
                       <img src="../assets/Home/youtubeIcon.png" alt="">
                   </a>
-              </div>
-          </div>
-          <div class="secondScreen">
-              <div class="title" style="margin-bottom: 20px;">
-                AIGPT is a revolutionary product
-                and technology
-              </div>
-              <div class="text">
-                  ·Personalized experience<br/>
-                  ·Real-time information<br/>
-                  ·Automated trading<br/>
-                  ·Portfolio Management<br/>
-                  ·Decentralized infrastructure<br/>
-              </div>
-          </div>
-          <div class="TextTableRow">
-            <div class="Left">
-                <div class="CenterTitle">
-                    Distribute
+              </div> -->
+      </div>
+       <div class="CenterTitle">FUTURE TECHNOLOGY</div>
+      <!--<div class="CenterSubTitle">
+        Lido lets you stake tokens from many networks. Choose a network below to
+        get started.
+      </div> -->
+      <div class="FUTURE">
+        <div class="FUTURELeft">
+            <div>AIGPT is a revolutionary product and technology</div>
+            <div class="">AIGPT is an artificial intelligence encryption analysis robot based on cryptocurrency. It will first play a role by understanding the user's situation, and tailor the investment portfolio for the user through risk preferences and investment goals, providing users with the ultimate experience.</div>
+        </div>
+        <div class="FUTURERight">
+            <div class="item">
+                <div class="imgBox flexCenter" style="background: #189CD7;">
+                    <img src="../assets/Home/Icon.png" alt="">
                 </div>
-                <div class="CenterSubTitle">
-                    CRB allocation model
-                </div>
-                <div class="CenterText">
-                    Staking/liquidity mining rewards: 52 million (65%)
-                    — Initial circulating supply (distributed through the seed pool): 24 million (30%), fully unlocked in the first 6 days<br/>
-                    — Reserved for future pledge/LP rewards: 28 million (35%) linearly unlocked within 12 months
-                    Ecosystem Reserve, Strategic Partnerships, Operations, Development, and Strategic Sales: 20 million (25%)<br/>
-                    — Ecosystem Reserve Tokens unlocked linearly after 9 months<br/>
-                    — Up to 8 million (10%) of XX tokens allocated to the ecosystem reserve can be used for future strategies
-                    Team and Advisors<br/>
-                    — 8 million (10%)
-                </div>
-                <div class="CenterSubTitle">
-                    CZZ allocation model
-                </div>
-                <div class="CenterText">
-                    As a governance token, CZZ is mainly obtained through liquidity mining.
-                    100% of the total supply (18,000 coins) will be distributed through liquidity mining within three months. Liquidity mining reward: 18000 (100% of total supply)
-                </div>
+                <span>Personalized experience</span>
             </div>
-            <div class="Righr">
+            <div class="item">
+                <div class="imgBox flexCenter" style="background: #FF4E78;">
+                    <img src="../assets/Home/Icon.png" alt="">
+                </div>
+                <span>Real-time information</span>
+            </div>
+            <div class="item">
+                <div class="imgBox flexCenter" style="background: #41E571;">
+                    <img src="../assets/Home/Icon.png" alt="">
+                </div>
+                <span>Automated trading</span>
+            </div>
+            <div class="item">
+                <div class="imgBox flexCenter" style="background: #F6D647;">
+                    <img src="../assets/Home/Icon.png" alt="">
+                </div>
+                <span>Portfolio Management</span>
+            </div>
+            <div class="item">
+                <div class="imgBox flexCenter" style="background: #F61133;">
+                    <img src="../assets/Home/Icon.png" alt="">
+                </div>
+                <span>Decentralized infrastructure</span>
+            </div>
+            
+        </div>
+      </div>
+      <div class="CenterTitle">Distribution</div>
+      <div class="CenterSubTitle">
+        AIGPT lets you stake tokens from many networks. Choose a network below to get started.
+      </div>
+      <div class="DistributionRow">
+        <div class="DistributionItem">
+            <div class="Content flexCenter">
+                The initial circulating supply of CRB (accounting for 30% of the overall token supply) is fully distributed to the community through the seed pool in the first 6 days, achieving 100% of the initial circulating supply. After 6 days, there will be no release of CRB for at least 2 months, and no other form of token sale.
+            </div>
+            <div class="Title flexCenter">CRB allocation model</div>
+        </div>
+        <div class="DistributionItem">
+            <div class="Content flexCenter">
                 <img src="../assets/Home/Pie.png" alt="">
             </div>
-          </div>
-          <!-- <div class="CenterTitle">
-              Distribute
-          </div>
-          <div class="CenterSubTitle">
-            CRB allocation model
-          </div>
-          <div class="CenterText">
-            The initial circulating supply of XX (accounting for 30% of the overall token supply) is fully distributed to the community through the seed pool in the first 6 days, achieving 100% of 
-            the initial circulating supply. After 6 days, there will be no release of CRB for at least 2 months, and no other form of token sale.
-          </div>
-          <div class="CenterSubTitle pieSubTitle">
-            Tokenomics
-          </div>
-          <div class="pie">
-             <img src="../assets/Home/Pie.png" alt="">
-          </div>
-          <div class="CenterSubTitle">
-            CZZ allocation model
-          </div>
-          <div class="CenterText">
-            As a governance token, CZZ is mainly obtained through liquidity mining.
-            100% of the total supply (18,000 coins) will be distributed through liquidity mining within three months. Liquidity mining reward: 18000 (100% of total supply)
-          </div> -->
-          <div class="Disclaimer">
-            Team
-          </div>
-          <div class="character">
-            <div class="characterItem">
-                <div class="imgBox">
-                    <img src="../assets/Home/character1.png" alt="">
-                </div>
-                <div class="name">Jacob Cooper</div>
-                <div class="position">Chief Brand Officer</div>
-                <div class="introduce" v-animate="'scale-up-hor-center'">
-                    Jacob Cooper is an experienced marketing professional with 6+ years of expertise in brand development and management. As the Chief Brand Officer, he's committed to creating impactful brand strategies and delivering innovative brand experiences.
-                </div>
-            </div>
-            <div class="characterItem">
-                <div class="imgBox">
-                    <img src="../assets/Home/character2.png" alt="">
-                </div>
-                <div class="name">Ahmar Khan</div>
-                <div class="position">Chief Marketing Officer</div>
-                <div class="introduce" v-animate="'scale-up-hor-center'">
-                    Ahmar Khan is a successful CMO focused on growth and customer experiences. With an eye for trends, he leads impactful campaigns as the Chief Marketing Officer to drive business growth.
-                </div>
-            </div>
-            <div class="characterItem">
-                <div class="imgBox">
-                    <img src="../assets/Home/character3.png" alt="">
-                </div>
-                <div class="name">Denis Bozkurt</div>
-                <div class="position">Chief Operating Officer</div>
-                <div class="introduce" v-animate="'scale-up-hor-center'">
-                    Denis Bozkurt is a results-driven COO focused on operational excellence. As Chief Operating Officer, he optimizes resources, streamlines operations, and delivers quality products/services.
-                </div>
-            </div>
-          </div>
-          <a href="http://18.136.140.46/WhitePaper/ZKGPT%20Whitepaper.pdf" target="_blank">
-              <div class="WhitePaper flexCenter">White Paper</div>
-          </a>
+            <div class="Title flexCenter">Tokenomics</div>
         </div>
+        <div class="DistributionItem">
+            <div class="Content flexCenter">
+                As a governance token, CZZ is mainly obtained through liquidity mining.100% of the total supply (18,000 coins) will be distributed through liquidity mining within three months. Liquidity mining reward: 18000 (100% of total supply)
+            </div>
+            <div class="Title flexCenter">CZZ allocation model</div>
+        </div>
+      </div>
+      <div class="CenterTitle">Team</div>
+      <div class="CenterSubTitle">
+        AIGPT lets you stake tokens from many networks. Choose a network below to get started.
+      </div>
+      <div class="TeamRow">
+        <div class="TeamItme">
+            <img src="../assets/Home/team1.png" alt="">
+            <div class="name">Jacob Cooper</div>
+            <div class="subName">Chief Brand Officer</div>
+            <div class="introduce">
+                Jacob Cooper is an experienced marketing professional with 6+ years of expertise in brand development and management. As the Chief Brand Officer, he's committed to creating impactful brand strategies and delivering innovative brand experiences.
+            </div>
+        </div>
+        <div class="TeamItme">
+            <img src="../assets/Home/team2.png" alt="">
+            <div class="name">Ahmar Khan</div>
+            <div class="subName">Chief Marketing Officer</div>
+            <div class="introduce">
+                Ahmar Khan is a successful CMO focused on growth and customer experiences. With an eye for trends, he leads impactful campaigns as the Chief Marketing Officer to drive business growth.
+            </div>
+        </div>
+        <div class="TeamItme">
+            <img src="../assets/Home/team3.png" alt="">
+            <div class="name">Denis Bozkurt</div>
+            <div class="subName">Chief Operating Officer</div>
+            <div class="introduce">
+                Denis Bozkurt is a results-driven COO focused on operational excellence. As Chief Operating Officer, he optimizes resources, streamlines operations, and delivers quality products/services.
+            </div>
+        </div>
+      </div>
+      <div class="CenterTitle">Join our community</div>
+      <div class="CenterSubTitle">
+        Learn more about AlGPT, chat with us and have your say in the future of the AlGPT ecosystem
+      </div>
+      <div class="join">
+        <div class="joinBanner"></div>
+        <div class="contactRow">
+            <div class="contactItem">
+                <div class="icon">
+                    <img src="../assets/Home/Telegram.png" alt="" />
+                </div>
+                <div class="Title">
+                    <div class="mainTitle">Telegram</div>
+                    <div class="subTitle">Join chat</div>
+                </div>
+            </div>
+            <div class="separate"></div>
+            <div class="contactItem">
+                <div class="icon">
+                    <img src="../assets/Home/Twitter.png" alt="" />
+                </div>
+                <div class="Title">
+                    <div class="mainTitle">Twitter</div>
+                    <div class="subTitle">Follow @XXXXXX</div>
+                </div>
+            </div>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <style scoped lang="scss">
-.bgColor{
-    background: #27173A;
+.bgColor {
+  background: #371768;
 }
-.Home{
-    background: url('../assets/Home/bg.png') 0 0 / 100% no-repeat;
-    min-height: 100vh;
-    padding-top: 18.7rem;
+.Home {
+  background: url("../assets/Home/bg.png") 0 0 / 100%  no-repeat;
+  min-height: 100vh;
+  padding-top: 12.7rem;
+  overflow: hidden;
+  .firstScreen {
+    margin: 0 5rem;
     overflow: hidden;
-    .firstScreen{
-        margin: 0 5rem;
-        overflow: hidden;
-        .title{
-            font-size: 3.7rem;
-            line-height: 1;
-            color: #FFFFFF;
-            @media (max-width:425px) {
-                font-size: 5rem;
-            }
-        }
-        .subTitle{
-            font-size: 1.2rem;
-            line-height: 1;
-            color: #FFFFFF;
-            margin-top: 2.8rem;
-            @media (max-width:1440px) {
-                font-size: 2rem;
-            }
-            @media (max-width:768px) {
-                font-size: 3rem;
-            }
-            @media (max-width:425px) {
-                margin-top: 4rem;
-                font-size: 4rem;
-            }
-        }
-        .text{
-            max-width: 21.55rem;
-            margin-top:0.9rem;
-            font-size: 14px;
-            line-height: 1.2;
-            color: #FFFFFF;
-            @media (max-width:1024px) {
-                max-width: 26rem;
-            }
-            @media (max-width:768px) {
-                max-width: 35rem;
-            }
-            @media (max-width:425px) {
-                margin-top:1.2rem;
-                max-width: 60rem;
-            }
-        }
-        .FriendlyLinks{
-            display: flex;
-            // flex-direction: column;
-            justify-content: center;
-            margin-top: 2.8rem;
-            // float: right;
-            @media (max-width:425px) {
-                display: none;
-            }
-            a{
-                margin:0 0.6rem;
-                font-size: 0;
-                @media (max-width:425px) {
-                    margin-bottom: 3rem;
-                }
-                img{
-                    width: 30px;
-                    @media (max-width:425px) {
-                        width: 20px;
-                    }
-                }
-            }
-            a:last-child{
-                margin-bottom: 0;
-            }
+    display: flex;
+    flex-direction: column;
+    @media (max-width:1024px) {
+        align-items: center;
+    }
+    .title {
+      font-size: 3rem;
+      line-height: 1;
+      color: #ffffff;
+      @media (max-width:1024px) {
+            display: none;
+      }
+    }
+    .Title1024{
+        font-size: 3rem;
+        line-height: 1;
+        color: #ffffff;
+        @media (max-width: 425px) {
+            font-size: 5rem;
         }
     }
-    .secondScreen{
-        margin: 21rem 5rem 0;
+    .subTitle {
+      font-size: 1.2rem;
+      line-height: 1;
+      color: #ffffff;
+      margin-top: 2.8rem;
+      @media (max-width: 1440px) {
+        font-size: 2rem;
+      }
+      @media (max-width: 768px) {
+        font-size: 3rem;
+      }
+      @media (max-width: 425px) {
+        margin-top: 4rem;
+        font-size: 4rem;
+      }
+    }
+    .StakeBtn {
+      width: max-content;
+      padding: 0.9rem 3.1rem;
+      background: linear-gradient(90deg, #536DFE 0%, #B41FFF 100%);
+      border-radius: 0.5rem;
+      margin-top: 2.5rem;
+      font-weight: 500;
+      color: #FFFFFF;
+      font-size: 18px;
+    }
+    .dnone{
+        @media (max-width:800px) {
+            display: none;
+        }
+    }
+    .totalRow {
+      display: flex;
+      margin: 9rem 0 6.5rem;
+      justify-content: space-around;
+      max-width: 1440px;
+      margin: auto;
+      width: 100%;
+      @media (max-width:450px) {
+        flex-direction:column;
+      }
+      .TotalItem {
+        @media (max-width:425px) {
+          margin-bottom: 16px;
+        }
+        .totalLabel {
+          color: #ffffff;
+          font-size: 14px;
+          text-align: center;
+          @media (max-width:560px) {
+            font-size: 12px;
+          }
+          @media (max-width:450px) {
+            text-align: left;
+          }
+        }
+        .totalValue {
+          font-weight: 500;
+          color: #ffffff;
+          font-size: 30px;
+          @media (max-width:768px) {
+            font-size: 22px;
+          }
+          @media (max-width:560px) {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+  .CenterTitle {
+    margin-top: 3.5rem;
+    font-size: 1.8rem;
+    line-height: 1;
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+    @media (max-width:1024px) {
+      font-size: 2.8rem;
+    }
+    @media (max-width:768px) {
+      font-size: 3.5rem;
+    }
+    @media (max-width:425px) {
+      font-size: 5rem;
+    }
+    @media (max-width:375px) {
+      font-size: 6rem;
+    }
+  }
+  .CenterSubTitle {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 2;
+    text-transform: uppercase;
+    color: #fff;
+    text-align: center;
+    padding: 0 20px;
+  }
+  .FUTURE{
+    display: flex;
+    justify-content: center;
+    margin-top: 37px;
+    @media (max-width:1024px) {
+        justify-content: space-between;
+        padding: 0 20px;
+    }
+    @media (max-width:920px) {
+        flex-direction: column;
+    }
+    .FUTURELeft{
         display: flex;
         flex-direction: column;
-        align-items: flex-end;
-        .title{
-            font-size: 3.7rem;
-            line-height: 1;
-            color: #FFFFFF;
-            text-align: right;
-            @media (max-width:425px) {
-                font-size: 5rem;
-            }
+        justify-content:space-between;
+        @media (max-width:920px) {
+            align-items: center;
         }
-        .text{
-            max-width: 21.55rem;
-            margin-top:0.9rem;
-            font-size: 14px;
-            line-height: 1.7;
-            color: #FFFFFF;
-            @media (max-width:1024px) {
-                max-width: 26rem;
-            }
-            @media (max-width:768px) {
-                max-width: 35rem;
-            }
-            @media (max-width:425px) {
-                margin-top:1.2rem;
-                max-width: 50rem;
-            }
+        @media (max-width:480px) {
+            width: auto;
         }
-    }
-    .TextTableRow{
-        max-width: 1440px;
-        margin: auto;
-        padding: 0 20px;
-        margin-top: 24.15rem;
-        display: flex;
-        justify-content: space-between;
-        .Left,.Righr{
-            width: 45%;
+        div{
+            width: 432px;
+            height: 261px;
+            color: #FFFFFF;
             display: flex;
-            flex-direction: column;
-            justify-content:center;
-            img{
+            padding:20px 38px;
+            box-sizing: border-box;
+            text-align: center;
+            @media (max-width:480px) {
                 width: 100%;
-                @media (max-width: 768px) {
-                    max-width: 60%;
-                    margin-top: 50px;
-                }
+                padding:10px 15px;
             }
-            @media (max-width: 768px) {
-                width: 100%;
-                text-align-last: center;
+        }
+        div:nth-child(1){
+            background: url('../assets/Home/FUTURE1.png') no-repeat center center / 100% 100%;
+            font-size: 30px;
+            align-items: flex-end;
+            @media (max-width:768px) {
+                font-size: 22px;
+            }
+            @media (max-width:480px) {
                 align-items: center;
             }
         }
-        @media (max-width: 768px) {
-            flex-direction: column;
+        div:nth-child(2){
+            font-size: 18px;
+            align-items: center;
+            text-align: center;
+            background: url('../assets/Home/FUTURE2.png') no-repeat center center / 100% 100%;
+            margin-top: 25px;
+            @media (max-width:425px) {
+                font-size: 16px;
+            }
         }
     }
-    .CenterTitle{
-        // margin-top: 24.15rem;
-        font-size: 3.7rem;
-        line-height: 1;
-        color: #FFFFFF;
-        // text-align: center;
-        @media (max-width:425px) {
-            font-size: 28px;
-        }
-    }
-    .pieSubTitle{
-        margin: 40px auto !important;
-    }
-    .pie{
-        max-width: 90%;
-        margin: auto;
+    .FUTURERight{
+        margin-left: 114px;
         display: flex;
-        justify-content: center;
-        img{
-            width: 750px;
-            max-width: 100%;
+        flex-direction: column;
+        justify-content: space-between;
+        @media (max-width:1024px) {
+            margin-left: 0;
         }
-    }
-    .CenterSubTitle{
-        margin-top: 2rem;
-        font-size: 1.2rem;
-        line-height: 1;
-        text-transform: uppercase;
-        color: #FFFFFF;
-        // text-align: center;
-        @media (max-width:425px) {
-            font-size: 16px;
-        }
-    }
-    .CenterText{
-        font-size: 14px;
-        line-height: 1.2;
-        // text-align: center;
-        color: #FFFFFF;
-        // text-align: center;
-        max-width: 1030px;
-        // padding: 0 20px;
-        margin: 1.65rem 0 0;
-        @media (max-width:425px) {
-            margin: 5rem 0;
-        }
-    }
-    .Disclaimer{
-        font-size: 3.7rem;
-        line-height: 1.25;
-        color: #FFFFFF;
-        text-align: center;
-        margin-top: 12.65rem;
-        @media (max-width:425px) {
-            font-size: 28px;
-        }
-    }
-    .DisclaimerText{
-        font-size: 14px;
-        line-height: 18px;
-        text-align: center;
-        color: #FFFFFF;
-        margin: 0.9rem auto 16.35rem;
-        max-width: 1091px;
-        @media (max-width:425px) {
-            margin: 0.9rem 5rem 16.35rem;
-        }
-    }
-    .character{
-        display: flex;
-        justify-content: space-around;
-        margin-top: 2.5rem;
-        @media (max-width:768px) {
-            flex-direction: column;
+        @media (max-width:920px) {
+            margin-top: 25px;
             align-items: center;
         }
-        .characterItem{
-            max-width: 16.4rem;
+        .item{
+            width: 432px;
+            height: 90px;
+            background: #3E2470;
+            box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.15);
+            border-radius: 20px;
+            padding: 0 30px;
+            display: flex;
+            align-items: center;
+            box-sizing: border-box;
+            @media (max-width:920px) {
+                margin-bottom: 25px;
+            }
+            @media (max-width:480px) {
+                width: 100%;
+            }
+            // img{
+            //     width: 48px;
+            //     height: 48px;
+            // }
+            .imgBox{
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                img{
+                    width: 65%;
+                    // height: 60%;
+                }
+            }
+            span{
+                font-size: 22px;
+                @media (max-width:768px) {
+                    font-size: 16px;
+                }
+                color: #FFFFFF;
+                margin-left: 24px;
+            }
+        }
+    }
+  }
+  .DistributionRow{
+    max-width: 1440px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin: auto;
+    flex-wrap: wrap;
+    @media (max-width:920px) {
+        flex-direction: column;
+        align-items: center;
+    }
+    .DistributionItem{
+        width: 432px;
+        height: 328px;
+        display: flex;
+        flex-direction: column;
+        margin-top: 40px;
+        @media (max-width:480px) {
+            width: 100%;
+        }
+        .Title{
+            height: 23%;
+            color: #FFFFFF;
+            font-size: 24px;
+        }
+        .Content{
+            flex: 1;
+            color: #FFFFFF;
+            font-size: 16px;
+            padding: 0 40px;
+            line-height: 1.2;
+            text-align: center;
+            img{
+                max-width: 100%;
+            }
+        }
+    }
+    .DistributionItem:nth-child(1){
+        background: url('../assets/Home/DistributionItem1.png') no-repeat 0 0 / 100% 100%;
+    }
+    .DistributionItem:nth-child(2){
+        background: url('../assets/Home/DistributionItem2.png') no-repeat 0 0 / 100% 100%;
+    }
+    .DistributionItem:nth-child(3){
+        background: url('../assets/Home/DistributionItem3.png') no-repeat 0 0 / 100% 100%;
+    }
+  }
+  .TeamRow{
+    display: flex;
+    max-width: 1440px;
+    justify-content: space-around;
+    margin: 54px auto 0;
+    @media (max-width:920px) {
+        flex-direction: column;
+        align-items: center;
+    }
+    .TeamItme{
+        width: 300px;
+        height: 431px;
+        border-radius: 8px;
+        background: #3E2470;
+        box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.15);
+        @media (max-width:920px) {
+            margin-bottom: 20px;
+        }
+        img{
+            width: 100%;
+        }
+        .name{
+            margin-top: 8%;
+            text-align: center;
+            font-size: 20px;
+            color: #FFFFFF;
+        }
+        .subName{
+            margin-bottom: 8%;
+            text-align: center;
+            font-size: 12px;
+            color: #FFFFFF;
+        }
+        .introduce{
+            font-size: 12px;
+            text-align: center;
+            color: #FFFFFF;
+            padding: 0 20px;
+        }
+    }
+  }
+  .publicize {
+    width: 43.9rem;
+    // min-height: 21.65rem;
+    background: #ffffff;
+    border-radius: 1.4rem;
+    margin: 50px auto 0;
+    overflow: hidden;
+    @media (max-width:1136px) {
+      width: 50rem;
+    }
+    @media (max-width:868px) {
+      width: 60rem;
+    }
+    @media (max-width:588px) {
+      width: 70rem;
+    }
+    @media (max-width:488px) {
+      width: 75rem;
+    }
+    @media (max-width:388px) {
+      width: 85rem;
+    }
+    .publicizeMain {
+      display: flex;
+      align-items: center;
+      padding: 4.75rem 7rem 3.5rem;
+      .Icon {
+        margin-right: 7.25rem;
+        @media (max-width:388px) {
+          margin-right: 5rem;
+        }
+        .iconBox {
+          width: 64px;
+          height: 64px;
+          border-radius: 50%;
+          background: #eff2f6;
+        }
+        span {
+          font-weight: 500;
+          color: #283852;
+          font-size: 18px;
+        }
+      }
+      .Info {
+        .text {
+          color: #808080;
+          font-weight: 500;
+          font-size: 14px;
+          text-align: center;
+        }
+        .data {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 2.5rem;
+          @media (max-width:768px) {
+            flex-direction: column;
+          }
+          .APR {
             display: flex;
             flex-direction: column;
             align-items: center;
-            @media (max-width:1440px) {
-                max-width: 20rem;
+            .APRValue {
+              font-weight: 500;
+              color: #1fb51a;
+              font-size: 20px;
             }
-            @media (max-width:1024px) {
-                max-width: 25rem;
+            span {
+              color: #808080;
+              font-size: 14px;
             }
+          }
+          .separate {
+            height: 50px;
+            border-left: 1px solid #979797;
             @media (max-width:768px) {
-                max-width: 50%;
-                margin-bottom: 10rem;
+              display: none;
             }
-            @media (max-width:767px) {
-                max-width: 70%;
-                margin-bottom: 10rem;
+          }
+          .staked {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .stakedValue {
+              font-weight: 600;
+              color: #2c2c2c;
+              font-size: 20px;
             }
-            @media (max-width:425px) {
-                max-width: 90%;
-                margin-bottom: 10rem;
+            span {
+              font-weight: 400;
+              color: #808080;
+              font-size: 14px;
             }
-            .imgBox{
-                width: 200px;
-                height: 200px;
-                border-radius: 50%;
-                margin-bottom: 1.15rem;
-                overflow: hidden;
-                background: #fff;
-                // @media (max-width:768px) {
-                //     width: 20rem;
-                //     height: 20rem;
-                // }
-            }
-            .imgBox:hover~.introduce{
-                animation:scale-up-hor-center .4s cubic-bezier(.39,.575,.565,1.000) both
-            }
-            .name{
-                font-size: 20px;
-                color: #FFFFFF;
-                line-height: 1.4;
-                text-align: center;
-                margin-bottom: 0.5rem;
-            }
-            .position{
-                margin-bottom: 1.15rem;
-                text-align: center;
-                color: #FFFFFF;
-                font-size: 12px;
-                line-height: 1.5;
-            }
-            .introduce{
-                opacity: 0;
-                text-align: center;
-                font-size: 12px;
-                color: #FFFFFF;
-                line-height: 1.5;
-            }
+          }
+        }
+      }
+    }
+    .StakeNow {
+      // width: 200px;
+      // height: 56px;
+      width: max-content;
+      padding: 0.75rem 2.75rem;
+      background: #00a0e9;
+      border-radius: 0.5rem;
+      margin:0 auto 2.7rem;
+      font-weight: 500;
+      color: #ffffff;
+    }
+  }
+  .join {
+    padding: 0 0 130px;
+    margin-top: 3.5rem;
+    .CenterTitle{
+        color: #00A0E9;
+    }
+    .CenterSubTitle{
+        color: #3E3E3E;
+        max-width: 53.75rem;
+        margin: auto;
+    }
+    .joinBanner{
+        width: 53.75rem;
+        height: 11.2rem;
+        background: url('../assets/Home/joinBanner.png') no-repeat 0 0 / 100% 100%;
+        margin:55px auto 35px;
+        @media (max-width:768px) {
+          width: 65rem;
+          height: 14rem;
+        }
+        @media (max-width:425px) {
+          width: 75rem;
+          height: 20rem;
+        }
+        @media (max-width:375px) {
+          width: 80rem;
+          height: 23rem;
         }
     }
-    .WhitePaper{
-        margin: 6rem auto;
-        background: linear-gradient(90deg, #536DFE 0%, #B41FFF 100%);
-        border-radius: 11px;
-        width: 446px;
-        max-width: 90%;
-        height: 48px;
-        color: #FFFFFF;
-        font-size: 18px;
-        text-decoration: none;
+    .contactRow{
+        width: 53.75rem;
+        display: flex;
+        justify-content: space-between;
+        margin: auto;
+        @media (max-width:768px) {
+          width: 65rem;
+          flex-direction: column;
+        }
+        @media (max-width:425px) {
+          width: 75rem;
+        }
+        @media (max-width:375px) {
+          width: 80rem;
+        }
+        .contactItem{
+            // height: 8rem;
+            flex: 1;
+            box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.15);
+            border-radius: 1.4rem;
+            background: #3E2470;
+            padding: 2.5rem 2rem 2.5rem;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            @media (max-width:1024px) {
+            //   height: 8rem;
+            }
+            @media (max-width:768px) {
+                margin-bottom: 20px;
+                padding: 3rem 2rem 3rem;
+            }
+            @media (max-width:650px) {
+            //   height: 10rem;
+            }
+            @media (max-width:500px) {
+            //   height: 14rem;
+            }
+            .icon{
+              width: 2.7rem;
+              height: 2.7rem;
+              @media (max-width:768px) {
+                width: 27px;
+                height: 27px;
+              }
+              img{
+                  width: 100%;
+                }
+                margin-right: 1.5rem;
+            }
+            .Title{
+                .mainTitle{
+                    font-size: 20px;
+                    font-weight: 500;
+                    color: #fff;
+                    @media (max-width:500px) {
+                      font-size: 16px;
+                    }
+                }
+                .subTitle{
+                    font-weight: 400;
+                    color: #858585;
+                    font-size: 14px;
+                    @media (max-width:500px) {
+                      font-size: 12px;
+                    }
+                }
+            }
+        }
+        .separate{
+            width: 2rem;
+        }
     }
-}
-.scale-up-hor-center{
-    @media (max-width:768px) {
-        animation:scale-up-hor-center .4s cubic-bezier(.39,.575,.565,1.000) both
-    }
-}
-/* ----------------------------------------------
- * Generated by Animista on 2023-5-11 14:49:28
- * Licensed under FreeBSD License.
- * See http://animista.net/license for more info. 
- * w: http://animista.net, t: @cssanimista
- * ---------------------------------------------- */
-
- @keyframes scale-up-hor-center{
-    0%{
-        // display: block;
-        transform:scaleX(.4);
-        opacity: 0;
-    }
-    100%{
-        transform:scaleX(1);
-        opacity: 1;
-    }
+  }
 }
 </style>

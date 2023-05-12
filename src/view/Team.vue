@@ -28,11 +28,19 @@ const copyFun = (text)=>{
 }
 function receive(){
     if(!token.value){
-        return 
+        return ElNotification({
+            title: 'Warning',
+            message: '请登录',
+            type: 'warning',
+        })
     }
-    // if(new BigNumber(Reward.value).lte(0)){
-    //     return console.log("暂无可领取量")
-    // }
+    if(new BigNumber(Reward.value).lte(0)){
+        return ElNotification({
+            title: 'Warning',
+            message: '暂无可领取量',
+            type: 'warning',
+        })
+    }
     Axios.post('/api/cryptobrain/common/userWithdraw',{
         symbol: "INVTER ",
         withDrawAmount: Reward.value
@@ -77,7 +85,7 @@ function getwithdrawList(){
     "page": 1,
     "rows": 10
     }).then(res=>{
-        if(!red.data.error){
+        if(!res.data.error){
             withdrawList.value = res.data.result.list.filter(item=>{
                 return item.wsymbol === 'INVTER'
             })
@@ -138,11 +146,22 @@ watch(
                 <div :class="['tabItem','flexCenter',{'active':type === 1}]" @click="type = 1">Invitation record</div>
                 <div :class="['tabItem','flexCenter',{'active':type === 2}]" @click="type = 2">Pick up record</div>
             </div>
-            <div class="record" v-for="item in InvitationList">
-                <div class="left">{{ AddrHandle(item.token,7,7) }}</div>
-                <div class="right">
-                    <div>+{{ item.amount }}</div>
-                    <div>{{dateFormat('YYYY-mm-dd HH:MM',new Date(item.createTime))}}</div>
+            <div v-if="type === 1">
+                <div class="record" v-for="item in InvitationList">
+                    <div class="left">{{ AddrHandle(item.token,7,7) }}</div>
+                    <div class="right">
+                        <div>+{{ item.amount }}</div>
+                        <div>{{dateFormat('YYYY-mm-dd HH:MM',new Date(item.createTime))}}</div>
+                    </div>
+                </div>
+            </div>
+            <div v-else>
+                <div class="record" v-for="item in withdrawList">
+                    <div class="left">{{ AddrHandle(item.token,7,7) }}</div>
+                    <div class="right">
+                        <div>+{{ item.amount }}</div>
+                        <div>{{dateFormat('YYYY-mm-dd HH:MM',new Date(item.createTime))}}</div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -55,7 +55,7 @@ onMounted(() => {
           <img :src="route.path === '/' ? HomeActiveIcon : HomeIcon" alt="" />
           <span>HOME</span>
         </div>
-        <!-- <div class="menuItem" @click="goPath('/Stake')">
+        <div class="menuItem" @click="goPath('/Stake')">
           <img
             :src="route.path === '/Stake' ? StakeActiveIcon : StakeIcon"
             alt=""
@@ -68,7 +68,7 @@ onMounted(() => {
             alt=""
           />
           <span>REWARDS</span>
-        </div> -->
+        </div>
       </div>
     </div>
     <div class="connect" @click="Connect">

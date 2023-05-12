@@ -100,7 +100,7 @@ async function login(address){
 }
 async function register(address) {
   //router.currentRoute.value.query.address
-  let inviteCode = GetQueryString('Invite') || "N953yICD"
+  let inviteCode = GetQueryString('Invite') || ""
   let chainId = await window.ethereum.request({ method: "eth_chainId" });
   const expireTime = new Date().getTime() + 10 * 60 * 1000; //设置注册10分钟有效时间
   const DEMO_TYPES = {

@@ -2,10 +2,10 @@ import Token from './ABI/ERC20Token.json';
 import CryptoBrainMain from './ABI/CryptoBrainMain.json';
 export const contractAddress = {
     //正式
-    "USDT": "0x96bE30aB12976Bc148D0294119F6201C484bA302",
-    "CRBLP": "0x7C86fD5Dd88D016C314FB2054DbdD47fbC2aC9a3",
-    "CZZLP": "0xfE0E7effd9602c66741F779758525Bd004762cC5",
-    "CryptoBrainMain": "0x66e5Fa4b5319ce26094F9B6B7A8fD7e9BBD250c4",
+    "USDT": "0xe397931904107c80616A982929545947d0364c90",
+    "CRBLP": "0x0c1c61840426006678B818011Be928E774597543",
+    "CZZLP": "0x31C63564220Cb37c488AcB5aa61630737D7B13A8",
+    "CryptoBrainMain": "0x154FdD4fa0C15c5243ffEF33f24f4e824411EE64",
 }
 export const ABI  = {
     "USDT": Token,
@@ -28,13 +28,13 @@ export const TokenConfig = {
     },
 }
 export const chainConfig = {
-    chainId: '0x118',
-    chainName: 'zkSync Era Testnet',
+    chainId: '0x66eed',
+    chainName: 'Arbitrum Goerli Testnet',
     nativeCurrency: {
-        name: 'ETH',
-        symbol: 'ETH',
+        name: 'AGOR',
+        symbol: 'AGOR',
         decimals: 18,
     },
-    rpcUrls: ['https://testnet.era.zksync.dev'],
-    blockExplorerUrls: ['https://goerli.explorer.zksync.io/'],
+    rpcUrls: ['https://endpoints.omniatech.io/v1/arbitrum/goerli/public'],
+    blockExplorerUrls: ['https://goerli-rollup-explorer.arbitrum.io'],
 }

@@ -55,7 +55,7 @@ watch(
             getBalance()
             Axios.get('/api/cryptobrain/common/getInviteCode').then(res=>{
                 console.log(res,"用户邀请码")
-                InviteUrl.value = location.origin+'/#/?Invite='+res.data.result
+                InviteUrl.value = location.origin+'/TEST/#/?Invite='+res.data.result
                 console.log(location)
             })
         }

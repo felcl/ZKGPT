@@ -8,12 +8,12 @@ import Withdraw from '../view/Withdraw.vue'
 import Team from '../view/Team.vue'
 const routes = [
     { path: '/', component: Home },
-    // { path: '/Stake', component: Stake },
-    // { path: '/Rewares', component: Rewares },
-    // { path: '/History', component: History },
-    // { path: '/Redeem', component: Redeem },
-    // { path: '/Withdraw', component: Withdraw },
-    // { path: '/Team', component: Team },
+    { path: '/Stake', component: Stake },
+    { path: '/Rewares', component: Rewares },
+    { path: '/History', component: History },
+    { path: '/Redeem', component: Redeem },
+    { path: '/Withdraw', component: Withdraw },
+    { path: '/Team', component: Team },
   ]
   const router = VueRouter.createRouter({
       // 4. 内部提供了 history 模式的实现。为了简单起见，我们在这里使用 hash 模式。

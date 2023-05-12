@@ -148,6 +148,7 @@ function approve(toAddress, token) {
     .approve(toAddress, amount)
     .send({ from: address.value })
     .then((res) => {
+        getAllowance(contractAddress.CryptoBrainMain, token);
         return ElNotification({
             title: 'Success',
             message: '授权成功',
@@ -197,8 +198,18 @@ function pledge(amount, PledgeName) {
   contract.CryptoBrainMain.methods[PledgeName](amount)
     .send({ from: address.value })
     .then((res) => {
-      console.log(res);
-    })
+        return ElNotification({
+            title: 'Success',
+            message: '质押成功',
+            type: 'success',
+        })
+      }).catch((err)=>{
+        return ElNotification({
+            title: 'Warning',
+            message: '质押失败',
+            type: 'warning',
+        })
+      })
     .finally(() => {
       if (PledgeName === "usdtPledge" || PledgeName === "ethPledge") {
         inPledge.value = false;
@@ -442,7 +453,7 @@ watch(
     </div>
     <div class="StakeTitle interval">Stake CZZ Ether</div>
     <div class="StakeSubTitle">
-      Stake XX-ETH or YY-ETH and receive CZZ while staking.
+      Stake CRB+ETH/LP or CZZ+ETH/LPG and receive CZZ while staking.
     </div>
     <div class="StakeItem">
       <div class="putBox">
@@ -499,7 +510,7 @@ watch(
         </div>
         <div class="InfoRow">
           <span>Interest Period</span>
-          <span>6 Days</span>
+          <span>30 Days</span>
         </div>
         <div class="InfoRow">
           <span>Est. APR</span>
@@ -516,7 +527,7 @@ watch(
 
 <style lang="scss" scoped>
 .Stake {
-  background: #27173a;
+  background: linear-gradient(180deg, #070E4D 0%, #3E186D 100%);
   min-height: 100vh;
   padding-top: 10rem;
   @media (max-width: 767px) {
