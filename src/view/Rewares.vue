@@ -44,6 +44,10 @@ watch(
                 Axios.post(`/api/cryptobrain/common/rewardList/${address.value}/2`,{
                     "page": 1,
                     "rows": 10
+                }),
+                Axios.post(`/api/cryptobrain/common/withdrawList`,{
+                    "page": 1,
+                    "rows": 10
                 })
             ]).then(resArr=>{
                 let incomeArr = []
@@ -99,7 +103,7 @@ function getBalance(){
 <template>
   <div class="Rewares">
     <div class="StakeTitle">Reward History</div>
-    <div class="StakeSubTitle">Track your Ethereum staking rewards with ZKGPT.</div>
+    <div class="StakeSubTitle">Track your Ethereum staking rewards with AIGPT.</div>
     <div class="RewaresInfo">
         <div class="InfoRow">
             <div class="address">

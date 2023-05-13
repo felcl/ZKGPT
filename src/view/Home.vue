@@ -187,7 +187,7 @@
     background: url("../assets/Home/bg2.png") 0 0 / 100%  no-repeat;
   }
   .firstScreen {
-    margin: 0 5rem;
+    margin: 0 5rem  15rem;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -196,10 +196,12 @@
         margin-top: 20rem;
     }
     .title {
-        font-size: 36px;
+        font-size: 60px;
         line-height: 50px;
       line-height: 1;
       color: #ffffff;
+      font-family: bitte;
+      font-weight: bold;
       @media (max-width:1024px) {
             display: none;
       }
@@ -209,12 +211,18 @@
         line-height: 1;
         color: #ffffff;
         text-align: center;
+        display: none;
+        font-family: bitte;
+        font-weight: bold;
+        @media (max-width:1024px) {
+            display: block;
+        }
         @media (max-width: 767px){
             font-size: 26px;
             line-height: 36px;
         }
         @media (max-width: 425px) {
-            font-size: 5rem;
+            font-size: 7rem;
         }
     }
     .subTitle {
@@ -238,7 +246,7 @@
       @media (max-width:768px) {
             width: 100%;
             max-width: 260px;
-            height: 54px;
+            height: 48px;
             font-size: 16px;
             border-radius: 10px;
         }
@@ -293,6 +301,7 @@
     line-height: 1;
     color: #ffffff;
     text-align: center;
+    font-family: bitte;
     font-weight: bold;
     @media (max-width:1024px) {
       font-size: 2.8rem;

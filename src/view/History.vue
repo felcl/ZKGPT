@@ -43,6 +43,14 @@ const address = computed(() => {
 });
 watch(token,(token)=>{
     if(token){
+        Promise.all([
+            Axios.post(`/api/cryptobrain/common/rewardList/${address.value}/1`,{"page": 1,"rows": 10}),
+            Axios.post(`/api/cryptobrain/common/rewardList/${address.value}/2`,{"page": 1,"rows": 10}),
+            Axios.post(`/api/cryptobrain/common/rewardList/${address.value}/3`,{"page": 1,"rows": 10}),
+            Axios.get(`/api/cryptobrain/common/pledges/${address.value}`)
+        ]).then(resArr=>{
+            
+        })
         Axios.post(`/api/cryptobrain/common/rewardList/${address.value}/1`,{
                 "page": 1,
                 "rows": 10
@@ -77,6 +85,16 @@ watch(token,(token)=>{
                 if(tabVal.value === 3){
                     RendList.value = res.data.result.list
                 }
+            }
+        })
+        Axios.get(`/api/cryptobrain/common/pledges/${address.value}`).then(res=>{
+            console.log(res,'质押记录')
+            if(res.data.code === 200){
+                res.data.result.forEach(item=>{
+                    if(item.symbol === 'USDT' || item.symbol === 'ETH'){
+                        CRBrewardList.push
+                    }
+                })
             }
         })
     }
