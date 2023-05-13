@@ -4,6 +4,7 @@
   <div class="bgColor">
     <div class="Home">
       <div class="firstScreen">
+        <!-- <img src="../assets/Home/font/Artificial Intellige.svg" alt=""> -->
         <div class="title ">
             Artificial Intelligence for<br/>
             Cryptocurrencies
@@ -200,15 +201,23 @@
         line-height: 50px;
       line-height: 1;
       color: #ffffff;
+      font-family: american typewriter;
+      font-weight: bold;
       @media (max-width:1024px) {
             display: none;
       }
     }
     .Title1024{
+      font-family: american typewriter;
+      font-weight: bold;
         font-size: 3rem;
         line-height: 1;
         color: #ffffff;
         text-align: center;
+        display: none;
+        @media (max-width:1024px) {
+            display: block;
+      }
         @media (max-width: 767px){
             font-size: 26px;
             line-height: 36px;
@@ -288,6 +297,8 @@
     }
   }
   .CenterTitle {
+    font-family: american typewriter;
+      font-weight: bold;
     margin-top: 3.5rem;
     font-size: 1.8rem;
     line-height: 1;
