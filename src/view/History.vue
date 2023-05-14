@@ -10,7 +10,7 @@
         <div class="HistoryList">
             <div class="HistoryItem" v-for="item in RendList">
                 <div>
-                    <div>{{tabVal !== 3 ? 'STAKE':'INVTER'}}</div>
+                    <div>{{tabVal !== 3 ? (item.stake ? 'STAKE':'INCOME'):'WITHDRAW'}}</div>
                     <div>{{ item.symbol }}</div>
                 </div>
                 <div class="right">
@@ -43,40 +43,49 @@ const address = computed(() => {
 });
 watch(token,(token)=>{
     if(token){
-        Axios.post(`/api/cryptobrain/common/rewardList/${address.value}/1`,{
-                "page": 1,
-                "rows": 10
-        }).then(res=>{
-            console.log(res,'领取记录')
-            if(!res.data.error){
-                CRBrewardList.value = res.data.result.list
-                if(tabVal.value === 1){
-                    RendList.value = res.data.result.list
+        Promise.all([
+            Axios.post(`/api/cryptobrain/common/rewardList/${address.value}/1`,{"page": 1,"rows": 999}),
+            Axios.post(`/api/cryptobrain/common/rewardList/${address.value}/2`,{"page": 1,"rows": 999}),
+            Axios.post(`/api/cryptobrain/common/withdrawList`,{"page": 1,"rows": 999}),
+            Axios.get(`/api/cryptobrain/common/pledges/${address.value}`)
+        ]).then(resArr=>{
+            console.log(resArr)
+            CRBrewardList.value = resArr[0].data.result.list
+            CZZrewardList.value = resArr[1].data.result.list
+            INVTERrewardList.value = resArr[2].data.result.list.map(item=>{
+                return {
+                    ...item,
+                    amount:item.wamount,
+                    symbol:item.wsymbol,
+                    type:'ws'
                 }
+            })
+            resArr[3].data.result.forEach(item=>{
+                item.stake = true
+                if(item.symbol === "CRBLP" || item.symbol === "CZZLP"){
+                    CZZrewardList.value.push(item)
+                }else{
+                    CRBrewardList.value.push(item)
+                }
+            })
+            if(tabVal.value === 1){
+                RendList.value = CRBrewardList.value
+            }
+            if(tabVal.value === 2){
+                RendList.value = CZZrewardList.value
+            }
+            if(tabVal.value === 3){
+                RendList.value = INVTERrewardList.value
             }
         })
-        Axios.post(`/api/cryptobrain/common/rewardList/${address.value}/2`,{
-            "page": 1,
-            "rows": 10
-        }).then(res=>{
-            console.log(res,'领取记录')
-            if(!res.data.error){
-                CZZrewardList.value = res.data.result.list
-                if(tabVal.value === 2){
-                    RendList.value = res.data.result.list
-                }
-            }
-        })
-        Axios.post(`/api/cryptobrain/common/rewardList/${address.value}/3`,{
-            "page": 1,
-            "rows": 10
-        }).then(res=>{
-            console.log(res,'领取记录')
-            if(!res.data.error){
-                INVTERrewardList.value = res.data.result.list
-                if(tabVal.value === 3){
-                    RendList.value = res.data.result.list
-                }
+        Axios.get(`/api/cryptobrain/common/pledges/${address.value}`).then(res=>{
+            console.log(res,'质押记录')
+            if(res.data.code === 200){
+                res.data.result.forEach(item=>{
+                    if(item.symbol === 'USDT' || item.symbol === 'ETH'){
+                        CRBrewardList.push
+                    }
+                })
             }
         })
     }

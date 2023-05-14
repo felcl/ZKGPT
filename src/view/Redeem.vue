@@ -90,7 +90,7 @@ function redeem(redeemName) {
       console.log(res);
       ElNotification({
             title: 'Success',
-            message: '赎回成功',
+            message: 'Redemption successful',
             type: 'success',
         })
       contract.CryptoBrainMain.methods
@@ -114,7 +114,7 @@ function redeem(redeemName) {
     },()=>{
       ElNotification({
             title: 'Warning',
-            message: '赎回失败',
+            message: 'Redemption failed',
             type: 'warning',
         })
     })
@@ -126,28 +126,28 @@ function verify() {
     if(!address.value){
         return ElNotification({
             title: 'Info',
-            message: '请链接钱包',
+            message: 'Please link the wallet',
             type: 'info',
         })
     }
   if (inRedeem.value) {
     return ElNotification({
         title: 'Info',
-        message: '请勿重复提交',
+        message: 'Please do not resubmit',
         type: 'info',
     })
   }
   if (!value.value) {
     return ElNotification({
         title: 'Info',
-        message: '请选择赎回币种',
+        message: 'Please select redemption currency',
         type: 'info',
     })
   }
   if (!amount.value) {
     return ElNotification({
         title: 'Info',
-        message: '请输入赎回数量',
+        message: 'Please enter the redemption quantity',
         type: 'info',
     })
   }
@@ -155,14 +155,14 @@ function verify() {
   if (amountNum.lte(0)) {
     return ElNotification({
         title: 'Info',
-        message: '请输入正确赎回数量',
+        message: 'Please enter the correct redemption quantity',
         type: 'info',
     })
   }
   if (amountNum.gt(PledgeInfo[value.value])) {
     return ElNotification({
         title: 'Info',
-        message: '赎回量不能大于质押量',
+        message: 'Redemption amount cannot be greater than pledge amount',
         type: 'info',
     })
   }

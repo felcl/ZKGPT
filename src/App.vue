@@ -2,6 +2,7 @@
 import { onMounted, watch, computed } from "vue";
 import { useStore } from "vuex";
 import Axios from "./Axios";
+import {ref} from 'vue'
 import {ElNotification} from 'element-plus'
 import { init, web3 ,contract,connect,changeNetwork} from "./web3";
 import { useRouter, useRoute } from "vue-router";
@@ -11,6 +12,8 @@ import {chainConfig} from './config'
 import Layout from "./Layout/Layout.vue";
 const router = useRouter();
 const store = useStore();
+const centerDialogVisible = ref(false)
+const InvitationLink = ref('')
 const address = computed(() => {
   return store.state.address;
 });
@@ -19,7 +22,7 @@ const token = computed(() => {
 });
 watch(token, (token) => {
   if(!token && address.value){
-    // gethasAddress(address.value)
+    gethasAddress(address.value)
   }
 }, { immediate: true });
 watch(
@@ -46,11 +49,37 @@ async function gethasAddress(address){
         return
       }
       if (hasAddress.data.error) {
+        let inviteCode = GetQueryString('Invite') || ""
+        if(inviteCode){
+          centerDialogVisible.value = false
+          register(address);
+        }else{
+          centerDialogVisible.value = true
+        }
         // console.log('用户未注册请注册')
-        register(address);
       }else{
+        centerDialogVisible.value = false
         login(address)
       }
+}
+function InvitationRegister(){
+  if(!InvitationLink.value){
+    return ElNotification({
+        title: 'Warning',
+        message: 'Please enter the invitation link',
+        type: 'warning',
+    })
+  }
+  let inviteCode = GetQueryString('Invite',InvitationLink.value)
+  if(inviteCode){
+    register(address.value,inviteCode);
+  }else{
+    return ElNotification({
+        title: 'Warning',
+        message: 'Please enter the correct invitation link',
+        type: 'warning',
+    })
+  }
 }
 async function login(address){
   let chainId = await window.ethereum.request({ method: "eth_chainId" });
@@ -85,7 +114,7 @@ async function login(address){
   if(err && err.code){
     return ElNotification({
         title: 'Warning',
-        message: '请签名否则部分数据无法获取',
+        message: 'Please sign or some data cannot be obtained',
         type: 'warning',
     })
   }
@@ -98,9 +127,9 @@ async function login(address){
   })
   store.commit("SETTOKEN", Register.data.result.token);
 }
-async function register(address) {
+async function register(address,inviteCodeAfferent='') {
   //router.currentRoute.value.query.address
-  let inviteCode = GetQueryString('Invite') || ""
+  let inviteCode = GetQueryString('Invite') || inviteCodeAfferent
   let chainId = await window.ethereum.request({ method: "eth_chainId" });
   const expireTime = new Date().getTime() + 10 * 60 * 1000; //设置注册10分钟有效时间
   const DEMO_TYPES = {
@@ -130,8 +159,6 @@ async function register(address) {
     }
   );
   const sign = await signTypedData(web3, address, typedData);
-  console.log(sign)
-  debugger
   let Register = await Axios.post("/api/cryptobrain/common/userRegister", {
     address: address,
     expireTime: expireTime,
@@ -139,11 +166,12 @@ async function register(address) {
     signature: sign.sig,
   })
   store.commit("SETTOKEN", Register.data.result.token);
+  centerDialogVisible.value = false
   console.log(Register)
 }
 onMounted(async () => {
   document.body.style.setProperty("--el-component-size", "2.8rem");
-  // document.body.style.setProperty('--el-input-text-color', 'rgba(255, 255, 255, 0.617691)')
+  document.body.style.setProperty('--el-border-radius-small', '20px')
   // document.body.style.setProperty('--el-text-color-regular', 'rgba(255, 255, 255, 0.617691)')
   if(window.ethereum){
     //用户账号初始化合约
@@ -216,6 +244,33 @@ onMounted(async () => {
 
 <template>
   <Layout></Layout>
+  <el-dialog v-model="centerDialogVisible" title="Invitation binding" width="30%" center :close-on-click-modal="false" :close-on-press-escape="false" :show-close="false">
+    <input class="InvitationInput" placeholder="Please enter the bound link" v-model="InvitationLink" type="text">
+    <div class="enter" @click="InvitationRegister">Confirm</div>
+  </el-dialog>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.InvitationInput{
+width: 100%;
+height: 46px;
+background: #F5FBFF;
+border-radius: 14px;
+border: none;
+outline: none;
+padding: 0 25px;
+box-sizing: border-box;
+}
+.enter{
+  width: 100%;
+  height: 46px;
+  background: linear-gradient(360deg, #299FEF 0%, #69C0FA 100%);
+  border-radius: 12px;
+  margin-top: 30px;
+  color: #FFFFFF;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>

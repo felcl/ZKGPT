@@ -148,7 +148,13 @@
         Learn more about AlGPT, chat with us and have your say in the future of the AlGPT ecosystem
       </div>
       <div class="join">
-        <div class="joinBanner"></div>
+        <div class="joinBanner">
+          <img src="../assets/Home/book.png" alt="">
+          <div>
+            <div class="bannerMain">AIGPT WHITE PAPER</div>
+            <div class="bannerSub">Join the community and ask questions</div>
+          </div>
+        </div>
         <div class="contactRow">
             <div class="contactItem">
                 <div class="icon">
@@ -188,7 +194,7 @@
     background: url("../assets/Home/bg2.png") 0 0 / 100%  no-repeat;
   }
   .firstScreen {
-    margin: 0 5rem;
+    margin: 0 5rem  15rem;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -197,11 +203,11 @@
         margin-top: 20rem;
     }
     .title {
-        font-size: 36px;
+        font-size: 60px;
         line-height: 50px;
       line-height: 1;
       color: #ffffff;
-      font-family: american typewriter;
+      font-family: bitte;
       font-weight: bold;
       @media (max-width:1024px) {
             display: none;
@@ -215,15 +221,17 @@
         color: #ffffff;
         text-align: center;
         display: none;
+        font-family: bitte;
+        font-weight: bold;
         @media (max-width:1024px) {
             display: block;
-      }
+        }
         @media (max-width: 767px){
             font-size: 26px;
             line-height: 36px;
         }
         @media (max-width: 425px) {
-            font-size: 5rem;
+            font-size: 7rem;
         }
     }
     .subTitle {
@@ -247,7 +255,7 @@
       @media (max-width:768px) {
             width: 100%;
             max-width: 260px;
-            height: 54px;
+            height: 48px;
             font-size: 16px;
             border-radius: 10px;
         }
@@ -304,6 +312,7 @@
     line-height: 1;
     color: #ffffff;
     text-align: center;
+    font-family: bitte;
     font-weight: bold;
     @media (max-width:1024px) {
       font-size: 2.8rem;
@@ -647,6 +656,26 @@
         height: 11.2rem;
         background: url('../assets/Home/joinBanner.png') no-repeat 0 0 / 100% 100%;
         margin:55px auto 35px;
+        display: flex;
+        align-items: center;
+        padding-left: 7rem;
+        box-sizing: border-box;
+        color: #fff;
+        img{
+          margin-right: 20px;
+        }
+        .bannerMain{
+          font-size: 36px;
+          @media (max-width:1024px) {
+            font-size: 26px;
+          }
+          @media (max-width:768px) {
+            font-size: 22px;
+          }
+        }
+        .bannerSub{
+          font-size: 14px;
+        }
         @media (max-width:768px) {
           width: 65rem;
           height: 14rem;

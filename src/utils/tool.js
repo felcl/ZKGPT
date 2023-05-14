@@ -8,8 +8,13 @@ export function AddrHandle(addr, start = 4, end = 4) {
     let addrArr = addr.match(r);
     return addrArr[1] + "...." + addrArr[2];
 }
-export function GetQueryString(name){
-  let search = window.location.href.split("?")
+export function GetQueryString(name,href){
+  let search 
+  if(href){
+    search = href.split("?")
+  }else{
+    search = window.location.href.split("?")
+  }
   let parameterArr
   if(search[1]){
     parameterArr = search[1].split('&')

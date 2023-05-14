@@ -135,7 +135,7 @@ function approve(toAddress, token) {
     if(!address.value){
         return ElNotification({
             title: 'Warning',
-            message: '请链接钱包',
+            message: 'Please link the wallet',
             type: 'warning',
         })
     }
@@ -151,13 +151,13 @@ function approve(toAddress, token) {
         getAllowance(contractAddress.CryptoBrainMain, token);
         return ElNotification({
             title: 'Success',
-            message: '授权成功',
+            message: 'Allowance successful',
             type: 'success',
         })
       }).catch((err)=>{
         return ElNotification({
             title: 'Warning',
-            message: '授权失败',
+            message: 'Allowance failed',
             type: 'warning',
         })
       })
@@ -178,13 +178,13 @@ function pledge(amount, PledgeName) {
       .then((res) => {
         return ElNotification({
             title: 'Success',
-            message: '质押成功',
+            message: 'Pledge successful',
             type: 'success',
         })
       }).catch((err)=>{
         return ElNotification({
             title: 'Warning',
-            message: '质押失败',
+            message: 'Pledge failed',
             type: 'warning',
         })
       }).finally(() => {
@@ -200,13 +200,13 @@ function pledge(amount, PledgeName) {
     .then((res) => {
         return ElNotification({
             title: 'Success',
-            message: '质押成功',
+            message: 'Pledge successful',
             type: 'success',
         })
       }).catch((err)=>{
         return ElNotification({
             title: 'Warning',
-            message: '质押失败',
+            message: 'Pledge failed',
             type: 'warning',
         })
       })
@@ -266,28 +266,28 @@ function verify() {
     if(!address.value){
         return ElNotification({
             title: 'Info',
-            message: '请链接钱包',
+            message: 'Please link the wallet',
             type: 'warning',
         })
     }
   if (inPledge.value) {
     return ElNotification({
         title: 'Info',
-        message: '请勿重复提交',
+        message: 'Please do not resubmit',
         type: 'info',
     })
   }
   if (!amount.value) {
     return ElNotification({
         title: 'Info',
-        message: '请输入要质押的数量',
+        message: 'Please enter the quantity to be pledged',
         type: 'info',
     })
   }
   if (new BigNumber(amount.value).lte(0)) {
     return ElNotification({
         title: 'Info',
-        message: '质押数量必须大于0',
+        message: 'Pledge quantity must be greater than 0',
         type: 'info',
     })
   }
@@ -296,7 +296,7 @@ function verify() {
   if (new BigNumber(amount.value).gt(balanceOf)) {
     return ElNotification({
         title: 'Info',
-        message: '质押数量超出可用余额',
+        message: 'The pledged quantity exceeds the available balance',
         type: 'info',
     })
   }
@@ -312,28 +312,28 @@ function LPverify() {
     if(!address.value){
         return ElNotification({
             title: 'Info',
-            message: '请链接钱包',
+            message: 'Please link the wallet',
             type: 'warning',
         })
     }
   if (inLPPledge.value) {
     return ElNotification({
         title: 'Info',
-        message: '交易中请勿重复提交',
+        message: 'Please do not resubmit during transactions',
         type: 'info',
     })
   }
   if (!LPAmount.value) {
     return ElNotification({
         title: 'Info',
-        message: '请输入要质押的数量',
+        message: 'Please enter the quantity to be pledged',
         type: 'info',
     })
   }
   if (new BigNumber(LPAmount.value).lte(0)) {
     return ElNotification({
         title: 'Info',
-        message: '质押数量必须大于0',
+        message: 'Pledge quantity must be greater than 0',
         type: 'info',
     })
   }
@@ -342,7 +342,7 @@ function LPverify() {
   if (new BigNumber(LPAmount.value).gt(balanceOf)) {
     return ElNotification({
         title: 'Info',
-        message: '质押数量超出可用余额',
+        message: 'The pledged quantity exceeds the available balance',
         type: 'info',
     })
   }

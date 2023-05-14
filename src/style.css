@@ -15,7 +15,10 @@ body{
   margin: 0;
   padding: 0;
 }
-@font-face {
-  font-family: 'american typewriter';
-  src: url(./assets/Home/font/font.ttf);
+@font-face{
+  font-family: bitte;  /*定义字体名称*/
+  src: url(./assets/font/font.ttf);  /*定义字体文件路径及格式*/
+}
+.el-notification__content{
+  text-align: left !important;
 }

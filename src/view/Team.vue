@@ -22,7 +22,7 @@ const copyFun = (text)=>{
     copy(text)
     ElNotification({
         title: 'Success',
-        message: '复制成功',
+        message: 'Replicating Success',
         type: 'success',
     })
 }
@@ -30,14 +30,14 @@ function receive(){
     if(!token.value){
         return ElNotification({
             title: 'Warning',
-            message: '请登录',
+            message: 'Please log in',
             type: 'warning',
         })
     }
     if(new BigNumber(Reward.value).lte(0)){
         return ElNotification({
             title: 'Warning',
-            message: '暂无可领取量',
+            message: 'There is currently no available amount to claim',
             type: 'warning',
         })
     }
@@ -55,7 +55,7 @@ function receive(){
         }else{
             ElNotification({
                 title: 'Warning',
-                message: '领取成功',
+                message: 'Received successfully',
                 type: 'warning',
             })
         }
@@ -70,7 +70,7 @@ function getInvitationList(){
 function getInvitationReward(){
     Axios.post(`/api/cryptobrain/common/rewardList/${address.value}/3`,{
     "page": 1,
-    "rows": 10
+    "rows": 999
     }).then(res=>{
         // if(res.data.error === null){
         //     res.data.result.list.forEach(item=>{
@@ -83,7 +83,7 @@ function getInvitationReward(){
 function getwithdrawList(){
     Axios.post(`/api/cryptobrain/common/withdrawList`,{
     "page": 1,
-    "rows": 10
+    "rows": 999
     }).then(res=>{
         if(!res.data.error){
             withdrawList.value = res.data.result.list.filter(item=>{

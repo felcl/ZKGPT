@@ -17,7 +17,6 @@ const DOMAON_TYPE = [
     },
 ];
 export const signTypedData = function(web3, from, data) {
-    console.log('------------------------------------------------------')
     return new Promise((resolve, reject) => {
         function cb(err, result) {
             if (err) {
@@ -40,6 +39,7 @@ export const signTypedData = function(web3, from, data) {
             });
         }
         if (web3.currentProvider.isMetaMask) {
+            console.log(data,'------------------------------------------------------')
             web3.currentProvider.sendAsync({
                 jsonrpc: "2.0",
                 method: "eth_signTypedData_v3",

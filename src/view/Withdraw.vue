@@ -52,7 +52,7 @@ const Withdraw = function(){
             getBalance()
             ElNotification({
                 title: 'Info',
-                message: '提交成功',
+                message: 'Submitted successfully',
                 type: 'Info',
             })
         }
@@ -63,21 +63,21 @@ function verify() {
     if(!address.value){
         return ElNotification({
             title: 'Info',
-            message: '请链接钱包',
+            message: 'Please link the wallet',
             type: 'info',
         })
     }
   if (inRedeem.value) {
     return ElNotification({
         title: 'Info',
-        message: '请勿重复提交',
+        message: 'Please do not resubmit',
         type: 'info',
     })
   }
   if (!amount.value) {
     return ElNotification({
         title: 'Info',
-        message: '请输入提现数量',
+        message: 'Please enter the withdrawal quantity',
         type: 'info',
     })
   }
@@ -85,7 +85,7 @@ function verify() {
   if (amountNum.lte(0)) {
     return ElNotification({
         title: 'Info',
-        message: '请输入正确提现数量',
+        message: 'Please enter the correct withdrawal quantity',
         type: 'info',
     })
   }
@@ -99,7 +99,7 @@ function verify() {
   if (amountNum.gt(balance)) {
     return ElNotification({
         title: 'Info',
-        message: '提现数量不能大于提现余额',
+        message: 'The withdrawal quantity cannot be greater than the withdrawal balance',
         type: 'info',
     })
   }
