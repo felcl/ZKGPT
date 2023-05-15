@@ -140,7 +140,7 @@ watch(
                     <div class="Label">Award </div>
                     <div class="Num">{{ Reward }}  </div>
                 </div>
-                <div class="ReceiveBtn flexCenter" @click="receive">Receive</div>
+                <div class="ReceiveBtn flexCenter" :class="{Disable:Reward <=0}" @click="receive" >Receive</div>
             </div>
             <div class="Tabs">
                 <div :class="['tabItem','flexCenter',{'active':type === 1}]" @click="type = 1">Invitation record</div>
@@ -148,16 +148,15 @@ watch(
             </div>
             <div v-if="type === 1">
                 <div class="record" v-for="item in InvitationList">
-                    <div class="left">{{ AddrHandle(item.token,7,7) }}</div>
+                    <div class="left">{{ AddrHandle(item.uaddress,7,7) }}</div>
                     <div class="right">
-                        <div>+{{ item.amount }}</div>
-                        <div>{{dateFormat('YYYY-mm-dd HH:MM',new Date(item.createTime))}}</div>
+                        <div>{{dateFormat('YYYY-mm-dd HH:MM',new Date(item.registerTime))}}</div>
                     </div>
                 </div>
             </div>
             <div v-else>
                 <div class="record" v-for="item in withdrawList">
-                    <div class="left">{{ AddrHandle(item.token,7,7) }}</div>
+                    <div class="left">{{ AddrHandle(item.uaddress,7,7) }}</div>
                     <div class="right">
                         <div>+{{ item.amount }}</div>
                         <div>{{dateFormat('YYYY-mm-dd HH:MM',new Date(item.createTime))}}</div>
@@ -262,6 +261,9 @@ watch(
                     width: 15rem;
                     height: 4.5rem;
                 }
+            }
+            .Disable{
+                background: #494F6A;
             }
         }
         .Tabs{

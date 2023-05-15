@@ -45,7 +45,7 @@
                   </a>
               </div> -->
       </div>
-       <div class="CenterTitle">FUTURE TECHNOLOGY</div>
+       <div class="CenterTitle">Future technology</div>
       <!--<div class="CenterSubTitle">
         Lido lets you stake tokens from many networks. Choose a network below to
         get started.
@@ -194,18 +194,23 @@
     background: url("../assets/Home/bg2.png") 0 0 / 100%  no-repeat;
   }
   .firstScreen {
-    margin: 0 5rem  15rem;
+    margin: 0 auto  15rem;
+    max-width: 1440px;
+    width: 100%;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    @media (max-width: 1450px) {
+    padding: 0 5rem;
+  }
     @media (max-width:1024px) {
         align-items: center;
         margin-top: 20rem;
     }
     .title {
         font-size: 60px;
-        line-height: 50px;
-      line-height: 1;
+        line-height: 1.2;
+        letter-spacing:2px;
       color: #ffffff;
       font-family: bitte;
       font-weight: bold;
@@ -306,6 +311,7 @@
   }
   .CenterTitle {
     font-family: american typewriter;
+    letter-spacing:2px;
       font-weight: bold;
     margin-top: 3.5rem;
     font-size: 1.8rem;
@@ -331,7 +337,6 @@
     margin-top: 12px;
     font-size: 14px;
     line-height: 2;
-    text-transform: uppercase;
     color: #fff;
     text-align: center;
     padding: 0 20px;
@@ -474,7 +479,7 @@
             color: #FFFFFF;
             font-size: 16px;
             padding: 0 40px;
-            line-height: 1.2;
+            line-height: 24px;
             text-align: center;
             img{
                 max-width: 100%;

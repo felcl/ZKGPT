@@ -10,11 +10,11 @@
         <div class="HistoryList">
             <div class="HistoryItem" v-for="item in RendList">
                 <div>
-                    <div>{{tabVal !== 3 ? (item.stake ? 'STAKE':'INCOME'):'WITHDRAW'}}</div>
+                    <div>{{tabVal !== 3 ? (item.type ? item.type:'INCOME'):'WITHDRAW'}}</div>
                     <div>{{ item.symbol }}</div>
                 </div>
                 <div class="right">
-                    <div>+{{ item.amount }} {{ item.symbol }}</div>
+                    <div>{{ item.amount }} {{ item.symbol }}</div>
                     <div>{{ dateFormat('YYYY-mm-dd HH:MM',new Date(item.createTime)) }}</div>
                 </div>
             </div>
@@ -47,9 +47,10 @@ watch(token,(token)=>{
             Axios.post(`/api/cryptobrain/common/rewardList/${address.value}/1`,{"page": 1,"rows": 999}),
             Axios.post(`/api/cryptobrain/common/rewardList/${address.value}/2`,{"page": 1,"rows": 999}),
             Axios.post(`/api/cryptobrain/common/withdrawList`,{"page": 1,"rows": 999}),
-            Axios.get(`/api/cryptobrain/common/pledges/${address.value}`)
+            Axios.get(`/api/cryptobrain/common/pledges/${address.value}`),
+            Axios.get(`/api/cryptobrain/common/redeems/${address.value}`),
         ]).then(resArr=>{
-            console.log(resArr)
+            console.log(resArr,'---------------------')
             CRBrewardList.value = resArr[0].data.result.list
             CZZrewardList.value = resArr[1].data.result.list
             INVTERrewardList.value = resArr[2].data.result.list.map(item=>{
@@ -61,7 +62,15 @@ watch(token,(token)=>{
                 }
             })
             resArr[3].data.result.forEach(item=>{
-                item.stake = true
+                item.type = 'STAKE'
+                if(item.symbol === "CRBLP" || item.symbol === "CZZLP"){
+                    CZZrewardList.value.push(item)
+                }else{
+                    CRBrewardList.value.push(item)
+                }
+            })
+            resArr[4].data.result.forEach(item=>{
+                item.type = 'REDEEM'
                 if(item.symbol === "CRBLP" || item.symbol === "CZZLP"){
                     CZZrewardList.value.push(item)
                 }else{
