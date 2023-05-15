@@ -201,11 +201,12 @@
     display: flex;
     flex-direction: column;
     @media (max-width: 1450px) {
-    padding: 0 5rem;
-  }
+      padding: 0 5rem;
+    }
     @media (max-width:1024px) {
         align-items: center;
         margin-top: 20rem;
+        padding: 0;
     }
     .title {
         font-size: 60px;
@@ -668,6 +669,9 @@
         color: #fff;
         img{
           margin-right: 20px;
+          @media (max-width:768px) {
+            width: 38px;
+          }
         }
         .bannerMain{
           font-size: 36px;
@@ -675,11 +679,14 @@
             font-size: 26px;
           }
           @media (max-width:768px) {
-            font-size: 22px;
+            font-size: 18px;
           }
         }
         .bannerSub{
           font-size: 14px;
+          @media (max-width:768px) {
+            font-size: 12px;
+          }
         }
         @media (max-width:768px) {
           width: 65rem;
