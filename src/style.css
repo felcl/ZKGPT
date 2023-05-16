@@ -22,3 +22,6 @@ body{
 .el-notification__content{
   text-align: left !important;
 }
+a{
+  text-decoration: none;
+}

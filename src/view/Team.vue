@@ -42,7 +42,7 @@ function receive(){
         })
     }
     Axios.post('/api/cryptobrain/common/userWithdraw',{
-        symbol: "INVTER ",
+        symbol: "INVITER",
         withDrawAmount: Reward.value
     }).then(res=>{
         console.log(res,"领取推荐收益成功")
@@ -54,9 +54,9 @@ function receive(){
             })
         }else{
             ElNotification({
-                title: 'Warning',
+                title: 'Success',
                 message: 'Received successfully',
-                type: 'warning',
+                type: 'success',
             })
         }
     })

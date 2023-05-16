@@ -148,13 +148,15 @@
         Learn more about AlGPT, chat with us and have your say in the future of the AlGPT ecosystem
       </div>
       <div class="join">
-        <div class="joinBanner">
-          <img src="../assets/Home/book.png" alt="">
-          <div>
-            <div class="bannerMain">AIGPT WHITE PAPER</div>
-            <div class="bannerSub">Join the community and ask questions</div>
+        <a href="https://aigpt-organization.gitbook.io/aigpt-whitepaper-1/" target="_blank">
+          <div class="joinBanner">
+            <img src="../assets/Home/book.png" alt="">
+            <div>
+              <div class="bannerMain">AIGPT WHITE PAPER</div>
+              <div class="bannerSub">Join the community and ask questions</div>
+            </div>
           </div>
-        </div>
+        </a>
         <div class="contactRow">
             <div class="contactItem">
                 <div class="icon">
@@ -162,7 +164,7 @@
                 </div>
                 <div class="Title">
                     <div class="mainTitle">Telegram</div>
-                    <div class="subTitle">Join chat</div>
+                    <div class="subTitle">https://t.me/AIGPT_official</div>
                 </div>
             </div>
             <div class="separate"></div>
@@ -172,7 +174,7 @@
                 </div>
                 <div class="Title">
                     <div class="mainTitle">Twitter</div>
-                    <div class="subTitle">Follow @XXXXXX</div>
+                    <div class="subTitle">https://twitter.com/AI_GPT1</div>
                 </div>
             </div>
         </div>
