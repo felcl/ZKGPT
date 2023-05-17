@@ -1,4 +1,20 @@
-<script setup></script>
+<script setup>
+import copy from "copy-to-clipboard";
+import {useRouter} from 'vue-router'
+const router = useRouter()
+import { ElNotification } from 'element-plus'
+const copyFun = (text)=>{
+    copy(text)
+    ElNotification({
+        title: 'Success',
+        message: 'Replicating Success',
+        type: 'success',
+    })
+}
+const goPath=(path)=>{
+  router.push(path)
+}
+</script>
 
 <template>
   <div class="bgColor">
@@ -15,8 +31,8 @@
         <div class="subTitle">
             FUTURE TECHNOLOGY
         </div>
-        <span class="StakeBtn flexCenter">Stake now</span>
-        <div class="totalRow">
+        <span class="StakeBtn flexCenter" @click="goPath('/Stake')">Stake now</span>
+        <!-- <div class="totalRow">
           <div class="TotalItem">
             <div class="totalLabel">Total staked tokens</div>
             <div class="totalValue">$11,983,033,282</div>
@@ -29,7 +45,7 @@
             <div class="totalLabel">Stakers</div>
             <div class="totalValue">11,983,033,282</div>
           </div>
-        </div>
+        </div> -->
         <!-- <div class="FriendlyLinks">
                   <a href="">
                       <img src="../assets/Home/InsIcon.png" alt="">
@@ -158,25 +174,29 @@
           </div>
         </a>
         <div class="contactRow">
-            <div class="contactItem">
+          <a href="ttps://t.me/AIGPT_official" target="_blank">
+            <div  class="contactItem">
                 <div class="icon">
                     <img src="../assets/Home/Telegram.png" alt="" />
                 </div>
                 <div class="Title">
                     <div class="mainTitle">Telegram</div>
-                    <div class="subTitle">https://t.me/AIGPT_official</div>
+                    <div class="subTitle">Join chat</div>
                 </div>
             </div>
+          </a>
             <div class="separate"></div>
-            <div class="contactItem">
-                <div class="icon">
-                    <img src="../assets/Home/Twitter.png" alt="" />
-                </div>
-                <div class="Title">
-                    <div class="mainTitle">Twitter</div>
-                    <div class="subTitle">https://twitter.com/AI_GPT1</div>
-                </div>
-            </div>
+            <a href="ttps://t.me/AIGPT_official" target="_blank">
+              <div  class="contactItem" @click="copyFun('https://twitter.com/AI_GPT1')">
+                  <div class="icon">
+                      <img src="../assets/Home/Twitter.png" alt="" />
+                  </div>
+                  <div class="Title">
+                      <div class="mainTitle">Twitter</div>
+                      <div class="subTitle">Follow @AI_GPT1</div>
+                  </div>
+              </div>
+            </a>
         </div>
       </div>
     </div>
@@ -260,6 +280,7 @@
       font-weight: 500;
       color: #FFFFFF;
       font-size: 18px;
+      cursor: pointer;
       @media (max-width:768px) {
             width: 100%;
             max-width: 260px;
@@ -718,6 +739,9 @@
         @media (max-width:375px) {
           width: 80rem;
         }
+        a{
+          flex: 1;
+        }
         .contactItem{
             // height: 8rem;
             flex: 1;
@@ -764,7 +788,7 @@
                 }
                 .subTitle{
                     font-weight: 400;
-                    color: #858585;
+                    color: #D4D4D4;
                     font-size: 14px;
                     @media (max-width:500px) {
                       font-size: 12px;

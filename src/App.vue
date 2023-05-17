@@ -12,7 +12,7 @@ import {chainConfig} from './config'
 import Layout from "./Layout/Layout.vue";
 const router = useRouter();
 const store = useStore();
-const centerDialogVisible = ref(false)
+// const centerDialogVisible = ref(false)
 const InvitationLink = ref('')
 const address = computed(() => {
   return store.state.address;
@@ -50,15 +50,15 @@ async function gethasAddress(address){
       }
       if (hasAddress.data.error) {
         let inviteCode = GetQueryString('Invite') || ""
-        if(inviteCode){
-          centerDialogVisible.value = false
+        // if(inviteCode){
+        //   centerDialogVisible.value = false
           register(address);
-        }else{
-          centerDialogVisible.value = true
-        }
+        // }else{
+        //   centerDialogVisible.value = true
+        // }
         // console.log('用户未注册请注册')
       }else{
-        centerDialogVisible.value = false
+        // centerDialogVisible.value = false
         login(address)
       }
 }
@@ -166,7 +166,7 @@ async function register(address,inviteCodeAfferent='') {
     signature: sign.sig,
   })
   store.commit("SETTOKEN", Register.data.result.token);
-  centerDialogVisible.value = false
+  // centerDialogVisible.value = false
   console.log(Register)
 }
 onMounted(async () => {
@@ -244,10 +244,10 @@ onMounted(async () => {
 
 <template>
   <Layout></Layout>
-  <el-dialog v-model="centerDialogVisible" title="Invitation binding" width="30%" center :close-on-click-modal="false" :close-on-press-escape="false" :show-close="false">
+  <!-- <el-dialog v-model="centerDialogVisible" title="Invitation binding" width="30%" center :close-on-click-modal="false" :close-on-press-escape="false" :show-close="false">
     <input class="InvitationInput" placeholder="Please enter the bound link" v-model="InvitationLink" type="text">
     <div class="enter" @click="InvitationRegister">Confirm</div>
-  </el-dialog>
+  </el-dialog> -->
 </template>
 
 <style lang="scss" scoped>

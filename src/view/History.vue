@@ -10,7 +10,7 @@
         <div class="HistoryList">
             <div class="HistoryItem" v-for="item in RendList">
                 <div>
-                    <div>{{tabVal !== 3 ? (item.type ? item.type:'INCOME'):'WITHDRAW'}}</div>
+                    <div>{{item.type ? item.type:'INCOME'}}</div>
                     <div>{{ item.symbol }}</div>
                 </div>
                 <div class="right">
@@ -44,10 +44,15 @@ const address = computed(() => {
 watch(token,(token)=>{
     if(token){
         Promise.all([
+            /* CRB收益 */
             Axios.post(`/api/cryptobrain/common/rewardList/${address.value}/1`,{"page": 1,"rows": 999}),
+            /* CZZ收益 */
             Axios.post(`/api/cryptobrain/common/rewardList/${address.value}/2`,{"page": 1,"rows": 999}),
+            /* 提现 */
             Axios.post(`/api/cryptobrain/common/withdrawList`,{"page": 1,"rows": 999}),
+            /* 质押 */
             Axios.get(`/api/cryptobrain/common/pledges/${address.value}`),
+            /* 赎回 */
             Axios.get(`/api/cryptobrain/common/redeems/${address.value}`),
         ]).then(resArr=>{
             console.log(resArr,'---------------------')
@@ -58,7 +63,7 @@ watch(token,(token)=>{
                     ...item,
                     amount:item.wamount,
                     symbol:item.wsymbol,
-                    type:'ws'
+                    type:item.wtype === 2 ? 'AWARD':'WITHDRAW'
                 }
             })
             resArr[3].data.result.forEach(item=>{

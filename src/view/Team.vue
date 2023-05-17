@@ -53,6 +53,7 @@ function receive(){
                 type: 'warning',
             })
         }else{
+            getBalance()
             ElNotification({
                 title: 'Success',
                 message: 'Received successfully',
@@ -87,7 +88,7 @@ function getwithdrawList(){
     }).then(res=>{
         if(!res.data.error){
             withdrawList.value = res.data.result.list.filter(item=>{
-                return item.wsymbol === 'INVTER'
+                return item.wtype === 2
             })
         }
         console.log(res,"提现记录")
@@ -158,7 +159,7 @@ watch(
                 <div class="record" v-for="item in withdrawList">
                     <div class="left">{{ AddrHandle(item.uaddress,7,7) }}</div>
                     <div class="right">
-                        <div>+{{ item.amount }}</div>
+                        <div>+{{ item.wamount }}</div>
                         <div>{{dateFormat('YYYY-mm-dd HH:MM',new Date(item.createTime))}}</div>
                     </div>
                 </div>
@@ -317,7 +318,7 @@ watch(
             }
         }
         .record{
-            margin: 0 1.5rem;
+            margin: 0 1.5rem 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
