@@ -391,7 +391,7 @@ const goPath=(path)=>{
             height: 261px;
             color: #FFFFFF;
             display: flex;
-            padding:20px 38px;
+            padding:20px 53px;
             box-sizing: border-box;
             text-align: center;
             @media (max-width:480px) {
@@ -414,6 +414,7 @@ const goPath=(path)=>{
             font-size: 18px;
             align-items: center;
             text-align: center;
+            text-align:justify;
             background: url('../assets/Home/FUTURE2.png') no-repeat center center / 100% 100%;
             margin-top: 25px;
             @media (max-width:425px) {

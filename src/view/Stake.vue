@@ -1,6 +1,6 @@
 <script setup>
 import { contractAddress, TokenConfig } from "../config";
-import {dateFormat} from '../utils/tool'
+import {dateFormat,NumSplic} from '../utils/tool'
 import Axios from '../Axios'
 import { contract, web3 ,init} from "../web3";
 import { ElNotification } from 'element-plus'
@@ -404,12 +404,15 @@ watch(
           <div class="bgBtn flexCenter">6 day</div>
         </div>
         <div class="label">Locked amount</div>
-        <input
-          type="text"
-          class="amount"
-          v-model="amount"
-          @input="($event) => changeNumPut($event, 'amount')"
-        />
+        <div class="inputBox">
+          <input
+            type="text"
+            class="amount"
+            v-model="amount"
+            @input="($event) => changeNumPut($event, 'amount')"
+          />
+          <span>max：{{ Type === "USDT" ? NumSplic(balanceOfUSDT,2) : NumSplic(balanceOfEHT,2) }}</span>
+        </div>
 
         <div
           class="submit flexCenter"
@@ -453,7 +456,7 @@ watch(
     </div>
     <div class="StakeTitle interval">Stake CZZ Ether</div>
     <div class="StakeSubTitle">
-      Stake CRB+ETH/LP or CZZ+ETH/LPG and receive CZZ while staking.
+      Stake CRB+ETH LP or CZZ+ETH LP and receive CZZ while staking
     </div>
     <div class="StakeItem">
       <div class="putBox">
@@ -475,12 +478,15 @@ watch(
           <div class="bgBtn flexCenter">30 day</div>
         </div>
         <div class="label">Locked amount</div>
-        <input
-          type="text"
-          class="amount"
-          v-model="LPAmount"
-          @input="($event) => changeNumPut($event, 'LPAmount')"
-        />
+        <div class="inputBox">
+          <input
+            type="text"
+            class="amount"
+            v-model="LPAmount"
+            @input="($event) => changeNumPut($event, 'LPAmount')"
+          />
+          <span>max：{{ LPType === "CRBLP" ? NumSplic(balanceOfCRBLP,2) : NumSplic(balanceOfCZZLP,2) }}</span>
+        </div>
 
         <div
           class="submit flexCenter"
@@ -633,18 +639,28 @@ watch(
           }
         }
       }
-      .amount {
-        width: 100%;
+      .inputBox{
         height: 2.8rem;
         border-radius: 0.6rem;
-        background: rgba(41, 50, 95, 1);
+        background: rgb(41, 50, 95);
+        margin-top: 14px;
+        padding: 0 26px;
+        box-sizing: border-box;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        span{
+          color: #fff;
+        }
+      }
+      .amount {
+        flex: 1;
         // mix-blend-mode: overlay;
+        background: transparent;
         // opacity: 0.4;
         border: none;
-        margin-top: 14px;
         outline: none;
         color: rgba(255, 255, 255, 0.617691);
-        padding: 0 26px;
         box-sizing: border-box;
         font-size: 14px;
         @media (max-width: 768px) {
