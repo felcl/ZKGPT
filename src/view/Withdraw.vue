@@ -120,6 +120,7 @@ function changeNumPut(event) {
   amount.value = putVal;
 }
 function ChangeType(type) {
+  amount.value = ''
   value.value = "";
   Type.value = type;
 }
@@ -144,12 +145,15 @@ function ChangeType(type) {
         </div>
       </div>
       <div class="label">Withdraw Amount</div>
-      <input
-        type="text"
-        class="amount"
-        v-model="amount"
-        @input="changeNumPut($event)"
-      />
+      <div class="amount">
+        <input
+          type="text"
+          v-model="amount"
+          :placeholder=" Type === 'CZZ' ? zbalance : rbalance"
+          @input="changeNumPut($event)"
+        />
+        <span @click="amount = Type === 'CZZ' ? zbalance : rbalance">MAX</span>
+      </div>
       <div class="submit flexCenter" @click="verify">
         <svg viewBox="25 25 50 50" class="inRedeem" v-if="inRedeem">
           <circle cx="50" cy="50" r="20"></circle>
@@ -222,7 +226,8 @@ function ChangeType(type) {
       height: 2.8rem;
       width: calc(100% - 8rem);
       box-sizing: border-box;
-      display: block;
+      display: flex;
+      align-items: center;
       border-radius: 0.6rem;
       background: rgba(41, 50, 95, 1);
       // mix-blend-mode: overlay;
@@ -233,6 +238,16 @@ function ChangeType(type) {
       padding: 0 26px;
       box-sizing: border-box;
       font-size: 14px;
+      input{
+        height: 100%;
+        border: none;
+        padding: 0;
+        flex: 1;
+        color: rgba(255, 255, 255, 0.617691);
+        margin-right: 16px;
+        background: transparent;
+        outline: none;
+      }
       @media (max-width: 768px) {
         height: 3.8rem;
       }

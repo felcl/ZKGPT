@@ -9,6 +9,12 @@ import { watch, computed, ref ,reactive} from "vue";
 import BigNumber from "big.js";
 BigNumber.NE = -40;
 BigNumber.PE = 40;
+const PledgeInfo = reactive({
+  CRBLP: "0",
+  CZZLP: "0",
+  ETH: "0",
+  USDT: "0",
+});
 const store = useStore();
 const balanceOfEHT = ref("0");
 const balanceOfUSDT = ref("0");
@@ -59,9 +65,11 @@ const ifLPApprove = computed(() => {
   return true;
 });
 function changeType(type) {
+  amount.value = ''
   Type.value = type;
 }
 function changeLPType(type) {
+  LPAmount.value = ''
   LPType.value = type;
 }
 function changeNumPut(event, key) {
@@ -362,6 +370,24 @@ watch(
         console.log('初始化合约')
         init()
       }
+      contract.CryptoBrainMain.methods
+        .userPledgeInfo(address)
+        .call()
+        .then((res) => {
+          PledgeInfo.CRBLP = new BigNumber(res.crblpAmount).div(
+            10 ** TokenConfig.CRBLP.decimals
+          );
+          PledgeInfo.CZZLP = new BigNumber(res.czzlpAmount).div(
+            10 ** TokenConfig.CZZLP.decimals
+          );
+          PledgeInfo.ETH = new BigNumber(res.ethAmount).div(
+            10 ** TokenConfig.ETH.decimals
+          );
+          PledgeInfo.USDT = new BigNumber(res.usdtAmount).div(
+            10 ** TokenConfig.USDT.decimals
+          );
+          console.log(res, "用户质押量");
+        });
       getStakeInfo()
       //获取余额
       getBalanceOf(address, "USDT");
@@ -411,7 +437,7 @@ watch(
             v-model="amount"
             @input="($event) => changeNumPut($event, 'amount')"
           />
-          <span>max：{{ Type === "USDT" ? NumSplic(balanceOfUSDT,2) : NumSplic(balanceOfEHT,2) }}</span>
+          <span @click='amount = Type === "USDT" ? NumSplic(balanceOfUSDT,2) : NumSplic(balanceOfEHT,2)'>MAX:{{ mount = Type === "USDT" ? NumSplic(balanceOfUSDT,2) : NumSplic(balanceOfEHT,2) }}</span>
         </div>
 
         <div
@@ -435,6 +461,10 @@ watch(
         <div class="InfoRow">
           <span>Stake Date</span>
           <span>{{ StakeInfo[Type] ? dateFormat('YYYY-mm-dd HH:MM',new Date(StakeInfo[Type].createTime)) : "--" }}</span>
+        </div>
+        <div class="InfoRow">
+          <span>Pledge  amount</span>
+          <span>{{ PledgeInfo[Type]!=='0' ? PledgeInfo[Type] : "--" }}</span>
         </div>
         <div class="InfoRow">
           <span>Value Date</span>
@@ -485,7 +515,7 @@ watch(
             v-model="LPAmount"
             @input="($event) => changeNumPut($event, 'LPAmount')"
           />
-          <span>max：{{ LPType === "CRBLP" ? NumSplic(balanceOfCRBLP,2) : NumSplic(balanceOfCZZLP,2) }}</span>
+          <span @click='LPAmount = LPType === "CRBLP" ? NumSplic(balanceOfCRBLP,2) : NumSplic(balanceOfCZZLP,2)'>MAX:{{ LPType === "CRBLP" ? NumSplic(balanceOfCRBLP,2) : NumSplic(balanceOfCZZLP,2) }}</span>
         </div>
 
         <div
@@ -513,6 +543,10 @@ watch(
         <div class="InfoRow">
           <span>Value Date</span>
           <span>{{ StakeInfo[LPType] ? dateFormat('YYYY-mm-dd HH:MM',new Date(StakeInfo[LPType].intBearing)) : "--" }}</span>
+        </div>
+        <div class="InfoRow">
+          <span>Pledge  amount</span>
+          <span>{{ PledgeInfo[LPType]!=='0' ? PledgeInfo[LPType] : "--" }}</span>
         </div>
         <div class="InfoRow">
           <span>Interest Period</span>

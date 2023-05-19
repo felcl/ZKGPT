@@ -5,6 +5,7 @@ import { useStore } from "vuex";
 import { watch, computed, ref ,reactive} from "vue";
 import { ElNotification } from 'element-plus'
 import copy from "copy-to-clipboard";
+import { contract , init} from "../web3";
 import {useRouter,useRoute} from 'vue-router'
 import { AddrHandle , dateFormat , NumSplic} from '../utils/tool'
 const store = useStore();
@@ -14,6 +15,8 @@ const CRBAmount = ref(0)
 const CZZAmount = ref(0)
 const rbalance = ref(0);
 const zbalance = ref(0);
+const pledgeCRB = ref(false);
+const pledgeCZZ = ref(false);
 const income = ref([])
 const address = computed(() => {
   return store.state.address;
@@ -85,7 +88,21 @@ watch(
   address,
   (address) => {
     if (address) {
-        
+        if(Object.keys(contract).length === 0){
+            init()
+        }
+        contract.CryptoBrainMain.methods
+        .userPledgeInfo(address)
+        .call()
+        .then((res) => {
+            if(res.ethAmount !== '0' || res.usdtAmount !== '0'){
+                pledgeCRB.value = true
+            }
+            if(res.crblpAmount !== '0' || res.czzlpAmount !== '0'){
+                pledgeCZZ.value = true
+            }
+          console.log(res, "用户质押量");
+        });
     }else{
         ElNotification({
             title: 'Warning',
@@ -128,16 +145,18 @@ function getBalance(){
                 <span>{{ address ? AddrHandle(address,7,7) : 'Please link the wallet'}}</span>
                 <img @click="copyFun(address)" src="../assets/Home/copy.png" alt="">
             </div>
-            <div class="link"> <span>{{ InviteUrl ? AddrHandle(InviteUrl,14,14) : 'Obtain invitation code after logging in'}} <img src="../assets/Home/copy.png" v-if="InviteUrl" @click="copyFun(InviteUrl)" alt=""></span> <div class="Team flexCenter" @click="goPath('/Team')">Team</div></div>
+            <div class="link"> <span>{{ InviteUrl ? AddrHandle(InviteUrl,14,14) : ''}} <img src="../assets/Home/copy.png" v-if="InviteUrl" @click="copyFun(InviteUrl)" alt=""></span> <div class="Team flexCenter" @click="goPath('/Team')">Team</div></div>
         </div>
         <div class="balance">
             <div class="balanceItem">
                 <div class="label">CRB</div>
                 <div class="Num">{{ NumSplic(rbalance,2) }}</div>
+                <div class="countdown">{{pledgeCRB ? '24:00:00':' '}}</div>
             </div>
             <div class="balanceItem">
                 <div class="label">CZZ</div>
                 <div class="Num">{{ NumSplic(zbalance,2) }}</div>
+                <div class="countdown" >{{pledgeCZZ ? "24:00:00":" " }}</div>
             </div>
             <div>
                 <div class="Withdraw flexCenter" @click="goPath('/Withdraw')">Withdraw</div>
