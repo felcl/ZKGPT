@@ -732,7 +732,7 @@ watch(
     }
     .StakeInfo {
       width: 100%;
-      background: linear-gradient(90deg, #536dfe 0%, #b41fff 100%);
+      background: url('../assets/Home/InfoBg.png') no-repeat center center / 100% 100%;
       border-radius: 2.5rem;
       padding: 1.9rem 4rem;
       box-sizing: border-box;

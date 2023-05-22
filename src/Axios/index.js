@@ -1,8 +1,8 @@
 import axios from "axios";
 import {store} from "../store";
 export const Axios = axios.create({
-  baseURL: "http://18.136.140.46:8084", //测试服务器
-  // baseURL: "https://aigpt.financial/", //
+  // baseURL: "http://18.136.140.46:8084", //测试服务器
+  baseURL: "https://aigpt.financial/", //
   // timeout: 5000,
   headers: { "Content-Type": "application/json" },
 });

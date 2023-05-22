@@ -2,7 +2,7 @@
 import '../assets/style/Rewares.scss'
 import Axios from '../Axios'
 import { useStore } from "vuex";
-import { watch, computed, ref ,reactive} from "vue";
+import { watch, computed, ref ,reactive,onMounted,onUnmounted} from "vue";
 import { ElNotification } from 'element-plus'
 import copy from "copy-to-clipboard";
 import { contract , init} from "../web3";
@@ -17,13 +17,27 @@ const rbalance = ref(0);
 const zbalance = ref(0);
 const pledgeCRB = ref(false);
 const pledgeCZZ = ref(false);
+const showCountdownCRB = ref(false);
+const showCountdownCZZ = ref(false);
 const income = ref([])
+const timeDowm = ref('')
 const address = computed(() => {
   return store.state.address;
 });
 const token = computed(() => {
   return store.state.token;
 });
+let Time = ref(null)
+onMounted(()=>{
+    Time = setInterval(()=>{
+        timeDowm.value = countdown()
+    },1000)
+})
+onUnmounted(()=>{
+    if(Time !== null){
+        clearInterval(Time)
+    }
+})
 watch(
     token,
     (token)=>{
@@ -38,6 +52,13 @@ watch(
                 CRBAmount.value = res.data.result.rbalance
                 CZZAmount.value = res.data.result.zbalance
                 console.log(res,"用户账户信息")
+            })
+            Axios.post(`/api/cryptobrain/common/nextReward/${address.value}`).then(res=>{
+                console.log(res,"收益是否发放完成")
+                if(res.data.code === 200){
+                    showCountdownCRB.value = res.data.result.CRB
+                    showCountdownCZZ.value = res.data.result.CZZ
+                }
             })
             Promise.all([
                 Axios.post(`/api/cryptobrain/common/rewardList/${address.value}/1`,{
@@ -131,6 +152,12 @@ function getBalance(){
         console.log(res,"用户账户信息")
     })
 }
+function countdown(){
+    let nowTime = new Date().getTime()
+    let endTime = Math.ceil(nowTime / 86400000) * 86400000 -28800000
+    var lefttime = endTime - nowTime
+    return Math.floor(lefttime/(1000*60*60)%24)+':'+Math.floor(lefttime/(1000*60)%60)+':'+Math.floor(lefttime/1000%60)
+}
 </script>
 <template>
   <div class="Rewares">
@@ -151,12 +178,12 @@ function getBalance(){
             <div class="balanceItem">
                 <div class="label">CRB</div>
                 <div class="Num">{{ NumSplic(rbalance,2) }}</div>
-                <div class="countdown">{{pledgeCRB ? '24:00:00':' '}}</div>
+                <div class="countdown">{{showCountdownCRB ? timeDowm:' '}}</div>
             </div>
             <div class="balanceItem">
                 <div class="label">CZZ</div>
                 <div class="Num">{{ NumSplic(zbalance,2) }}</div>
-                <div class="countdown" >{{pledgeCZZ ? "24:00:00":" " }}</div>
+                <div class="countdown" >{{showCountdownCZZ ? timeDowm:" " }}</div>
             </div>
             <div>
                 <div class="Withdraw flexCenter" @click="goPath('/Withdraw')">Withdraw</div>
