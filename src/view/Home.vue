@@ -402,7 +402,7 @@ const goPath=(path)=>{
         div:nth-child(1){
             background: url('../assets/Home/FUTURE1.png') no-repeat center center / 100% 100%;
             font-size: 30px;
-            align-items: flex-end;
+            align-items: center;
             @media (max-width:768px) {
                 font-size: 22px;
             }
@@ -505,7 +505,7 @@ const goPath=(path)=>{
             font-size: 16px;
             padding: 0 40px;
             line-height: 24px;
-            text-align: center;
+            text-align: justify;
             img{
                 max-width: 100%;
             }
@@ -556,7 +556,7 @@ const goPath=(path)=>{
         }
         .introduce{
             font-size: 12px;
-            text-align: center;
+            text-align: justify;
             color: #FFFFFF;
             padding: 0 20px;
         }

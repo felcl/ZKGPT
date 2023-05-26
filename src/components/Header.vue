@@ -156,7 +156,7 @@ onMounted(() => {
     }
   }
   .menu {
-    margin-left: 7.5rem;
+    margin-left: 3.2rem;
     display: flex;
     @media (max-width: 425px) {
       // margin-left: 2.5rem;
