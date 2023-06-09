@@ -47,14 +47,14 @@ const Connect=()=>{
           <img :src="route.path === '/' ? HomeActiveIcon:HomeIcon" alt="">
           <span>HOME</span>
       </div>
-      <div class="MenuItem" @click="goPath('/Stake')">
+      <!-- <div class="MenuItem" @click="goPath('/Stake')">
           <img :src="route.path === '/Stake' ? StakeActiveIcon:StakeIcon" alt="">
           <span>STAKE</span>
       </div>
       <div class="MenuItem" @click="goPath('/Rewares')">
           <img :src="route.path === '/Rewares' ? RewardsActive:Rewards" alt="">
           <span>REWARDS</span>
-      </div>
+      </div> -->
     </div>
     <div class="connect" @click="Connect">
       <div class="content" :class="['content',{Connected:!!address}]">
