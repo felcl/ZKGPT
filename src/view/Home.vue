@@ -1,8 +1,29 @@
 <script setup>
 import copy from "copy-to-clipboard";
+import 'vue3-video-play/dist/style.css'
+import { videoPlay } from 'vue3-video-play'
 import {useRouter} from 'vue-router'
-const router = useRouter()
+import {reactive} from 'vue'
 import { ElNotification } from 'element-plus'
+import video from '../assets/video/AiGPT.mp4'
+import videoBg from '../assets/Home/videoBg.png'
+const router = useRouter()
+const options = reactive({
+  width: '100%', //播放器高度
+  height: '100%', //播放器高度
+  color: "#409eff", //主题色
+  title: '', //视频名称
+  src: video, //视频源
+  muted: true, //静音
+  webFullScreen: false,
+  speedRate: ["0.75", "1.0", "1.25", "1.5", "2.0"], //播放倍速
+  autoPlay: true, //自动播放
+  loop: false, //循环播放
+  mirror: false, //镜像画面
+  ligthOff: false,  //关灯模式
+  volume: 0.3, //默认音量大小
+  control: true, //是否显示控制器
+})
 const copyFun = (text)=>{
     copy(text)
     ElNotification({
@@ -31,7 +52,8 @@ const goPath=(path)=>{
         <div class="subTitle">
             FUTURE TECHNOLOGY
         </div>
-        <span class="StakeBtn flexCenter" @click="goPath('/Stake')">Stake now</span>
+        <!-- <span class="StakeBtn flexCenter" @click="goPath('/Stake')">Stake now</span> -->
+        <span class="StakeBtn flexCenter">Coming soon</span>
         <!-- <div class="totalRow">
           <div class="TotalItem">
             <div class="totalLabel">Total staked tokens</div>
@@ -105,6 +127,10 @@ const goPath=(path)=>{
             
         </div>
       </div>
+      <div class="CenterTitle">Branding</div>
+      <div class="videoBox">
+        <videoPlay v-bind="options" :poster='videoBg'/>
+      </div>
       <div class="CenterTitle">Distribution</div>
       <div class="CenterSubTitle">
         AIGPT lets you stake tokens from many networks. Choose a network below to get started.
@@ -164,7 +190,7 @@ const goPath=(path)=>{
         Learn more about AlGPT, chat with us and have your say in the future of the AlGPT ecosystem
       </div>
       <div class="join">
-        <a href="https://aigpt-organization.gitbook.io/aigpt-whitepaper-1/" target="_blank">
+        <a href="https://aigpt-organization.gitbook.io/aigpt-whitepaper-3/" target="_blank">
           <div class="joinBanner">
             <img src="../assets/Home/book.png" alt="">
             <div>
@@ -174,7 +200,7 @@ const goPath=(path)=>{
           </div>
         </a>
         <div class="contactRow">
-          <a href="ttps://t.me/AIGPT_official" target="_blank">
+          <a href="https://t.me/AIGPT_official" target="_blank">
             <div  class="contactItem">
                 <div class="icon">
                     <img src="../assets/Home/Telegram.png" alt="" />
@@ -186,16 +212,58 @@ const goPath=(path)=>{
             </div>
           </a>
             <div class="separate"></div>
-            <a href="ttps://t.me/AIGPT_official" target="_blank">
-              <div  class="contactItem" @click="copyFun('https://twitter.com/AI_GPT1')">
+            <a href="https://twitter.com/AIGPT_Official" target="_blank">
+              <div  class="contactItem" @click="copyFun('https://twitter.com/AIGPT_Official')">
                   <div class="icon">
                       <img src="../assets/Home/Twitter.png" alt="" />
                   </div>
                   <div class="Title">
                       <div class="mainTitle">Twitter</div>
-                      <div class="subTitle">Follow @AI_GPT1</div>
+                      <div class="subTitle">Follow @AIGPT_Official</div>
                   </div>
               </div>
+            </a>
+        </div>
+        <div class="contactRow">
+          <a href="https://t.me/AIGPT_official" target="_blank">
+            <div  class="contactItem">
+                <div class="icon">
+                    <img src="../assets/Home/Youtub.png" alt="" />
+                </div>
+                <div class="Title">
+                    <div class="mainTitle">Youtub</div>
+                    <div class="subTitle">Watch the video</div>
+                </div>
+            </div>
+          </a>
+            <div class="separate"></div>
+            <a href="https://twitter.com/AIGPT_Official" target="_blank">
+              <div  class="contactItem" @click="copyFun('https://twitter.com/AIGPT_Official')">
+                  <div class="icon">
+                      <img src="../assets/Home/Discord.png" alt="" />
+                  </div>
+                  <div class="Title">
+                      <div class="mainTitle">Discord</div>
+                      <div class="subTitle">Join the community and ask questions </div>
+                  </div>
+              </div>
+            </a>
+        </div>
+        <div class="contactRow">
+          <a href="https://t.me/AIGPT_official" target="_blank">
+            <div  class="contactItem">
+                <div class="icon">
+                    <img src="../assets/Home/Medium.png" alt="" />
+                </div>
+                <div class="Title">
+                    <div class="mainTitle">Medium</div>
+                    <div class="subTitle">Web article</div>
+                </div>
+            </div>
+          </a>
+            <div class="separate"></div>
+            <a>
+              
             </a>
         </div>
       </div>
@@ -258,7 +326,7 @@ const goPath=(path)=>{
             font-size: 26px;
             line-height: 36px;
         }
-        @media (max-width: 425px) {
+        @media (max-width: 488px) {
             font-size: 7rem;
         }
     }
@@ -289,6 +357,10 @@ const goPath=(path)=>{
             border-radius: 10px;
         }
     }
+    .StakeBtn:hover{
+      background: #fff;
+      color: #000;
+    }
     .dnone{
         @media (max-width:800px) {
             display: none;
@@ -301,11 +373,11 @@ const goPath=(path)=>{
       max-width: 1440px;
       margin:30px auto;
       width: 100%;
-      @media (max-width:425px) {
+      @media (max-width:488px) {
         margin:130px auto 30px;
       }
       .TotalItem {
-        @media (max-width:425px) {
+        @media (max-width:488px) {
           margin-bottom: 16px;
         }
         .totalLabel {
@@ -350,7 +422,7 @@ const goPath=(path)=>{
     @media (max-width:768px) {
       font-size: 3.5rem;
     }
-    @media (max-width:425px) {
+    @media (max-width:488px) {
       font-size: 5rem;
     }
     @media (max-width:375px) {
@@ -402,7 +474,7 @@ const goPath=(path)=>{
         div:nth-child(1){
             background: url('../assets/Home/FUTURE1.png') no-repeat center center / 100% 100%;
             font-size: 30px;
-            align-items: flex-end;
+            align-items: center;
             @media (max-width:768px) {
                 font-size: 22px;
             }
@@ -417,7 +489,7 @@ const goPath=(path)=>{
             text-align:justify;
             background: url('../assets/Home/FUTURE2.png') no-repeat center center / 100% 100%;
             margin-top: 25px;
-            @media (max-width:425px) {
+            @media (max-width:488px) {
                 font-size: 16px;
             }
         }
@@ -474,6 +546,16 @@ const goPath=(path)=>{
         }
     }
   }
+  .videoBox{
+    width: 538px;
+    height: 303px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin:20px auto 0;
+    @media (max-width:550px) {
+      width: 95%;
+    }
+  }
   .DistributionRow{
     max-width: 1440px;
     display: flex;
@@ -505,7 +587,7 @@ const goPath=(path)=>{
             font-size: 16px;
             padding: 0 40px;
             line-height: 24px;
-            text-align: center;
+            text-align: justify;
             img{
                 max-width: 100%;
             }
@@ -556,7 +638,7 @@ const goPath=(path)=>{
         }
         .introduce{
             font-size: 12px;
-            text-align: center;
+            text-align: justify;
             color: #FFFFFF;
             padding: 0 20px;
         }
@@ -716,7 +798,7 @@ const goPath=(path)=>{
           width: 65rem;
           height: 14rem;
         }
-        @media (max-width:425px) {
+        @media (max-width:488px) {
           width: 75rem;
           height: 20rem;
         }
@@ -729,12 +811,12 @@ const goPath=(path)=>{
         width: 53.75rem;
         display: flex;
         justify-content: space-between;
-        margin: auto;
+        margin:0 auto 40px;
         @media (max-width:768px) {
           width: 65rem;
           flex-direction: column;
         }
-        @media (max-width:425px) {
+        @media (max-width:488px) {
           width: 75rem;
         }
         @media (max-width:375px) {
@@ -802,5 +884,10 @@ const goPath=(path)=>{
         }
     }
   }
+}
+.flexCenter{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
