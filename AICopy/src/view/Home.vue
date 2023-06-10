@@ -190,7 +190,11 @@ const goPath=(path)=>{
         Learn more about AlGPT, chat with us and have your say in the future of the AlGPT ecosystem
       </div>
       <div class="join">
+<<<<<<< HEAD
         <a href="https://aigpt-organization.gitbook.io/aigpt-whitepaper-1/" target="_blank">
+=======
+        <a href="https://aigpt-organization.gitbook.io/aigpt-whitepaper-3/" target="_blank">
+>>>>>>> 29eedcf4846931ab7ad1b1f2277af6d687639209
           <div class="joinBanner">
             <img src="../assets/Home/book.png" alt="">
             <div>
@@ -200,7 +204,11 @@ const goPath=(path)=>{
           </div>
         </a>
         <div class="contactRow">
+<<<<<<< HEAD
           <a href="ttps://t.me/AIGPT_official" target="_blank">
+=======
+          <a href="https://t.me/AIGPT_official" target="_blank">
+>>>>>>> 29eedcf4846931ab7ad1b1f2277af6d687639209
             <div  class="contactItem">
                 <div class="icon">
                     <img src="../assets/Home/Telegram.png" alt="" />
@@ -212,14 +220,23 @@ const goPath=(path)=>{
             </div>
           </a>
             <div class="separate"></div>
+<<<<<<< HEAD
             <a href="ttps://t.me/AIGPT_official" target="_blank">
               <div  class="contactItem" @click="copyFun('https://twitter.com/AI_GPT1')">
+=======
+            <a href="https://twitter.com/AIGPT_Official" target="_blank">
+              <div  class="contactItem" @click="copyFun('https://twitter.com/AIGPT_Official')">
+>>>>>>> 29eedcf4846931ab7ad1b1f2277af6d687639209
                   <div class="icon">
                       <img src="../assets/Home/Twitter.png" alt="" />
                   </div>
                   <div class="Title">
                       <div class="mainTitle">Twitter</div>
+<<<<<<< HEAD
                       <div class="subTitle">Follow @AI_GPT1</div>
+=======
+                      <div class="subTitle">Follow @AIGPT_Official</div>
+>>>>>>> 29eedcf4846931ab7ad1b1f2277af6d687639209
                   </div>
               </div>
             </a>

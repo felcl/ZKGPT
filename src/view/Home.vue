@@ -190,7 +190,7 @@ const goPath=(path)=>{
         Learn more about AlGPT, chat with us and have your say in the future of the AlGPT ecosystem
       </div>
       <div class="join">
-        <a href="https://aigpt-organization.gitbook.io/aigpt-whitepaper-1/" target="_blank">
+        <a href="https://aigpt-organization.gitbook.io/aigpt-whitepaper-3/" target="_blank">
           <div class="joinBanner">
             <img src="../assets/Home/book.png" alt="">
             <div>
@@ -200,7 +200,7 @@ const goPath=(path)=>{
           </div>
         </a>
         <div class="contactRow">
-          <a href="ttps://t.me/AIGPT_official" target="_blank">
+          <a href="https://t.me/AIGPT_official" target="_blank">
             <div  class="contactItem">
                 <div class="icon">
                     <img src="../assets/Home/Telegram.png" alt="" />
@@ -212,16 +212,58 @@ const goPath=(path)=>{
             </div>
           </a>
             <div class="separate"></div>
-            <a href="ttps://t.me/AIGPT_official" target="_blank">
-              <div  class="contactItem" @click="copyFun('https://twitter.com/AI_GPT1')">
+            <a href="https://twitter.com/AIGPT_Official" target="_blank">
+              <div  class="contactItem" @click="copyFun('https://twitter.com/AIGPT_Official')">
                   <div class="icon">
                       <img src="../assets/Home/Twitter.png" alt="" />
                   </div>
                   <div class="Title">
                       <div class="mainTitle">Twitter</div>
-                      <div class="subTitle">Follow @AI_GPT1</div>
+                      <div class="subTitle">Follow @AIGPT_Official</div>
                   </div>
               </div>
+            </a>
+        </div>
+        <div class="contactRow">
+          <a href="https://www.youtube.com/@AIGPT1" target="_blank">
+            <div  class="contactItem">
+                <div class="icon">
+                    <img src="../assets/Home/Youtub.png" alt="" />
+                </div>
+                <div class="Title">
+                    <div class="mainTitle">Youtub</div>
+                    <div class="subTitle">Watch the video</div>
+                </div>
+            </div>
+          </a>
+            <div class="separate"></div>
+            <a href="https://discord.gg/EKJ56ZnYRw" target="_blank">
+              <div  class="contactItem">
+                  <div class="icon">
+                      <img src="../assets/Home/Discord.png" alt="" />
+                  </div>
+                  <div class="Title">
+                      <div class="mainTitle">Discord</div>
+                      <div class="subTitle">Join the community and ask questions </div>
+                  </div>
+              </div>
+            </a>
+        </div>
+        <div class="contactRow">
+          <a href="https://medium.com/@AI_GPT1" target="_blank">
+            <div  class="contactItem">
+                <div class="icon">
+                    <img src="../assets/Home/Medium.png" alt="" />
+                </div>
+                <div class="Title">
+                    <div class="mainTitle">Medium</div>
+                    <div class="subTitle">Web article</div>
+                </div>
+            </div>
+          </a>
+            <div class="separate"></div>
+            <a>
+              
             </a>
         </div>
       </div>
@@ -769,7 +811,7 @@ const goPath=(path)=>{
         width: 53.75rem;
         display: flex;
         justify-content: space-between;
-        margin: auto;
+        margin:0 auto;
         @media (max-width:768px) {
           width: 65rem;
           flex-direction: column;
@@ -784,8 +826,9 @@ const goPath=(path)=>{
           flex: 1;
         }
         .contactItem{
-            // height: 8rem;
+            height: 8rem;
             flex: 1;
+            // height:100%;
             box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.15);
             border-radius: 1.4rem;
             background: #3E2470;
@@ -793,6 +836,7 @@ const goPath=(path)=>{
             box-sizing: border-box;
             display: flex;
             align-items: center;
+            margin-bottom:20px;
             @media (max-width:1024px) {
             //   height: 8rem;
             }
@@ -801,10 +845,10 @@ const goPath=(path)=>{
                 padding: 3rem 2rem 3rem;
             }
             @media (max-width:650px) {
-            //   height: 10rem;
+              height: 10rem;
             }
             @media (max-width:500px) {
-            //   height: 14rem;
+              height: 16rem;
             }
             .icon{
               width: 2.7rem;

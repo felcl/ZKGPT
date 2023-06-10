@@ -58,7 +58,7 @@ onMounted(() => {
           </div>
           <div class="ActiveBorder"></div>
         </div>
-        <!-- <div class="menuItem"  :class="{ActiveMenuItem:route.path === '/Stake'}" @click="goPath('/Stake')">
+        <div class="menuItem"  :class="{ActiveMenuItem:route.path === '/Stake'}" @click="goPath('/Stake')">
           <div>
             <img
               :src="route.path === '/Stake' ? StakeActiveIcon : StakeIcon"
@@ -77,7 +77,7 @@ onMounted(() => {
             <span>REWARDS</span>
           </div>
           <div class="ActiveBorder"></div>
-        </div> -->
+        </div>
       </div>
     </div>
     <div class="connect" @click="Connect">
