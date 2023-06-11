@@ -3,11 +3,12 @@ import copy from "copy-to-clipboard";
 import 'vue3-video-play/dist/style.css'
 import { videoPlay } from 'vue3-video-play'
 import {useRouter} from 'vue-router'
-import {reactive} from 'vue'
+import {reactive, ref} from 'vue'
 import { ElNotification } from 'element-plus'
 import video from '../assets/video/AiGPT.mp4'
 import videoBg from '../assets/Home/videoBg.png'
 const router = useRouter()
+const activeName = ref('')
 const options = reactive({
   width: '100%', //播放器高度
   height: '100%', //播放器高度
@@ -266,6 +267,79 @@ const goPath=(path)=>{
               
             </a>
         </div>
+      </div>
+      <div class="questions">
+        <div class="questionsTitle">
+          Frequently asked questions
+        </div>
+        <el-collapse v-model="activeName" accordion>
+            <el-collapse-item  name="1">
+              <template #title>
+                <div class="collapseHeader">
+                  <span>What is AIGPT platform？</span>
+                  <img src="../assets/Home/expand.png" :class="{rotate180:activeName === '1'}" alt="">
+                </div>
+              </template>
+              <div>
+                AIGPT is an AI infrastructure based on Arbitrum, which is committed to achieving the decentralized sharing of training data, computational resources, and AI algorithms through blockchain technology. The AIGPT protocol is at the heart of this ecosystem, using smart contracts to allocate and manage various resources within the ecosystem.
+              </div>
+            </el-collapse-item>
+            <el-collapse-item title="Feedback" name="2">
+              <template #title>
+                <div class="collapseHeader">
+                  <span>What is the goal of AIGPT？</span>
+                  <img src="../assets/Home/expand.png" :class="{rotate180:activeName === '2'}" alt="">
+                </div>
+              </template>
+              <div>
+                CTo provide vertical, effective AI services for cryptocurrency investors and operating teams. Enable cryptocurrency investors to obtain more popular information and more efficient trading and strategies on the AIGPT platform. Assist high-quality blockchain operating teams in marketing planning and operation.
+              </div>
+            </el-collapse-item>
+            <el-collapse-item title="Efficiency" name="3">
+              <template #title>
+                <div class="collapseHeader">
+                  <span>What is the vision of AIGPT？</span>
+                  <img src="../assets/Home/expand.png" :class="{rotate180:activeName === '3'}" alt="">
+                </div>
+              </template>
+              <div>
+                To build an open, transparent, and trustworthy artificial intelligence ecosystem through blockchain technology, and to optimize the development of AI technology through economic incentives and market-oriented means. To change the future of cryptocurrency through AI technology.
+              </div>
+            </el-collapse-item>
+            <el-collapse-item title="Controllability" name="4">
+              <template #title>
+                <div class="collapseHeader">
+                  <span>What are the main applications of AIGPT?</span>
+                  <img src="../assets/Home/expand.png" :class="{rotate180:activeName === '4'}" alt="">
+                </div>
+              </template>
+              <div>
+                AIGPT's applications in the cryptocurrency field mainly focus on asset analysis, intelligent customer service, and asset allocation.
+              </div>
+            </el-collapse-item>
+            <el-collapse-item title="Controllability" name="5">
+              <template #title>
+                <div class="collapseHeader">
+                  <span>How does AIGPT ensure the security of the platform and its services?</span>
+                  <img src="../assets/Home/expand.png" :class="{rotate180:activeName === '5'}" alt="">
+                </div>
+              </template>
+              <div>
+                AIGPT employs a multi-signature mechanism for token-related operations, ensuring high security. The transparent nature of the blockchain and the AI's unbiased decision-making further enhance the platform's security and trustworthiness.
+              </div>
+            </el-collapse-item>
+            <el-collapse-item title="Controllability" name="6">
+              <template #title>
+                <div class="collapseHeader">
+                  <span>How can users engage with AIGPT's services and stay updated?</span>
+                  <img src="../assets/Home/expand.png" :class="{rotate180:activeName === '6'}" alt="">
+                </div>
+              </template>
+              <div>
+                Users can participate in AIGPT's network activities, staking, and platform development to engage with its services. For updates on the platform and its services, users can follow AIGPT's official website, Medium blog, and social media channels.
+              </div>
+            </el-collapse-item>
+          </el-collapse>
       </div>
     </div>
   </div>
@@ -886,10 +960,65 @@ const goPath=(path)=>{
         }
     }
   }
+  .questions{
+    width: 53.75rem;
+    margin:0 auto 100px;
+    @media (max-width:768px) {
+      width: 65rem;
+    }
+    @media (max-width:488px) {
+      width: 75rem;
+    }
+    @media (max-width:375px) {
+      width: 80rem;
+    }
+    .questionsTitle{
+      font-size: 36px;
+      color: #FFFFFF;
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .collapseHeader{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      font-size: 24px;
+      justify-content: space-between;
+      span{
+        line-height: 1.2;
+      }
+      img{
+        width: 28px;
+        transition: all 0.5s;
+      }
+      .rotate180{
+        transform: rotate(90deg);
+      }
+    }
+    :deep(.el-collapse-item__arrow){
+      display: none !important;
+    }
+    :deep(.el-collapse-item__content){
+      padding: 0 35px 25px;
+    }
+  }
 }
 .flexCenter{
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.el-collapse{
+  --el-collapse-header-bg-color:transparent;
+  --el-collapse-border-color:transparent;
+  --el-collapse-content-bg-color:transparent;
+  --el-collapse-content-font-size:28px;
+  --el-collapse-header-text-color:#fff;
+  --el-collapse-content-text-color:#fff;
+  --el-collapse-header-height:auto;
+}
+:deep(.el-collapse-item__header){
+  margin-bottom: 30px;
 }
 </style>
